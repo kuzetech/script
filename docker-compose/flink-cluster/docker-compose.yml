@@ -1,0 +1,33 @@
+version: "2.1"
+services:
+  jobmanager:
+    image: flink:1.10.2
+    expose:
+      - "6123"
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    networks: 
+      - flinknet
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager:
+    image: flink:1.10.2
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    networks: 
+      - flinknet
+    links:
+      - "jobmanager:jobmanager"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+networks: 
+  kafkanet:
+    name: flinknet
+    driver: bridge

@@ -1,0 +1,27 @@
+server.host: "0.0.0.0"
+server.port: 5601
+server.name: kibana
+elasticsearch.hosts: [ "http://elasticsearch:9200" ]  # 此处为es的master地址
+i18n.locale: zh-CN #中文
+xpack:
+  encryptedSavedObjects.encryptionKey: encryptedSavedObjects12345678909876543210
+  monitoring.ui.container.elasticsearch.enabled: true
+  apm.ui.enabled: false
+  graph.enabled: false
+  ml.enabled: false
+  monitoring.enabled: true
+  reporting.enabled: false
+  security.enabled: false
+  grokdebugger.enabled: false
+  searchprofiler.enabled: false
+#sentinl:
+  #settings:
+    #email:
+      #active: true
+      #ssl: true
+      #port: 465
+      #user: 370415788@qq.com
+      #password: sdxdtagrczwcbggj
+      #host: smtp.qq.com
+    #report:
+      #active: false
