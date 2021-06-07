@@ -1,4 +1,5 @@
 #!/bin/sh
+#*/1 * * * * /es-watch/watch.sh >> /es-watch/log.txt
 db_backups_conf="/es-watch/config.txt"
  
 #判断文件是否存在
