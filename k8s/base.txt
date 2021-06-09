@@ -1,0 +1,18 @@
+
+kubectl create -f nginx-deployment.yaml
+
+kubectl apply -f nginx-deployment.yaml
+
+kubectl get pods -l app=nginx
+kubectl get service nginx
+kubectl get statefulset web
+
+kubectl describe pod nginx-deployment-67594d6bf6-9gdvr
+
+kubectl exec -it nginx-deployment-5c678cfb6d-lg9lw -- /bin/bash
+
+kubectl delete -f nginx-deployment.yaml
+kubectl delete pod -l app=nginx
+
+
+$ kubectl run -i --tty --image busybox:1.28.4 dns-test --restart=Never --rm /bin/sh 
