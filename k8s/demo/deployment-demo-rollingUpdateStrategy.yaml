@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 # 在一次“滚动”中，Deployment 控制器还可以创建多少个新 Pod
+      maxUnavailable: 1 # 在一次“滚动”中，Deployment 控制器可以删除多少个旧 Pod
+    rollingUpdate:
+      maxSurge: 50% # 50% * DESIRED 数量
+      maxUnavailable: 50%
