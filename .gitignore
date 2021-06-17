@@ -1,3 +1,4 @@
 docker-compose/es-and-kibana/elasticsearch/data
 docker-compose/mysql/datadir
 docker-compose/redis/data
+docker-compose/hue-flink-sql/mysqlData
