@@ -20,8 +20,8 @@ services:
     depends_on:
       - namenode
       - datanode1
-      - datanode2
-      - datanode3
+      #- datanode2
+      #- datanode3
     env_file:
       - ./hadoop.env
 
@@ -31,8 +31,8 @@ services:
     depends_on:
       - namenode
       - datanode1
-      - datanode2
-      - datanode3
+      #- datanode2
+      #- datanode3
     volumes:
       - ./hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
@@ -44,14 +44,16 @@ services:
     depends_on:
       - namenode
       - datanode1
-      - datanode2
-      - datanode3
+      #- datanode2
+      #- datanode3
     env_file:
       - ./hadoop.env
 
   datanode1:
     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
     container_name: datanode1
+    ports: 
+       - 50010:50010
     depends_on:
       - namenode
     volumes:
@@ -59,25 +61,25 @@ services:
     env_file:
       - ./hadoop.env
 
-  datanode2:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
-    container_name: datanode2
-    depends_on:
-      - namenode
-    volumes:
-      - ./hadoop_datanode2:/hadoop/dfs/data
-    env_file:
-      - ./hadoop.env
+#   datanode2:
+#     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+#     container_name: datanode2
+#     depends_on:
+#       - namenode
+#     volumes:
+#       - ./hadoop_datanode2:/hadoop/dfs/data
+#     env_file:
+#       - ./hadoop.env
 
-  datanode3:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
-    container_name: datanode3
-    depends_on:
-      - namenode
-    volumes:
-      - ./hadoop_datanode3:/hadoop/dfs/data
-    env_file:
-      - ./hadoop.env
+#   datanode3:
+#     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+#     container_name: datanode3
+#     depends_on:
+#       - namenode
+#     volumes:
+#       - ./hadoop_datanode3:/hadoop/dfs/data
+#     env_file:
+#       - ./hadoop.env
 
 volumes:
   hadoop_namenode:
