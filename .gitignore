@@ -7,3 +7,4 @@ docker-compose/hadoop/hadoop_datanode1
 docker-compose/hadoop/hadoop_datanode2
 docker-compose/hadoop/hadoop_datanode3
 docker-compose/hadoop/hadoop_historyserver
+docker-compose/click-house/database
