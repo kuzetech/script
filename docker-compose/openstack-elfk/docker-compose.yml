@@ -14,6 +14,10 @@ services:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
     hostname: elasticsearch
     restart: always
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "500m"
     networks:
       - esnet
     ports:
@@ -33,6 +37,10 @@ services:
       - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
       - ./kibana/plugins:/usr/share/kibana/plugins
     restart: always
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "500m"
     networks:
       - esnet
     ports:
@@ -41,6 +49,10 @@ services:
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.10.2
     container_name: filebeat
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "500m"
     volumes:
       - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
       - ./filebeat/data:/usr/share/filebeat/data
@@ -53,6 +65,10 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:7.10.2
     container_name: logstash
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "500m"
     environment: 
       - LOG_LEVEL=info
     volumes:
@@ -67,6 +83,10 @@ services:
   eshead:
     image: containerize/elastichd:latest
     container_name: eshead
+    logging: 
+      driver: "json-file"
+      options: 
+        max-size: "500m"
     networks:
       - esnet
     ports:
