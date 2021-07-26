@@ -170,42 +170,28 @@
       -->
     <remote_servers incl="clickhouse_remote_servers" >
         <!-- Test only shard config for testing distributed storage -->
-        <test_shard_localhost>
+        <my2s2r>
             <shard>
                 <replica>
-                    <host>localhost</host>
+                    <host>clickhouse-1</host>
                     <port>9000</port>
                 </replica>
-            </shard>
-        </test_shard_localhost>
-        <test_cluster_two_shards_localhost>
-             <shard>
-                 <replica>
-                     <host>localhost</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-             <shard>
-                 <replica>
-                     <host>localhost</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-        </test_cluster_two_shards_localhost>
-        <test_cluster_two_shards>
-            <shard>
                 <replica>
-                    <host>127.0.0.1</host>
+                    <host>clickhouse-2</host>
                     <port>9000</port>
                 </replica>
             </shard>
             <shard>
                 <replica>
-                    <host>127.0.0.2</host>
+                    <host>clickhouse-3</host>
+                    <port>9000</port>
+                </replica>
+                <replica>
+                    <host>clickhouse-4</host>
                     <port>9000</port>
                 </replica>
             </shard>
-        </test_cluster_two_shards>
+        </my2s2r>
         <test_shard_localhost_secure>
             <shard>
                 <replica>
@@ -260,8 +246,8 @@
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/
       -->
-
-    <zookeeper incl="zookeeper-servers" optional="true" />
+    <include_from>/etc/clickhouse-server/config.d/metrika.xml</include_from>
+    <zookeeper incl="zookeeper-servers" optional="false" />
 
     <!-- Substitutions for parameters of replicated tables.
           Optional. If you don't use replicated tables, you could omit that.
