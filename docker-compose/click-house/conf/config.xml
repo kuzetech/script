@@ -92,7 +92,7 @@
 
     <!-- Set limit on number of open files (default: maximum). This setting makes sense on Mac OS X because getrlimit() fails to retrieve
          correct maximum value. -->
-    <!-- <max_open_files>262144</max_open_files> -->
+    <max_open_files>262144</max_open_files>
 
     <!-- Size of cache of uncompressed blocks of data, used in tables of MergeTree family.
          In bytes. Cache is single for server. Memory is allocated only on demand.
@@ -168,55 +168,7 @@
     <!-- Configuration of clusters that could be used in Distributed tables.
          https://clickhouse.tech/docs/en/operations/table_engines/distributed/
       -->
-    <remote_servers incl="clickhouse_remote_servers" >
-        <!-- Test only shard config for testing distributed storage -->
-        <my2s2r>
-            <shard>
-                <replica>
-                    <host>clickhouse-1</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>clickhouse-2</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>clickhouse-3</host>
-                    <port>9000</port>
-                </replica>
-                <replica>
-                    <host>clickhouse-4</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-        </my2s2r>
-        <test_shard_localhost_secure>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>9440</port>
-                    <secure>1</secure>
-                </replica>
-            </shard>
-        </test_shard_localhost_secure>
-        <test_unavailable_shard>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>1</port>
-                </replica>
-            </shard>
-        </test_unavailable_shard>
-    </remote_servers>
-
+    
     <!-- The list of hosts allowed to use in URL-related storage engines and table functions.
         If this section is not present in configuration, all hosts are allowed.
     -->
@@ -247,6 +199,7 @@
          See https://clickhouse.yandex/docs/en/table_engines/replication/
       -->
     <include_from>/etc/clickhouse-server/config.d/metrika.xml</include_from>
+    <remote_servers incl="remote_servers" optional="false" />
     <zookeeper incl="zookeeper-servers" optional="false" />
 
     <!-- Substitutions for parameters of replicated tables.
@@ -254,7 +207,8 @@
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
       -->
-    <macros incl="macros" optional="true" />
+    <include_from>/etc/clickhouse-server/config.d/macros.xml</include_from>
+    <macros incl="macros" optional="false" />
 
 
     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->

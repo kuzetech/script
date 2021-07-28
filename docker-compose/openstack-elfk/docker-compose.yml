@@ -46,21 +46,21 @@ services:
     ports:
       - "5601:5601"
 
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.10.2
-    container_name: filebeat
-    logging: 
-      driver: "json-file"
-      options: 
-        max-size: "500m"
-    volumes:
-      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
-      - ./filebeat/data:/usr/share/filebeat/data
-    networks:
-      - esnet
-    depends_on:
-      - "elasticsearch"
-      - "kibana"
+  # filebeat:
+  #   image: docker.elastic.co/beats/filebeat:7.10.2
+  #   container_name: filebeat
+  #   logging: 
+  #     driver: "json-file"
+  #     options: 
+  #       max-size: "500m"
+  #   volumes:
+  #     - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+  #     - ./filebeat/data:/usr/share/filebeat/data
+  #   networks:
+  #     - esnet
+  #   depends_on:
+  #     - "elasticsearch"
+  #     - "kibana"
   
   logstash:
     image: docker.elastic.co/logstash/logstash:7.10.2
