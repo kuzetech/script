@@ -1,0 +1,6 @@
+items:
+  - config.xml
+  - docker-compose.yml
+  - metrika.xml
+  - docker-start-client.sh
+  - users.xml
