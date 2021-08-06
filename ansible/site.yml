@@ -1,8 +1,0 @@
-- name: start a clickhouse
-  hosts: localhost
-  connection: local
-  user: root
-  gather_facts: false
-  roles:
-    - clickhouse
-    

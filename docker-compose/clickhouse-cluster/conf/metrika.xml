@@ -20,7 +20,7 @@
                     <port>9000</port>
                 </replica>
                 <replica>
-                    <host>clickhouse4</host>
+                    <host>clickhouse2</host>
                     <port>9000</port>
                 </replica>
             </shard>
