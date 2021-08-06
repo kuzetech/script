@@ -1,0 +1,52 @@
+{
+    "clickhouse": {
+      "cluster": "test_shard_localhost",
+      "hosts": [
+        [
+          "clickhouse"
+        ]
+      ],
+      "port": 9000,
+      "username": "default",
+      "password": "",
+      "db": "default",
+      "secure": false,
+      "insecureSkipVerify": false,
+      "retryTimes": 0
+    },
+  
+    "kafka": {
+      "brokers": "broker:29092",
+      "version": "2.2.1"
+    },
+  
+    "task": {
+      "name": "clickhouse_sinker",
+      "topic": "user",
+      "earliest": true,
+      "consumerGroup": "group",
+      "parser": "json",
+      "tableName": "user_local",
+      "dims": [
+        {
+          "id": "Int32",
+          "name": "String",
+          "time": "DateTime"
+        }
+      ],
+  
+      "autoSchema" : true,
+      "excludeColumns": [],
+      "dynamicSchema": {
+        "enable": true,
+        "maxDims": 1024
+      },
+      "shardingKey": "id",
+      "shardingPolicy": "stripe,6",
+      "flushInterval": 5,
+      "bufferSize": 262114,
+      "timezone": ""
+    },
+    "logLevel": "info",
+    "logPaths": ["stdout", "stderr"]
+  }
