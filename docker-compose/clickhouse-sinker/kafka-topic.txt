@@ -1,0 +1,3 @@
+/opt/bitnami/kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --topic login_log --partitions 30 --replication-factor 2
+
+kafka-topics.sh --list --bootstrap-server localhost:9092
