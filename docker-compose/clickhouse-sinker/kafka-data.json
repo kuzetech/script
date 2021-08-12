@@ -1,1 +1,14 @@
 {"id":1, "name":"test1", "time":"2021-01-01 19:00:00"}
+
+{
+    "id":1, 
+    "os":"os", 
+    "os_version":"os_version", 
+    "ip":"192.168.0.1", 
+    "chan":"chan", 
+    "nw":"wifi", 
+    "cv":"v0.0.1", 
+    "device":"IOS", 
+    "is_guest":1, 
+    "time":"2021-01-01 19:00:00"
+}
