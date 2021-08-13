@@ -1,12 +1,14 @@
 
-sausage.lineorder_all               59986052
-sausage.customer_all                30000000
-sausage.part_all                    2000000
-sausage.supplier_all                2000000
-sausage.date_all                    2556
 
-sausage.lineorder_flat_all          19682
-sausage.lineorder_flat_left_all     59986052
+表名                                数据量          备注
+sausage.lineorder_all               59986052    订单表
+sausage.customer_all                30000000    用户表
+sausage.part_all                    2000000     商品表
+sausage.supplier_all                2000000     供应商表
+sausage.date_all                    2556        时间维度表
+
+sausage.lineorder_flat_all          19682       inner join宽表
+sausage.lineorder_flat_left_all     59986052    left join宽表
 
 
 SELECT toYear(LO_ORDERDATE) AS year, sum(LO_REVENUE - LO_SUPPLYCOST) AS profit
@@ -17,4 +19,3 @@ GLOBAL ANY left JOIN sausage.part_all p ON  (p.P_PARTKEY = l.LO_PARTKEY)
 WHERE C_REGION = 'AMERICA' 
 GROUP BY year 
 ORDER BY year;
-
