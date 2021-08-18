@@ -4,136 +4,137 @@ SELECT
     sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit
 FROM sausage.lineorder_all o
 GLOBAL ANY left JOIN (
-    SELECT C_CUSTKEY, C_REGION
+    SELECT C_CUSTKEY
     FROM sausage.customer_all
     WHERE C_REGION = 'AMERICA'
 ) c
 ON c.C_CUSTKEY = o.LO_CUSTKEY
+WHERE c.C_CUSTKEY != 0
 GROUP BY year
 ORDER BY year ASC;
-"
+" > /dev/null
 
-[clickhouse] 2021.08.17 06:34:32.239009 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> executeQuery: (from [::1]:41152, using production parser)  SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_all o GLOBAL ANY left JOIN ( SELECT C_CUSTKEY, C_REGION FROM sausage.customer_all WHERE C_REGION = 'AMERICA' ) c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC; 
-[clickhouse] 2021.08.17 06:34:32.239421 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
-[clickhouse] 2021.08.17 06:34:32.239749 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
-[clickhouse] 2021.08.17 06:34:32.239951 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
+[clickhouse] 2021.08.18 05:45:34.367785 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> executeQuery: (from [::1]:59572, using production parser)  SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_all o GLOBAL ANY left JOIN ( SELECT C_CUSTKEY FROM sausage.customer_all WHERE C_REGION = 'AMERICA' ) c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC; 
+[clickhouse] 2021.08.18 05:45:34.368237 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
+[clickhouse] 2021.08.18 05:45:34.368566 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
+[clickhouse] 2021.08.18 05:45:34.368744 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
 
-[clickhouse] 2021.08.17 06:34:32.240141 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
-[clickhouse] 2021.08.17 06:34:32.240238 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
-[clickhouse] 2021.08.17 06:34:32.240292 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.240357 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: WithMergeableState -> Complete
-[clickhouse] 2021.08.17 06:34:32.240478 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.240736 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1223/1223 marks by primary key, 1223 marks to read from 5 ranges
-[clickhouse] 2021.08.17 06:34:32.240865 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000828 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.368920 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
+[clickhouse] 2021.08.18 05:45:34.368999 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
+[clickhouse] 2021.08.18 05:45:34.369045 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.369077 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: WithMergeableState -> Complete
+[clickhouse] 2021.08.18 05:45:34.369154 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.369321 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 2/2 parts by partition key, 2 parts by primary key, 1222/1222 marks by primary key, 1222 marks to read from 2 ranges
+[clickhouse] 2021.08.18 05:45:34.369389 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000828 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.378400 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> executeQuery: (from 192.168.0.38:32858, initial_query_id: 2ca2af73-eeac-42e1-a249-46d8dffd41d1, using production parser) SELECT C_CUSTKEY FROM sausage.customer_local WHERE C_REGION = 'AMERICA'
+[clickhouse] 2021.08.18 05:45:34.378708 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
+[clickhouse] 2021.08.18 05:45:34.378811 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
+[clickhouse] 2021.08.18 05:45:34.378888 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.378960 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.379138 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 2/2 parts by partition key, 2 parts by primary key, 1221/1221 marks by primary key, 1221 marks to read from 2 ranges
+[clickhouse] 2021.08.18 05:45:34.379195 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000049 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.470331 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Information> executeQuery: Read 10000049 rows, 47.70 MiB in 0.09190022 sec., 108814200 rows/sec., 519.05 MiB/sec.
+[clickhouse] 2021.08.18 05:45:34.470369 [ 242 ] {66605a17-6d41-4004-92df-f37c5a97ba59} <Debug> MemoryTracker: Peak memory usage (for query): 16.61 MiB.
+[clickhouse] 2021.08.18 05:45:34.378773 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> executeQuery: (from 192.168.0.38:42430, initial_query_id: 2ca2af73-eeac-42e1-a249-46d8dffd41d1, using production parser) SELECT C_CUSTKEY FROM sausage.customer_local WHERE C_REGION = 'AMERICA'
+[clickhouse] 2021.08.18 05:45:34.379089 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
+[clickhouse] 2021.08.18 05:45:34.379190 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
+[clickhouse] 2021.08.18 05:45:34.379273 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.379388 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.379569 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 2/2 parts by partition key, 2 parts by primary key, 1222/1222 marks by primary key, 1222 marks to read from 2 ranges
+[clickhouse] 2021.08.18 05:45:34.379663 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 9999123 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.478112 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Information> executeQuery: Read 9999123 rows, 47.70 MiB in 0.099304297 sec., 100691745 rows/sec., 480.30 MiB/sec.
+[clickhouse] 2021.08.18 05:45:34.478153 [ 260 ] {d9b3a45c-1d5c-44ec-b88b-8fff4fadf114} <Debug> MemoryTracker: Peak memory usage (for query): 16.60 MiB.
 
-[clickhouse] 2021.08.17 06:34:32.249724 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> executeQuery: (from 192.168.0.38:42888, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT C_CUSTKEY, C_REGION FROM sausage.customer_local WHERE C_REGION = 'AMERICA'
-[clickhouse] 2021.08.17 06:34:32.250068 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
-[clickhouse] 2021.08.17 06:34:32.250191 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
-[clickhouse] 2021.08.17 06:34:32.250247 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.250327 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.250552 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1222/1222 marks by primary key, 1222 marks to read from 5 ranges
-[clickhouse] 2021.08.17 06:34:32.250642 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000049 rows with 4 streams
-[clickhouse] 2021.08.17 06:34:32.371912 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Information> executeQuery: Read 10000049 rows, 47.70 MiB in 0.12215515 sec., 81863507 rows/sec., 390.49 MiB/sec.
-[clickhouse] 2021.08.17 06:34:32.371949 [ 242 ] {0468864b-dbaf-42f4-8f4a-c03cfcc55c64} <Debug> MemoryTracker: Peak memory usage (for query): 12.82 MiB.
+[clickhouse] 2021.08.18 05:45:34.562895 [ 206 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> Connection (ecs-sausage-test-0013:9000): Sent data for 1 external tables, total 6000975 rows in 0.080567677 sec., 74481989 rows/sec., 22.91 MiB (284.32 MiB/sec.), compressed 0.9953709829318359 times to 23.01 MiB (285.64 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:34.577232 [ 222 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> Connection (ecs-sausage-test-0012:9000): Sent data for 1 external tables, total 6000975 rows in 0.094928511 sec., 63214487 rows/sec., 22.91 MiB (241.31 MiB/sec.), compressed 0.9953709829318359 times to 23.01 MiB (242.43 MiB/sec.)
 
-[clickhouse] 2021.08.17 06:34:32.250003 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> executeQuery: (from 192.168.0.38:52460, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT C_CUSTKEY, C_REGION FROM sausage.customer_local WHERE C_REGION = 'AMERICA'
-[clickhouse] 2021.08.17 06:34:32.250311 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> InterpreterSelectQuery: MergeTreeWhereOptimizer: condition "C_REGION = 'AMERICA'" moved to PREWHERE
-[clickhouse] 2021.08.17 06:34:32.250416 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_local
-[clickhouse] 2021.08.17 06:34:32.250491 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.250634 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.250856 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1223/1223 marks by primary key, 1223 marks to read from 5 ranges
-[clickhouse] 2021.08.17 06:34:32.250991 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 9999123 rows with 4 streams
-[clickhouse] 2021.08.17 06:34:32.383114 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Information> executeQuery: Read 9999123 rows, 47.70 MiB in 0.133079309 sec., 75136571 rows/sec., 358.40 MiB/sec.
-[clickhouse] 2021.08.17 06:34:32.383151 [ 589 ] {2f8987a3-5221-4c2c-ad6b-61870b438736} <Debug> MemoryTracker: Peak memory usage (for query): 12.82 MiB.
+[clickhouse] 2021.08.18 05:45:34.482879 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> executeQuery: (from 192.168.0.38:42430, initial_query_id: 2ca2af73-eeac-42e1-a249-46d8dffd41d1, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
+[clickhouse] 2021.08.18 05:45:34.584284 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_8e76633c-b015-44ac-8e76-633cb01544ac`
+[clickhouse] 2021.08.18 05:45:34.584345 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+[clickhouse] 2021.08.18 05:45:34.584383 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
+[clickhouse] 2021.08.18 05:45:34.584469 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
+[clickhouse] 2021.08.18 05:45:34.584513 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.584656 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.584764 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
+[clickhouse] 2021.08.18 05:45:34.585199 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 25/25 parts by partition key, 25 parts by primary key, 2448/2448 marks by primary key, 2448 marks to read from 25 ranges
+[clickhouse] 2021.08.18 05:45:34.585506 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 20000556 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.938388 [ 207 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.938425 [ 602 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.938462 [ 207 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.938489 [ 602 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.938979 [ 206 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.939044 [ 206 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.939149 [ 298 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.939164 [ 298 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:35.121184 [ 206 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> AggregatingTransform: Aggregated. 4883857 to 6 rows (from 65.21 MiB) in 0.53542078 sec. (9121530.546 rows/sec., 121.79 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.123203 [ 207 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> AggregatingTransform: Aggregated. 4999006 to 6 rows (from 66.74 MiB) in 0.537455823 sec. (9301240.746 rows/sec., 124.18 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.124360 [ 602 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> AggregatingTransform: Aggregated. 5098867 to 6 rows (from 68.08 MiB) in 0.538605279 sec. (9466797.298 rows/sec., 126.40 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.126395 [ 298 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> AggregatingTransform: Aggregated. 5018826 to 7 rows (from 67.01 MiB) in 0.540654803 sec. (9282865.836 rows/sec., 123.94 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.126402 [ 298 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Trace> Aggregator: Merging aggregated data
+[clickhouse] 2021.08.18 05:45:35.127276 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Information> executeQuery: Read 26001531 rows, 289.93 MiB in 0.644374512 sec., 40351582 rows/sec., 449.94 MiB/sec.
+[clickhouse] 2021.08.18 05:45:35.127322 [ 260 ] {70f4bb59-1758-4fe7-8f4c-13f13022cc52} <Debug> MemoryTracker: Peak memory usage (for query): 437.37 MiB.
 
-[clickhouse] 2021.08.17 06:34:32.384594 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_7b943f7e-7e7f-4fca-bb94-3f7e7e7f0fca`
-[clickhouse] 2021.08.17 06:34:32.384623 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
-[clickhouse] 2021.08.17 06:34:32.384652 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
-[clickhouse] 2021.08.17 06:34:32.384747 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
-[clickhouse] 2021.08.17 06:34:32.385051 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_7b943f7e-7e7f-4fca-bb94-3f7e7e7f0fca`
-[clickhouse] 2021.08.17 06:34:32.385078 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
-[clickhouse] 2021.08.17 06:34:32.385142 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
-[clickhouse] 2021.08.17 06:34:32.385504 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_7b943f7e-7e7f-4fca-bb94-3f7e7e7f0fca`
-[clickhouse] 2021.08.17 06:34:32.385522 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
-[clickhouse] 2021.08.17 06:34:32.385548 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
-[clickhouse] 2021.08.17 06:34:32.385626 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
-[clickhouse] 2021.08.17 06:34:32.385697 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.385793 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> InterpreterSelectQuery: WithMergeableState -> Complete
-[clickhouse] 2021.08.17 06:34:32.385939 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.386052 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
-[clickhouse] 2021.08.17 06:34:32.386532 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 28/28 parts by partition key, 28 parts by primary key, 2447/2447 marks by primary key, 2447 marks to read from 28 ranges
-[clickhouse] 2021.08.17 06:34:32.386954 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 19992818 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.496011 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> executeQuery: (from 192.168.0.38:32858, initial_query_id: 2ca2af73-eeac-42e1-a249-46d8dffd41d1, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
+[clickhouse] 2021.08.18 05:45:34.596583 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_5b72d17d-dbe6-47af-9b72-d17ddbe637af`
+[clickhouse] 2021.08.18 05:45:34.596637 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+[clickhouse] 2021.08.18 05:45:34.596672 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
+[clickhouse] 2021.08.18 05:45:34.596758 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
+[clickhouse] 2021.08.18 05:45:34.596803 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.596956 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.597068 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
+[clickhouse] 2021.08.18 05:45:34.597551 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 25/25 parts by partition key, 25 parts by primary key, 2448/2448 marks by primary key, 2448 marks to read from 25 ranges
+[clickhouse] 2021.08.18 05:45:34.597889 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 19992678 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.927746 [ 207 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.927777 [ 603 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.927822 [ 207 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.927886 [ 603 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.929271 [ 605 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.929283 [ 605 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.929311 [ 372 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.929324 [ 372 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:35.103787 [ 605 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> AggregatingTransform: Aggregated. 4961837 to 6 rows (from 66.25 MiB) in 0.505647333 sec. (9812841.236 rows/sec., 131.02 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.105874 [ 372 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> AggregatingTransform: Aggregated. 5005358 to 7 rows (from 66.83 MiB) in 0.507726297 sec. (9858378.480 rows/sec., 131.62 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.105882 [ 603 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> AggregatingTransform: Aggregated. 5010510 to 6 rows (from 66.90 MiB) in 0.507756221 sec. (9867944.090 rows/sec., 131.75 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.109653 [ 207 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> AggregatingTransform: Aggregated. 5014973 to 7 rows (from 66.96 MiB) in 0.511514438 sec. (9804167.053 rows/sec., 130.90 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.109661 [ 207 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Trace> Aggregator: Merging aggregated data
+[clickhouse] 2021.08.18 05:45:35.110541 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Information> executeQuery: Read 25993653 rows, 289.82 MiB in 0.614504253 sec., 42300200 rows/sec., 471.64 MiB/sec.
+[clickhouse] 2021.08.18 05:45:35.110578 [ 242 ] {0e478617-2b46-4aec-ad7a-e178944a55e8} <Debug> MemoryTracker: Peak memory usage (for query): 433.04 MiB.
 
-[clickhouse] 2021.08.17 06:34:32.479268 [ 280 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> Connection (ecs-sausage-test-0013:9000): Sent data for 1 external tables, total 6000975 rows in 0.091308537 sec., 65720882 rows/sec., 28.67 MiB (314.01 MiB/sec.), compressed 1.2412244787754518 times to 23.10 MiB (252.98 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:32.388338 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> executeQuery: (from 192.168.0.38:52460, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
-[clickhouse] 2021.08.17 06:34:32.482331 [ 222 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> Connection (ecs-sausage-test-0012:9000): Sent data for 1 external tables, total 6000975 rows in 0.094369925 sec., 63588802 rows/sec., 28.67 MiB (303.82 MiB/sec.), compressed 1.2412244787754518 times to 23.10 MiB (244.78 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:32.388390 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> executeQuery: (from 192.168.0.38:42888, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
+[clickhouse] 2021.08.18 05:45:34.478980 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_fe11abf5-7417-4e9b-be11-abf574177e9b`
+[clickhouse] 2021.08.18 05:45:34.479009 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+[clickhouse] 2021.08.18 05:45:34.479039 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
+[clickhouse] 2021.08.18 05:45:34.479126 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
+[clickhouse] 2021.08.18 05:45:34.479485 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_fe11abf5-7417-4e9b-be11-abf574177e9b`
+[clickhouse] 2021.08.18 05:45:34.479519 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
+[clickhouse] 2021.08.18 05:45:34.479588 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
+[clickhouse] 2021.08.18 05:45:34.479983 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_fe11abf5-7417-4e9b-be11-abf574177e9b`
+[clickhouse] 2021.08.18 05:45:34.480013 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+[clickhouse] 2021.08.18 05:45:34.480034 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
+[clickhouse] 2021.08.18 05:45:34.480113 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
+[clickhouse] 2021.08.18 05:45:34.480153 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
+[clickhouse] 2021.08.18 05:45:34.480229 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> InterpreterSelectQuery: WithMergeableState -> Complete
+[clickhouse] 2021.08.18 05:45:34.480364 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
+[clickhouse] 2021.08.18 05:45:34.480487 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
+[clickhouse] 2021.08.18 05:45:34.480967 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 25/25 parts by partition key, 25 parts by primary key, 2447/2447 marks by primary key, 2447 marks to read from 25 ranges
+[clickhouse] 2021.08.18 05:45:34.481266 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 19992818 rows with 4 streams
+[clickhouse] 2021.08.18 05:45:34.939648 [ 207 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.939721 [ 207 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.940763 [ 206 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.940778 [ 206 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.940980 [ 372 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.941003 [ 372 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:34.941133 [ 222 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> AggregatingTransform: Aggregating
+[clickhouse] 2021.08.18 05:45:34.941205 [ 222 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Aggregation method: key16
+[clickhouse] 2021.08.18 05:45:35.152888 [ 222 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> AggregatingTransform: Aggregated. 4658869 to 5 rows (from 62.20 MiB) in 0.671379492 sec. (6939248.302 rows/sec., 92.65 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.156199 [ 207 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> AggregatingTransform: Aggregated. 5077574 to 6 rows (from 67.79 MiB) in 0.674698819 sec. (7525689.770 rows/sec., 100.48 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.158683 [ 372 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> AggregatingTransform: Aggregated. 5195843 to 5 rows (from 69.37 MiB) in 0.67716778 sec. (7672903.457 rows/sec., 102.44 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.161914 [ 371 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> AggregatingTransform: Aggregated. 5060532 to 5 rows (from 67.57 MiB) in 0.680404255 sec. (7437537.262 rows/sec., 99.30 MiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.161923 [ 371 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Merging aggregated data
 
-[clickhouse] 2021.08.17 06:34:32.523394 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_40a16d53-8757-4efd-80a1-6d5387578efd`
-[clickhouse] 2021.08.17 06:34:32.523457 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
-[clickhouse] 2021.08.17 06:34:32.523487 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
-[clickhouse] 2021.08.17 06:34:32.523584 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
-[clickhouse] 2021.08.17 06:34:32.523628 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.523767 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.523867 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
-[clickhouse] 2021.08.17 06:34:32.524354 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 28/28 parts by partition key, 28 parts by primary key, 2449/2449 marks by primary key, 2449 marks to read from 28 ranges
-[clickhouse] 2021.08.17 06:34:32.524726 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 20000556 rows with 4 streams
-[clickhouse] 2021.08.17 06:34:32.524860 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_fa5d0311-a9a6-4a8a-ba5d-0311a9a6ea8a`
-[clickhouse] 2021.08.17 06:34:32.524904 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
-[clickhouse] 2021.08.17 06:34:32.524935 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
-[clickhouse] 2021.08.17 06:34:32.525032 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_local
-[clickhouse] 2021.08.17 06:34:32.525076 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> InterpreterSelectQuery: FetchColumns -> WithMergeableState
-[clickhouse] 2021.08.17 06:34:32.525206 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Key condition: unknown
-[clickhouse] 2021.08.17 06:34:32.525305 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): MinMax index condition: unknown
-[clickhouse] 2021.08.17 06:34:32.525783 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Selected 28/28 parts by partition key, 28 parts by primary key, 2449/2449 marks by primary key, 2449 marks to read from 28 ranges
-[clickhouse] 2021.08.17 06:34:32.526197 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> sausage.lineorder_local (725778aa-2686-44e2-b257-78aa268644e2) (SelectExecutor): Reading approx. 19992678 rows with 4 streams
-[clickhouse] 2021.08.17 06:34:32.846090 [ 373 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.846163 [ 373 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.846741 [ 280 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.846765 [ 280 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.846753 [ 371 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.846781 [ 371 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.847358 [ 222 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.847392 [ 222 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.878433 [ 600 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.878510 [ 600 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.879324 [ 209 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.879363 [ 209 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.879528 [ 206 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.879557 [ 206 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.879873 [ 208 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.879888 [ 208 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.852407 [ 360 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.852430 [ 360 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.852716 [ 604 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.852735 [ 372 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.852791 [ 604 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.852800 [ 372 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:32.854083 [ 207 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> AggregatingTransform: Aggregating
-[clickhouse] 2021.08.17 06:34:32.854142 [ 207 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> Aggregator: Aggregation method: key16
-[clickhouse] 2021.08.17 06:34:33.030323 [ 604 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> AggregatingTransform: Aggregated. 4976486 to 6 rows (from 66.44 MiB) in 0.503889311 sec. (9876149.169 rows/sec., 131.86 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.036072 [ 372 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> AggregatingTransform: Aggregated. 4911729 to 7 rows (from 65.58 MiB) in 0.509643528 sec. (9637577.503 rows/sec., 128.68 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.036284 [ 360 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> AggregatingTransform: Aggregated. 5073707 to 5 rows (from 67.74 MiB) in 0.509847531 sec. (9951420.163 rows/sec., 132.87 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.036858 [ 207 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> AggregatingTransform: Aggregated. 5030756 to 7 rows (from 67.17 MiB) in 0.510419794 sec. (9856114.632 rows/sec., 131.59 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.036866 [ 207 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Trace> Aggregator: Merging aggregated data
-[clickhouse] 2021.08.17 06:34:33.037740 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Information> executeQuery: Read 25993653 rows, 289.82 MiB in 0.649327083 sec., 40031678 rows/sec., 446.34 MiB/sec.
-[clickhouse] 2021.08.17 06:34:33.037778 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> MemoryTracker: Peak memory usage (for query): 441.10 MiB.
-[clickhouse] 2021.08.17 06:34:33.060504 [ 373 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> AggregatingTransform: Aggregated. 4921512 to 6 rows (from 65.71 MiB) in 0.673325704 sec. (7309259.057 rows/sec., 97.59 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.064747 [ 371 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> AggregatingTransform: Aggregated. 4986419 to 6 rows (from 66.58 MiB) in 0.67755572 sec. (7359422.779 rows/sec., 98.26 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.066099 [ 280 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> AggregatingTransform: Aggregated. 4914657 to 7 rows (from 65.62 MiB) in 0.678921232 sec. (7238920.759 rows/sec., 96.65 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.062322 [ 600 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> AggregatingTransform: Aggregated. 4915861 to 7 rows (from 65.63 MiB) in 0.53734173 sec. (9148481.731 rows/sec., 122.15 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.068161 [ 206 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> AggregatingTransform: Aggregated. 5017350 to 6 rows (from 66.99 MiB) in 0.54318742 sec. (9236867.084 rows/sec., 123.33 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.071033 [ 209 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> AggregatingTransform: Aggregated. 5045919 to 6 rows (from 67.37 MiB) in 0.546066655 sec. (9240481.824 rows/sec., 123.37 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.072132 [ 208 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> AggregatingTransform: Aggregated. 5021426 to 7 rows (from 67.04 MiB) in 0.547171556 sec. (9177059.635 rows/sec., 122.53 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.072140 [ 208 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> Aggregator: Merging aggregated data
-[clickhouse] 2021.08.17 06:34:33.073290 [ 372 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> AggregatingTransform: Aggregated. 5170230 to 7 rows (from 69.03 MiB) in 0.686105372 sec. (7535620.928 rows/sec., 100.61 MiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.073299 [ 372 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Merging aggregated data
-[clickhouse] 2021.08.17 06:34:33.073032 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Information> executeQuery: Read 26001531 rows, 289.93 MiB in 0.68467248 sec., 37976597 rows/sec., 423.46 MiB/sec.
-[clickhouse] 2021.08.17 06:34:33.073077 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> MemoryTracker: Peak memory usage (for query): 437.58 MiB.
-[clickhouse] 2021.08.17 06:34:33.073844 [ 372 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Trace> Aggregator: Merging partially aggregated blocks (bucket = -1).
-[clickhouse] 2021.08.17 06:34:33.074022 [ 372 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> Aggregator: Merged partially aggregated blocks. 7 rows, 70.00 B. in 0.00016522 sec. (42367.752 rows/sec., 413.75 KiB/sec.)
-[clickhouse] 2021.08.17 06:34:33.074540 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Information> executeQuery: Read 77988977 rows, 869.58 MiB in 0.835498799 sec., 93344211 rows/sec., 1.02 GiB/sec.
-[clickhouse] 2021.08.17 06:34:33.074586 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> MemoryTracker: Peak memory usage (for query): 478.68 MiB.
+[clickhouse] 2021.08.18 05:45:35.162424 [ 371 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Trace> Aggregator: Merging partially aggregated blocks (bucket = -1).
+[clickhouse] 2021.08.18 05:45:35.163379 [ 371 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> Aggregator: Merged partially aggregated blocks. 7 rows, 70.00 B. in 0.000154727 sec. (45240.973 rows/sec., 441.81 KiB/sec.)
+[clickhouse] 2021.08.18 05:45:35.163923 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Information> executeQuery: Read 77988977 rows, 869.58 MiB in 0.796103845 sec., 97963321 rows/sec., 1.07 GiB/sec.
+[clickhouse] 2021.08.18 05:45:35.163963 [ 50 ] {2ca2af73-eeac-42e1-a249-46d8dffd41d1} <Debug> MemoryTracker: Peak memory usage (for query): 457.93 MiB.
 
 执行时间 1 秒
 

@@ -9,7 +9,7 @@ GLOBAL ANY LEFT JOIN sausage.part_all AS p ON p.P_PARTKEY = l.LO_PARTKEY
 WHERE C_REGION = 'AMERICA'
 GROUP BY year
 ORDER BY year ASC;
-"
+" > /dev/null
 
 [clickhouse] 2021.08.13 07:18:37.581861 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Debug> executeQuery: (from [::1]:46614, using production parser) SELECT toYear(LO_ORDERDATE) AS year, sum(LO_REVENUE - LO_SUPPLYCOST) AS profit FROM sausage.lineorder_all l GLOBAL ANY left JOIN sausage.customer_all c ON (c.C_CUSTKEY = l.LO_CUSTKEY) GLOBAL ANY left JOIN sausage.supplier_all s ON (s.S_SUPPKEY = l.LO_SUPPKEY) GLOBAL ANY left JOIN sausage.part_all p ON (p.P_PARTKEY = l.LO_PARTKEY) WHERE C_REGION = 'AMERICA' GROUP BY year ORDER BY year;
 [clickhouse] 2021.08.13 07:18:37.582665 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
