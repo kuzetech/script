@@ -107,6 +107,8 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.17 06:22:56.900553 [ 50 ] {0877b46c-2be1-4ca8-8e36-cf963861f7c3} <Information> executeQuery: Read 89986052 rows, 944.00 MiB in 1.333710066 sec., 67470475 rows/sec., 707.80 MiB/sec.
 [clickhouse] 2021.08.17 06:22:56.900596 [ 50 ] {0877b46c-2be1-4ca8-8e36-cf963861f7c3} <Debug> MemoryTracker: Peak memory usage (for query): 414.73 MiB.
 
+执行时间 1 秒
+
 1992    32297850572573
 1993    32263323579174
 1994    32262258715383

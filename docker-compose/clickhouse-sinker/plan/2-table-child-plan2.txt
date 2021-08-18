@@ -68,6 +68,7 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.17 06:34:32.388338 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> executeQuery: (from 192.168.0.38:52460, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
 [clickhouse] 2021.08.17 06:34:32.482331 [ 222 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> Connection (ecs-sausage-test-0012:9000): Sent data for 1 external tables, total 6000975 rows in 0.094369925 sec., 63588802 rows/sec., 28.67 MiB (303.82 MiB/sec.), compressed 1.2412244787754518 times to 23.10 MiB (244.78 MiB/sec.)
 [clickhouse] 2021.08.17 06:34:32.388390 [ 242 ] {dd82617a-e91f-4fbf-b4da-554c4791cb25} <Debug> executeQuery: (from 192.168.0.38:42888, initial_query_id: 930eb21e-3421-46aa-87c5-9c7f739f4843, using production parser) SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM sausage.lineorder_local AS o GLOBAL ANY LEFT JOIN c AS c ON c.C_CUSTKEY = o.LO_CUSTKEY GROUP BY year ORDER BY year ASC
+
 [clickhouse] 2021.08.17 06:34:32.523394 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY) ON _temporary_and_external_tables.`_tmp_40a16d53-8757-4efd-80a1-6d5387578efd`
 [clickhouse] 2021.08.17 06:34:32.523457 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
 [clickhouse] 2021.08.17 06:34:32.523487 [ 589 ] {dc4670c3-422a-41fc-951b-84a66471eccc} <Debug> HashJoin: Right sample block: C_CUSTKEY UInt32 UInt32(size = 0)
@@ -133,6 +134,8 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.17 06:34:33.074022 [ 372 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> Aggregator: Merged partially aggregated blocks. 7 rows, 70.00 B. in 0.00016522 sec. (42367.752 rows/sec., 413.75 KiB/sec.)
 [clickhouse] 2021.08.17 06:34:33.074540 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Information> executeQuery: Read 77988977 rows, 869.58 MiB in 0.835498799 sec., 93344211 rows/sec., 1.02 GiB/sec.
 [clickhouse] 2021.08.17 06:34:33.074586 [ 50 ] {930eb21e-3421-46aa-87c5-9c7f739f4843} <Debug> MemoryTracker: Peak memory usage (for query): 478.68 MiB.
+
+执行时间 1 秒
 
 1992    32297850572573
 1993    32263323579174

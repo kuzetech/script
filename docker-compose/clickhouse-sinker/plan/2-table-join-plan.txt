@@ -19,6 +19,7 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.17 06:11:44.495920 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
 [clickhouse] 2021.08.17 06:11:44.496157 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1223/1223 marks by primary key, 1223 marks to read from 5 ranges
 [clickhouse] 2021.08.17 06:11:44.496281 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000828 rows with 4 streams
+
 [clickhouse] 2021.08.17 06:11:45.268185 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> MemoryTracker: Current memory usage (for query): 1.00 GiB.
 
 [clickhouse] 2021.08.17 06:11:44.526072 [ 242 ] {1d1299b1-dd99-4f05-981b-6906d7e3cc17} <Debug> executeQuery: (from 192.168.0.38:42888, initial_query_id: 6366d953-d5ee-4a75-aa15-a940ae82fce1, using production parser) SELECT C_CUSTKEY, C_NAME, C_ADDRESS, C_CITY, C_NATION, C_REGION, C_PHONE, C_MKTSEGMENT FROM sausage.customer_local
@@ -135,6 +136,8 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.17 06:12:03.160606 [ 221 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> Aggregator: Merged partially aggregated blocks. 7 rows, 70.00 B. in 0.000131194 sec. (53356.099 rows/sec., 521.06 KiB/sec.)
 [clickhouse] 2021.08.17 06:12:03.161100 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Information> executeQuery: Read 149986052 rows, 1.20 GiB in 18.666259591 sec., 8035142 rows/sec., 65.94 MiB/sec.
 [clickhouse] 2021.08.17 06:12:03.161142 [ 50 ] {6366d953-d5ee-4a75-aa15-a940ae82fce1} <Debug> MemoryTracker: Peak memory usage (for query): 5.91 GiB.
+
+执行时间 19 秒
 
 1992    6418997626700
 1993    6412534474796
