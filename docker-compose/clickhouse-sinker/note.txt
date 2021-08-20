@@ -1,0 +1,10 @@
+
+CREATE/DROP/RENAME/ALTER TABLE ON CLUSTER 
+
+
+Distributed 不支持任何MUTATION类型操作，包括ALTER DELETE和ALTER UPDATE
+
+只会修改Distributed表自身，并不会修改local表，
+Distributed支持部分元数据操作，包括CREATE、DROP、RENAME和ALTER，
+其中ALTER并不包括分区的操作(ATTACH PARTITION、REPLACE PARTITION等)。
+
