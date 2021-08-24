@@ -2,7 +2,7 @@
 SELECT 
   name, 
   total_rows, 
-  intDiv(total_bytes, 1048576) as total_size_MB 
+  formatReadableSize(total_bytes) as total_size 
 FROM system.tables 
 WHERE database='sausage';
 
@@ -17,10 +17,10 @@ SELECT
   partition_id, 
   name, 
   rows, 
-  intDiv(bytes_on_disk, 1048576) as bytes_on_disk_MB, 
-  intDiv(data_compressed_bytes, 1048576) as data_compressed_bytes_MB, 
-  intDiv(data_uncompressed_bytes, 1048576) as data_uncompressed_bytes_MB
+  formatReadableSize(bytes_on_disk) as bytes_on_disk, 
+  formatReadableSize(data_compressed_bytes) as data_compressed_bytes, 
+  formatReadableSize(data_uncompressed_bytes) as data_uncompressed_bytes
 FROM system.parts
 WHERE database='dm' and table='customer_local';
 
-select * from clusters where cluster='test_cluster_two_shards';
+select * from system.clusters where cluster='test';
