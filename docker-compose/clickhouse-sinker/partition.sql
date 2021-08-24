@@ -22,7 +22,8 @@ ALTER TABLE B ON CLUSTER cluster3s REPLACE PARTITION [partition_id or expr] FROM
 ALTER TABLE A ON CLUSTER cluster3s CLEAR COLUMN test IN PARTITION [partition_id or expr];
 
 -- 卸载分区
-ALTER TABLE A ON CLUSTER cluster3s DETACH PARTITION [partition_id or expr]；
+ALTER TABLE A ON CLUSTER cluster3s DETACH PARTITION [partition_id or expr];
 
 -- 装载分区
-ALTER TABLE A ON CLUSTER cluster3s ATTACH PARTITION [partition_id or expr]；
+ALTER TABLE A ON CLUSTER cluster3s ATTACH PARTITION [partition_id or expr];
+

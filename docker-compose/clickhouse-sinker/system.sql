@@ -22,3 +22,5 @@ SELECT
   intDiv(data_uncompressed_bytes, 1048576) as data_uncompressed_bytes_MB
 FROM system.parts
 WHERE database='dm' and table='customer_local';
+
+select * from clusters where cluster='test_cluster_two_shards';
