@@ -1,0 +1,1 @@
+clickhouse-copier --config zookeeper.xml --task-path /copier/task/test --task-file config.xml --task-upload-force=true
