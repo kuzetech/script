@@ -27,3 +27,5 @@ ALTER TABLE A ON CLUSTER cluster3s DETACH PARTITION [partition_id or expr];
 -- 装载分区
 ALTER TABLE A ON CLUSTER cluster3s ATTACH PARTITION [partition_id or expr];
 
+-- FETCH
+ALTER TABLE A FETCH PARTITION 1 FROM '/clickhouse/tables/01/test';

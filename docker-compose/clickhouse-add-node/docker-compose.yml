@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
   
   clickhouse1:
-    image: yandex/clickhouse-server:20.3
+    image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse1
     hostname: clickhouse1
     ulimits:
@@ -22,11 +22,13 @@ services:
         hard: 131072
     volumes:
       - ./node1/config.xml:/etc/clickhouse-server/config.xml
+      - ./node1/users.xml:/etc/clickhouse-server/users.xml
       - ./node1/config.d:/etc/clickhouse-server/config.d
+      - ./node1/users.d:/etc/clickhouse-server/users.d
       - ./node1/copier:/etc/clickhouse-server/copier
 
   clickhouse2:
-    image: yandex/clickhouse-server:20.3
+    image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse2
     hostname: clickhouse2
     ulimits:
@@ -38,19 +40,21 @@ services:
         hard: 131072
     volumes:
       - ./node2/config.xml:/etc/clickhouse-server/config.xml
+      - ./node2/users.xml:/etc/clickhouse-server/users.xml
       - ./node2/config.d:/etc/clickhouse-server/config.d
+      - ./node2/users.d:/etc/clickhouse-server/users.d
 
-  clickhouse3:
-    image: yandex/clickhouse-server:20.3
-    container_name: clickhouse3
-    hostname: clickhouse3
-    ulimits:
-      nofile:
-        soft: 262144
-        hard: 262144
-      nproc:
-        soft: 131072
-        hard: 131072
-    volumes:
-      - ./node3/config.xml:/etc/clickhouse-server/config.xml
-      - ./node3/config.d:/etc/clickhouse-server/config.d
+  # clickhouse3:
+  #   image: yandex/clickhouse-server:21.7.8.58
+  #   container_name: clickhouse3
+  #   hostname: clickhouse3
+  #   ulimits:
+  #     nofile:
+  #       soft: 262144
+  #       hard: 262144
+  #     nproc:
+  #       soft: 131072
+  #       hard: 131072
+  #   volumes:
+  #     - ./node3/config.xml:/etc/clickhouse-server/config.xml
+  #     - ./node3/config.d:/etc/clickhouse-server/config.d
