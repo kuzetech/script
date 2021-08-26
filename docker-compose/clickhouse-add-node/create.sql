@@ -1,11 +1,11 @@
 
 
-CREATE TABLE test ON CLUSTER my
+CREATE TABLE test2 ON CLUSTER my
 (
     id             UInt32,
     part           UInt32
 )
-ENGINE = ReplicatedReplacingMergeTree('/clickhouse/tables/{shard}/test', '{replica}')
+ENGINE = ReplicatedReplacingMergeTree('/clickhouse/tables/{shard}/test2', '{replica}')
 PARTITION BY part
 ORDER BY id;
 

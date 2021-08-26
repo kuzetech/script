@@ -13,6 +13,12 @@ FROM system.settings
 WHERE name='join_algorithm';
 
 SELECT 
+  name, 
+  value 
+FROM system.settings 
+WHERE name like '%fetch%';
+
+SELECT 
   table, 
   partition_id, 
   name, 
