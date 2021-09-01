@@ -1,17 +1,16 @@
 
 
 create table test_retention (
-    orderId UInt32,
-    uid String,
-    finishTime date
+    orderId         UInt32      COMMENT '订单ID',
+    uid             String      COMMENT '用户ID',
+    finishTime      date        COMMENT '订单完成时间'
 ) engine = Memory;
 
 insert into test_retention values 
 ('1', 'A', '2020-01-01'),('2', 'A', '2020-01-02'),('3', 'A', '2020-01-03'),
-('4', 'A', '2020-01-04'),('5', 'A', '2020-01-05'),('6', 'A', '2020-01-06');
-
-insert into test_retention values 
+('4', 'A', '2020-01-04'),('5', 'A', '2020-01-05'),('6', 'A', '2020-01-06'),
 ('7', 'B', '2020-01-01'),('8', 'B', '2020-01-02');
+
 
 -- retention 函数可以方便的计算留存情况，该函数接受多个条件，以第一个条件的结算结果为基准
 -- 观察后面的各个条件是否也满足，满足则为1，不满足则为0，最终返回0和1的数组。

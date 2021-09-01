@@ -263,14 +263,22 @@
          See https://clickhouse.yandex/docs/en/table_engines/replication/
       -->
 
-    <zookeeper incl="zookeeper-servers" optional="true" />
+    <zookeeper incl="zookeeper-servers">
+        <node index="1">
+            <host>zookeeper</host>
+            <port>2181</port> 
+        </node>
+    </zookeeper>
 
     <!-- Substitutions for parameters of replicated tables.
           Optional. If you don't use replicated tables, you could omit that.
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
       -->
-    <macros incl="macros" optional="true" />
+    <macros incl="macros">
+        <shard>01</shard>
+        <replica>clickhouse</replica>
+    </macros>
 
 
     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->

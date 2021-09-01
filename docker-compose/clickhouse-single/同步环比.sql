@@ -1,11 +1,10 @@
 
--- 同比增长率 =（今年本期 - 去年同期）/ 去年同期
--- 环比增长率 =（今年本月 - 今年上月）/ 今年上月
 
 create table month_earn (
-    month_start date,
-    amount Int32
+    month_start     date      COMMENT '月份第一天',
+    amount          Int32     COMMENT '销售金额'
 ) ENGINE = Memory;
+
 
 insert into month_earn select * from (
     with toDate('2020-01-01') as start_date
@@ -14,6 +13,10 @@ insert into month_earn select * from (
         (number+20)*100 amount
     from numbers(24)
 );
+
+-- 同比增长率 =（今年本期 - 去年同期）/ 去年同期
+-- 环比增长率 =（今年本月 - 今年上月）/ 今年上月
+-- 求 同比增长率 和 环比增长率
 
 select 
     month_start,

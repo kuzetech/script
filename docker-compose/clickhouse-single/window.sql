@@ -1,7 +1,7 @@
 
 create table test_window (
-    uid String,
-    score Int32
+    uid     String      COMMENT '用户ID',
+    score   Int32       COMMENT '分数'
 ) engine = Memory;
 
 insert into test_window values 

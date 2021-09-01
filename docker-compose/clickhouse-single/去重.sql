@@ -12,10 +12,11 @@
     -- BitMap 算法
 
 create table test_distinct (
-    uid UInt32,
-    name String
+    uid      UInt32      COMMENT '用户ID',
+    name     String      COMMENT '用户名'
 ) engine = Memory;
 
+-- 根据uid去重
 
 insert into test_distinct values 
 (1, 'A'),(2, 'B'),(3, 'C'),(4, 'D'),

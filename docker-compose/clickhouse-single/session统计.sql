@@ -1,11 +1,9 @@
 
--- 按天统计所有用户的 session 总数，跨天的 session 会被切割
-
 create table test_session (
-    uid UInt32,
-    eventType String,
-    ts_date date,
-    ts_date_time Datetime
+    uid             UInt32      COMMENT '用户ID',
+    eventType       String      COMMENT '事件名称',
+    ts_date         date        COMMENT '事件时间',
+    ts_date_time    Datetime    COMMENT '事件详细事件'
 ) engine = Memory;
 
 insert into test_session values
@@ -20,6 +18,8 @@ insert into test_session values
 (3, 'login', '2020-01-01', '2020-01-01 01:01:00'),
 (3, 'login', '2020-01-01', '2020-01-01 01:02:00'),
 (3, 'login', '2020-01-01', '2020-01-01 01:03:00');
+
+-- 按天统计所有用户的 session 总数，跨天的 session 会被切割
 
 select
     ts_date,

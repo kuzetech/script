@@ -1,14 +1,11 @@
 
--- 给定期望的路径终点，途经点和最大时间间隔
--- 查询出符合条件的路径详情，及符合路径的用户数
--- 按照用户数降序排列
-
 create table test_path (
-    uid UInt32,
-    event_type String,
-    ts_date date,
-    ts_date_time Datetime
+    uid             UInt32      COMMENT '用户ID',
+    event_type      String      COMMENT '事件名称',
+    ts_date         date        COMMENT '事件时间',
+    ts_date_time    Datetime    COMMENT '事件详细时间'
 ) engine = Memory;
+
 
 insert into test_path values
 (1, 'login', '2020-01-01', '2020-01-01 01:00:00'),
@@ -18,6 +15,10 @@ insert into test_path values
 (1, 'view', '2020-01-01', '2020-01-01 12:00:00'),
 (1, 'buy', '2020-01-01', '2020-01-01 14:00:00');
 
+
+-- 给定期望的路径终点，途经点和最大时间间隔
+-- 查询出符合条件的路径详情，及符合路径的用户数
+-- 按照用户数降序排列
 
 select 
     result_chain, 
