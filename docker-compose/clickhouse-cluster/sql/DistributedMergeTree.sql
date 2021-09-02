@@ -3,9 +3,8 @@ CREATE TABLE test2s2r_local ON CLUSTER my2s2r (
 )ENGINE = MergeTree() ORDER BY id PARTITION BY id;
 
 
-CREATE TABLE test2s2r_all ON CLUSTER my2s2r (
-    id UInt64
-)ENGINE = Distributed(my2s2r, default, test2s2r_local,rand());
+CREATE TABLE test2s2r_all ON CLUSTER my2s2r as test2s2r_local
+ENGINE = Distributed(my2s2r, default, test2s2r_local,rand());
 
 
 INSERT INTO default.test2s2r_all VALUES(1),(2),(3),(4),(5),(6),(7),(8),(9);

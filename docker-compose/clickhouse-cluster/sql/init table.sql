@@ -1,6 +1,6 @@
 
 
-CREATE TABLE test2 ON CLUSTER my
+CREATE TABLE test ON CLUSTER my
 (
     id             UInt32,
     part           UInt32
@@ -9,11 +9,7 @@ ENGINE = ReplicatedReplacingMergeTree('/clickhouse/tables/{shard}/test2', '{repl
 PARTITION BY part
 ORDER BY id;
 
-CREATE TABLE test_all ON CLUSTER my
-(
-    id             UInt32,
-    part           UInt32
-)
+CREATE TABLE test_all ON CLUSTER my as test
 ENGINE = Distributed(my, default, test, rand());
 
 INSERT INTO test VALUES (1, 1);

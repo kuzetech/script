@@ -6,10 +6,8 @@ ORDER BY id
 PARTITION BY id;
 
 
-CREATE TABLE test_rep_2s2r_all ON CLUSTER my2s2r (
-    id UInt64,
-    name String
-)ENGINE = Distributed(my2s2r, default, test_rep_2s2r_local,rand());
+CREATE TABLE test_rep_2s2r_all ON CLUSTER my2s2r as test_rep_2s2r_local
+ENGINE = Distributed(my2s2r, default, test_rep_2s2r_local,rand());
 
 
 INSERT INTO default.test_rep_2s2r_all VALUES
