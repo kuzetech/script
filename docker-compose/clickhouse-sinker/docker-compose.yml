@@ -40,6 +40,7 @@ services:
     volumes:
       - ./config.xml:/etc/clickhouse-server/config.xml
     depends_on:
+      - zookeeper
       - broker
     ports:
       - 8123:8123
@@ -52,4 +53,6 @@ services:
     volumes:
       - ./clickhouse_sinker.json:/etc/clickhouse_sinker.json
     depends_on:
+      - zookeeper
+      - broker
       - clickhouse
