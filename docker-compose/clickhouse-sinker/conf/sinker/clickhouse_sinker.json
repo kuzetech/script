@@ -1,9 +1,12 @@
 {
     "clickhouse": {
-      "cluster": "test_shard_localhost",
+      "cluster": "my",
       "hosts": [
         [
-          "clickhouse"
+          "clickhouse1"
+        ],
+        [
+          "clickhouse2"
         ]
       ],
       "port": 9000,
@@ -22,29 +25,22 @@
   
     "task": {
       "name": "clickhouse_sinker",
-      "topic": "user",
+      "topic": "event_log",
       "earliest": true,
-      "consumerGroup": "group",
+      "consumerGroup": "sinker",
       "parser": "json",
-      "tableName": "user_local",
-      "dims": [
-        {
-          "id": "Int32",
-          "name": "String",
-          "time": "DateTime"
-        }
-      ],
-  
+      "tableName": "event_log_local",
+      "dims": [],
       "autoSchema" : true,
       "excludeColumns": [],
       "dynamicSchema": {
-        "enable": true,
+        "enable": false,
         "maxDims": 1024
       },
-      "shardingKey": "id",
-      "shardingPolicy": "stripe,6",
-      "flushInterval": 5,
-      "bufferSize": 262114,
+      "shardingKey": "",
+      "shardingPolicy": "",
+      "flushInterval": 3,
+      "bufferSize": 4,
       "timezone": ""
     },
     "logLevel": "info",

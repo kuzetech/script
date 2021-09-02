@@ -25,5 +25,4 @@ clickhouse client -n <<-EOSQL
         ts, 
         tag
     FROM source;
-
 EOSQL

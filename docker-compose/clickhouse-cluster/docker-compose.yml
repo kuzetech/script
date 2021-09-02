@@ -26,7 +26,6 @@ services:
       - ./conf/node1/config.d:/etc/clickhouse-server/config.d
       - ./conf/node1/users.d:/etc/clickhouse-server/users.d
       - ./conf/node1/copier:/etc/clickhouse-server/copier
-      #- ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   clickhouse2:
     image: yandex/clickhouse-server:21.7.8.58

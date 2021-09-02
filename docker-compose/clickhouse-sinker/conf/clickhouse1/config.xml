@@ -5,13 +5,12 @@
 <yandex>
     <logger>
         <!-- Possible levels: https://github.com/pocoproject/poco/blob/poco-1.9.4-release/Foundation/include/Poco/Logger.h#L105 -->
-        <!-- <level>trace</level>
-        <log>/var/log/clickhouse-server/clickhouse-server.log</log>
+        <level>information</level>
+        <!-- <log>/var/log/clickhouse-server/clickhouse-server.log</log>
         <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
         <size>1000M</size>
         <count>10</count> -->
         <!-- Default behavior is autodetection (log to console if not daemon mode and is tty) -->
-        <level>information</level>
         <console>1</console> 
     </logger>
     <!--display_name>production</display_name--> <!-- It is the name that will be shown in the client -->
@@ -25,12 +24,10 @@
     -->
 
     <!-- Used with https_port and tcp_port_secure. Full ssl options list: https://github.com/ClickHouse-Extras/poco/blob/master/NetSSL_OpenSSL/include/Poco/Net/SSLManager.h#L71 -->
-    <openSSL>
-        <server> <!-- Used for https server AND secure tcp port -->
-            <!-- openssl req -subj "/CN=localhost" -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout /etc/clickhouse-server/server.key -out /etc/clickhouse-server/server.crt -->
+    <!-- <openSSL>
+        <server>
             <certificateFile>/etc/clickhouse-server/server.crt</certificateFile>
             <privateKeyFile>/etc/clickhouse-server/server.key</privateKeyFile>
-            <!-- openssl dhparam -out /etc/clickhouse-server/dhparam.pem 4096 -->
             <dhParamsFile>/etc/clickhouse-server/dhparam.pem</dhParamsFile>
             <verificationMode>none</verificationMode>
             <loadDefaultCAFile>true</loadDefaultCAFile>
@@ -38,19 +35,16 @@
             <disableProtocols>sslv2,sslv3</disableProtocols>
             <preferServerCiphers>true</preferServerCiphers>
         </server>
-
-        <client> <!-- Used for connecting to https dictionary source -->
+        <client>
             <loadDefaultCAFile>true</loadDefaultCAFile>
             <cacheSessions>true</cacheSessions>
             <disableProtocols>sslv2,sslv3</disableProtocols>
             <preferServerCiphers>true</preferServerCiphers>
-            <!-- Use for self-signed: <verificationMode>none</verificationMode> -->
             <invalidCertificateHandler>
-                <!-- Use for self-signed: <name>AcceptCertificateHandler</name> -->
                 <name>RejectCertificateHandler</name>
             </invalidCertificateHandler>
         </client>
-    </openSSL>
+    </openSSL> -->
 
     <!-- Default root page on http[s] server. For example load UI from https://tabix.io/ when opening http://localhost:8123 -->
     <!--
@@ -71,7 +65,7 @@
     <!-- Listen specified host. use :: (wildcard IPv6 address), if you want to accept connections both with IPv4 and IPv6 from everywhere. -->
     <!-- <listen_host>::</listen_host> -->
     <!-- Same for hosts with disabled ipv6: -->
-    <!-- <listen_host>0.0.0.0</listen_host> -->
+    <listen_host>0.0.0.0</listen_host>
 
     <!-- Default values - try listen localhost on ipv4 and ipv6: -->
     <!--
@@ -82,7 +76,7 @@
     <!-- <listen_try>0</listen_try> -->
 
     <!-- Allow listen on same address:port -->
-    <!-- <listen_reuse_port>0</listen_reuse_port> -->
+    <listen_reuse_port>1</listen_reuse_port>
 
     <!-- <listen_backlog>64</listen_backlog> -->
 
@@ -94,7 +88,7 @@
 
     <!-- Set limit on number of open files (default: maximum). This setting makes sense on Mac OS X because getrlimit() fails to retrieve
          correct maximum value. -->
-    <!-- <max_open_files>262144</max_open_files> -->
+    <max_open_files>262144</max_open_files>
 
     <!-- Size of cache of uncompressed blocks of data, used in tables of MergeTree family.
          In bytes. Cache is single for server. Memory is allocated only on demand.
@@ -170,69 +164,7 @@
     <!-- Configuration of clusters that could be used in Distributed tables.
          https://clickhouse.tech/docs/en/operations/table_engines/distributed/
       -->
-    <remote_servers incl="clickhouse_remote_servers" >
-        <!-- Test only shard config for testing distributed storage -->
-        <test_shard_localhost>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-        </test_shard_localhost>
-        <test_cluster_two_shards_localhost>
-             <shard>
-                 <replica>
-                     <host>localhost</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-             <shard>
-                 <replica>
-                     <host>localhost</host>
-                     <port>9000</port>
-                 </replica>
-             </shard>
-        </test_cluster_two_shards_localhost>
-        <test_cluster_two_shards>
-            <shard>
-                <replica>
-                    <host>127.0.0.1</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>127.0.0.2</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-        </test_cluster_two_shards>
-        <test_shard_localhost_secure>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>9440</port>
-                    <secure>1</secure>
-                </replica>
-            </shard>
-        </test_shard_localhost_secure>
-        <test_unavailable_shard>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-            <shard>
-                <replica>
-                    <host>localhost</host>
-                    <port>1</port>
-                </replica>
-            </shard>
-        </test_unavailable_shard>
-    </remote_servers>
-
+    
     <!-- The list of hosts allowed to use in URL-related storage engines and table functions.
         If this section is not present in configuration, all hosts are allowed.
     -->
@@ -262,15 +194,17 @@
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/
       -->
-
-    <zookeeper incl="zookeeper-servers" optional="true" />
+    <include_from>/etc/clickhouse-server/config.d/metrika.xml</include_from>
+    <remote_servers incl="remote_servers" optional="false" />
+    <zookeeper incl="zookeeper-servers" optional="false" />
 
     <!-- Substitutions for parameters of replicated tables.
           Optional. If you don't use replicated tables, you could omit that.
 
          See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
       -->
-    <macros incl="macros" optional="true" />
+    <include_from>/etc/clickhouse-server/config.d/macros.xml</include_from>
+    <macros incl="macros" optional="false" />
 
 
     <!-- Reloading interval for embedded dictionaries, in seconds. Default: 3600. -->
@@ -328,16 +262,14 @@
         events - send data from table system.events
         asynchronous_metrics - send data from table system.asynchronous_metrics
     -->
-    <!--
     <prometheus>
         <endpoint>/metrics</endpoint>
         <port>9363</port>
-
         <metrics>true</metrics>
         <events>true</events>
         <asynchronous_metrics>true</asynchronous_metrics>
     </prometheus>
-    -->
+    
 
     <!-- Query log. Used only for queries with setting log_queries = 1. -->
     <query_log>
