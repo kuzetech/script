@@ -30,8 +30,29 @@
       "consumerGroup": "sinker",
       "parser": "json",
       "tableName": "event_log_local",
-      "dims": [],
-      "autoSchema" : true,
+      "dims": [
+        {
+          "name": "log_id",
+          "type": "String",
+          "sourceName": "log_id"
+        },
+        {
+          "name": "time",
+          "type": "UInt64",
+          "sourceName": "time"
+        },
+        {
+          "name": "event",
+          "type": "String",
+          "sourceName": "event"
+        },
+        {
+          "name": "pid",
+          "type": "UInt32",
+          "sourceName": "uid"
+        }
+      ],
+      "autoSchema" : false,
       "excludeColumns": [],
       "dynamicSchema": {
         "enable": false,

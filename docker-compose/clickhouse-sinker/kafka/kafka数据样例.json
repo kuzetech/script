@@ -14,7 +14,7 @@
 }
 
 {"log_id":"1", "time":1630515600, "event":"test", "uid":1}
-{"log_id":"2", "time":1630515600, "event":"test", "uid":1}
+{"log_id":"2", "time":1630515600, "event":"test", "uid":1, "a":"123"}
 {"log_id":"3", "time":1630515600, "event":"test", "uid":1}
 {"log_id":"4", "time":1630515600, "event":"test", "uid":1}
 {"log_id":"5", "time":1630515600, "event":"test", "uid":1}
