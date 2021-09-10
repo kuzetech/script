@@ -6,12 +6,13 @@ CREATE TABLE product (
     description STRING,
     PRIMARY KEY (id) NOT ENFORCED
  ) WITH (
-    'connector' = 'kafka',
+    'connector' = 'upsert-kafka',
     'topic' = 'product',
     'properties.bootstrap.servers' = 'localhost:9092',
     'properties.group.id' = 'testGroup',
-    'scan.startup.mode' = 'latest-offset',
-    'format' = 'json'
+    'properties.auto.offset.reset' = 'latest',
+    'key.format' = 'json',
+    'value.format' = 'json'
  );
 
 CREATE TABLE orders (
@@ -21,10 +22,11 @@ CREATE TABLE orders (
     proctime as PROCTIME(),
     PRIMARY KEY (order_id) NOT ENFORCED
  ) WITH (
-    'connector' = 'kafka',
+    'connector' = 'upsert-kafka',
     'topic' = 'order',
     'properties.bootstrap.servers' = 'localhost:9092',
     'properties.group.id' = 'testGroup',
-    'scan.startup.mode' = 'latest-offset',
-    'format' = 'json'
+    'properties.auto.offset.reset' = 'latest',
+    'key.format' = 'json',
+    'value.format' = 'json'
  );
