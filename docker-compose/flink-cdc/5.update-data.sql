@@ -1,6 +1,9 @@
 --MySQL
 INSERT INTO orders VALUES (default, '2020-07-30 15:22:00', 'Jark', 29.71, 109, false);
 
+--MySQL
+INSERT INTO products VALUES (default, '2020-07-30 15:22:00', 'Jark', 29.71, 109, false);
+
 --PG
 INSERT INTO shipments VALUES (default,10005,'Shanghai','Beijing',false);
 

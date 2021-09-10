@@ -5,5 +5,5 @@ SELECT
     p.name as product_name, 
     p.description as product_description
 FROM orders AS o
-INNER JOIN products FOR SYSTEM_TIME AS OF o.order_date AS p 
+INNER JOIN product FOR SYSTEM_TIME AS OF o.proctime AS p 
 ON o.product_id = p.id;
