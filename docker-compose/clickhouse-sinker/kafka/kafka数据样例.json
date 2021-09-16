@@ -1,4 +1,7 @@
-{"id":1, "name":"test1", "time":"2021-01-01 19:00:00"}
+{"id":1, "name":"test1", "age":2}
+
+{"deviceId":"a1", "pid":1, "step":"login"}
+{"deviceId":"a1", "pid":1, "step":"buy"}
 
 {
     "id":1, 

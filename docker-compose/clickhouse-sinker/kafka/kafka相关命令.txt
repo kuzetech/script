@@ -2,7 +2,7 @@
 
 docker exec broker sh -c 'kafka-topics --bootstrap-server localhost:9092 --list'
 
-docker exec broker sh -c 'kafka-topics --bootstrap-server localhost:9092 --create --topic event_log --partitions 1 --replication-factor 1'
+docker exec broker sh -c 'kafka-topics --bootstrap-server localhost:9092 --create --topic news --partitions 1 --replication-factor 1'
 
 docker exec -it broker sh -c 'kafka-console-producer --bootstrap-server localhost:9092 --topic event_log'
 
