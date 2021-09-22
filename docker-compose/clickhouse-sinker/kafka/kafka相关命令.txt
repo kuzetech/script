@@ -1,8 +1,16 @@
 
 
-docker exec broker sh -c 'kafka-topics --bootstrap-server localhost:9092 --list'
+./kafka-topics.sh --bootstrap-server localhost:9092 --list
 
-docker exec broker sh -c 'kafka-topics --bootstrap-server localhost:9092 --create --topic news --partitions 1 --replication-factor 1'
+./kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic login_steps
 
-docker exec -it broker sh -c 'kafka-console-producer --bootstrap-server localhost:9092 --topic event_log'
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps_user --partitions 6 --replication-factor 2
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps --partitions 6 --replication-factor 2
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps_error --partitions 6 --replication-factor 2
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps_wide --partitions 6 --replication-factor 2
+./kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps_news --partitions 6 --replication-factor 2
+
+./kafka-console-producer.sh --bootstrap-server localhost:9092 --topic event_log
+
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic login_steps
 
