@@ -1,0 +1,17 @@
+
+ansible ecs-sausage_test2-0006 -m copy \
+-a 'src=/Users/huangsw/code/study/study-java-lab/src/main/resources/user2021-09-05.json.gz \
+dest=/root/funnydb-data-simulator-user/funnydb-data-simulator-user/data \
+owner=root \
+group=root \
+mode=440 \
+backup=yes'
+
+ansible ecs-sausage_test-0012 -m copy -a \
+'src=/Users/huangsw/code/funny/flink-app/apps/funnydb-enrich/target/funnydb-enrich-1.0-SNAPSHOT.jar \
+dest=/data/flink/jar \
+owner=root \
+group=root \
+mode=440 \
+backup=yes'
+
