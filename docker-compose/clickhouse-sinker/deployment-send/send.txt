@@ -8,8 +8,17 @@ mode=440 \
 backup=yes'
 
 ansible ecs-sausage_test-0012 -m copy -a \
-'src=/Users/huangsw/code/funny/flink-app/apps/funnydb-enrich/target/funnydb-enrich-1.0-SNAPSHOT.jar \
+'src=/Users/huangsw/code/funny/funnydb/misc/funnydb-enrich/target/funnydb-enrich-1.0-SNAPSHOT.jar \
 dest=/data/flink/jar \
+owner=root \
+group=root \
+mode=440 \
+backup=yes'
+
+
+ansible ecs-sausage_test2-0002 -m copy -a \
+'src=/Users/huangsw/code/study/funnydb-data-generator/target/funnydb-data-generator-1.0-SNAPSHOT.jar \
+dest=/data/login-steps \
 owner=root \
 group=root \
 mode=440 \
