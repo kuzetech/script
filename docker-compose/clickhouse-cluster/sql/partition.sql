@@ -9,7 +9,7 @@ SELECT
   intDiv(data_compressed_bytes, 1048576) as data_compressed_bytes_MB, 
   intDiv(data_uncompressed_bytes, 1048576) as data_uncompressed_bytes_MB
 FROM system.parts
-WHERE database='dm' and table='customer_local';
+WHERE database='dm' and table='customer_local' and active=1;
 
 -- 删除分区
 ALERT TABLE dm.customer_local ON CLUSTER cluster3s DROP PARTITION [partition_id or expr];
