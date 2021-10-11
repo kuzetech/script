@@ -1,4 +1,8 @@
 
+-- 如果加上了水印区间 - INTERVAL '1' HOUR ，任意一边下一个水印才会触发上一个区间计算
+-- 没有加上水印区间的情况下，还未完全摸透
+
+
 CREATE TABLE product (
     id INT,
     name STRING,
@@ -58,13 +62,16 @@ ON o.product_id = p.id;
 
 -- ./kafka-console-producer.sh --broker-list localhost:9092 --topic product
 {"id":101, "name":"1", "description":"1", "update_time":"2020-07-29 01:00:00"}
-{"id":101, "name":"2", "description":"2", "update_time":"2020-07-29 02:00:00"}
+{"id":101, "name":"2", "description":"2", "update_time":"2020-07-29 01:03:00"}
 {"id":101, "name":"3", "description":"3", "update_time":"2020-07-29 03:00:00"}
 
 -- ./kafka-console-producer.sh --broker-list localhost:9092 --topic orders
-{"id":1, "ts":"2020-07-29 01:01:00", "product_id":101}
+{"id":1, "ts":"2020-07-29 01:00:00", "product_id":101}
+{"id":2, "ts":"2020-07-29 01:00:00", "product_id":101}
+{"id":3, "ts":"2020-07-29 01:01:00", "product_id":101}
+{"id":4, "ts":"2020-07-29 02:00:00", "product_id":101}
 
-{"id":2, "ts":"2020-07-29 01:01:00", "product_id":101}
+{"id":2, "ts":"2020-07-29 01:02:00", "product_id":101}
 {"id":3, "ts":"2020-07-29 01:02:00", "product_id":101}
 
 {"id":4, "ts":"2020-07-29 01:04:00", "product_id":101}
@@ -72,4 +79,4 @@ ON o.product_id = p.id;
 {"id":6, "ts":"2020-07-29 01:06:00", "product_id":101}
 
 {"id":7, "ts":"2020-07-29 01:03:00", "product_id":101}
-{"id":8, "ts":"2020-07-29 02:03:00", "product_id":101}
+{"id":8, "ts":"2020-07-29 02:03:00", "product_id":102}
