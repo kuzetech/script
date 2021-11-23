@@ -1,0 +1,25 @@
+helm create mychart
+
+helm install clunky-serval ./mychart
+
+helm install --dry-run --debug --set favoriteDrink=slurm solid-vulture ./mychart 
+
+helm install --dry-run --disable-openapi-validation moldy-jaguar ./mychart
+
+helm template --debug
+
+helm get manifest clunky-serval
+
+helm uninstall clunky-serval
+
+helm upgrade --install clunky-serval
+
+docker image inspect quay.io/housepower/clickhouse_sinker
+docker image rm registry.biubiubiu.io/turbine/clickhouse-sinker:0.1.1
+
+
+
+kubectl get pods
+
+kubectl create configmap clickhouse-sinker-streams --from-file=./clickhouse_sinker.json
+kubectl get configmaps clickhouse-sinker-streams -o yaml
