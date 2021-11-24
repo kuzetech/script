@@ -14,12 +14,5 @@ helm uninstall clunky-serval
 
 helm upgrade --install clunky-serval
 
-docker image inspect quay.io/housepower/clickhouse_sinker
-docker image rm registry.biubiubiu.io/turbine/clickhouse-sinker:0.1.1
 
 
-
-kubectl get pods
-
-kubectl create configmap clickhouse-sinker-streams --from-file=./clickhouse_sinker.json
-kubectl get configmaps clickhouse-sinker-streams -o yaml
