@@ -51,4 +51,14 @@ clickhouse client -n <<-EOSQL
     CREATE TABLE event_log ON CLUSTER my as event_log_local
     ENGINE = Distributed(my, default, event_log_local, rand());
 
+    CREATE TABLE test_local ON CLUSTER my
+    (
+        id  UInt8
+    )
+    ENGINE = ReplicatedReplacingMergeTree('/clickhouse/tables/{shard}/test_local', '{replica}')
+    ORDER BY (id);
+
+    CREATE TABLE test ON CLUSTER my as test_local
+    ENGINE = Distributed(my, default, test_local, rand());
+
 EOSQL
