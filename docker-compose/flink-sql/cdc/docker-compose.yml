@@ -64,3 +64,41 @@ services:
       - KAFKA_CREATE_TOPICS="user_behavior:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  
+  jobmanager:
+    image: flink:1.13.1
+    expose:
+      - "6123"
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager1:
+    image: flink:1.13.1
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    links:
+      - "jobmanager:jobmanager"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+  taskmanager2:
+    image: flink:1.13.1
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    links:
+      - "jobmanager:jobmanager"
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+
+

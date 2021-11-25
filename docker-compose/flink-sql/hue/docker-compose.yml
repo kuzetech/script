@@ -9,6 +9,7 @@ services:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
+
   taskmanager:
     image: romainr/flink:1.11.1
     depends_on:
@@ -19,6 +20,7 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 10
+
   datagen:
     image: jark/datagen:0.2
     command: "java -classpath /opt/datagen/flink-sql-demo.jar myflink.SourceGenerator --input /opt/datagen/user_behavior.log --output kafka kafka:9094 --speedup 2000"
@@ -27,6 +29,7 @@ services:
     environment:
       ZOOKEEPER_CONNECT: zookeeper
       KAFKA_BOOTSTRAP: kafka
+
   mysql:
     image: jark/mysql-example:0.2
     ports:
@@ -34,10 +37,12 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_TCP_PORT=13306
+
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka:2.12-2.2.1
     ports:
@@ -54,6 +59,7 @@ services:
       - KAFKA_CREATE_TOPICS="user_behavior:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
   flink-sql-api:
     image: romainr/flink-sql-api:1.11.1
     container_name: flink-sql-api
@@ -64,6 +70,7 @@ services:
       - "8083:8083"
     depends_on:
       - jobmanager
+
   ksqldb-server:
     image: confluentinc/ksqldb-server:0.12.0
     hostname: ksqldb-server
@@ -75,6 +82,7 @@ services:
       KSQL_BOOTSTRAP_SERVERS: kafka:9094
       KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: "true"
       KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: "true"
+
   ksqldb-cli:
     image: confluentinc/ksqldb-cli:0.12.0
     container_name: ksqldb-cli
@@ -82,6 +90,7 @@ services:
       - ksqldb-server
     entrypoint: /bin/sh
     tty: true
+
   hue:
     image: romainr/hue:demo-streams-v3
     hostname: hue
@@ -91,6 +100,7 @@ services:
     depends_on:
       - hue-database
     command: ["./wait-for-it.sh", "hue-database:3306", "--", "./startup.sh"]
+
   hue-database:
     image: mysql:5.7
     container_name: hue-database
@@ -104,5 +114,6 @@ services:
       MYSQL_USER: hue
       MYSQL_PASSWORD: secret
       MYSQL_DATABASE: hue
+      
 volumes:
   data:
