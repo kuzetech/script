@@ -9,13 +9,13 @@
                     <port>9000</port>
                 </replica>
             </shard>
-            <!-- <shard>
+            <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
                     <host>clickhouse2</host>
                     <port>9000</port>
                 </replica>
-            </shard> -->
+            </shard>
         </my>
     </remote_servers>
     <zookeeper-servers>

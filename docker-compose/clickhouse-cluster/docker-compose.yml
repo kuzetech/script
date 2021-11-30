@@ -2,17 +2,18 @@ version: '3'
 services:
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:6.0.1
+    image: bitnami/zookeeper:3.5.9
     hostname: zookeeper
     container_name: zookeeper
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
+      - ALLOW_ANONYMOUS_LOGIN=yes
   
   clickhouse1:
     image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse1
     hostname: clickhouse1
+    ports:
+      - 9001:9000
     ulimits:
       nofile:
         soft: 262144
@@ -31,6 +32,8 @@ services:
     image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse2
     hostname: clickhouse2
+    ports:
+      - 9000:9000
     ulimits:
       nofile:
         soft: 262144
@@ -43,18 +46,3 @@ services:
       - ./conf/node2/users.xml:/etc/clickhouse-server/users.xml
       - ./conf/node2/config.d:/etc/clickhouse-server/config.d
       - ./conf/node2/users.d:/etc/clickhouse-server/users.d
-
-  # clickhouse3:
-  #   image: yandex/clickhouse-server:21.7.8.58
-  #   container_name: clickhouse3
-  #   hostname: clickhouse3
-  #   ulimits:
-  #     nofile:
-  #       soft: 262144
-  #       hard: 262144
-  #     nproc:
-  #       soft: 131072
-  #       hard: 131072
-  #   volumes:
-  #     - ./node3/config.xml:/etc/clickhouse-server/config.xml
-  #     - ./node3/config.d:/etc/clickhouse-server/config.d
