@@ -13,3 +13,7 @@ spec:
     port: 80       # service 的端口号
     targetPort: 80 # 对应到 Pod 上的端口号
     protocol: TCP  # 还支持 udp，http 等
+  - name: https 
+    port: 443       # service 的端口号
+    targetPort: 443 # 对应到 Pod 上的端口号
+    protocol: TCP  # 还支持 udp，http 等

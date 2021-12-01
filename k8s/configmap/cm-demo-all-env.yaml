@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cm-demo-all-env
-  namespace: demo
-data:
-  SPECIAL_LEVEL: very
-  SPECIAL_TYPE: charm

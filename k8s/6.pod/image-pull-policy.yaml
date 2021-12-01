@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - image: busybox:1.28
-    imagePullPolicy: Always # Never IfNotPresent
+    imagePullPolicy: Always # Never IfNotPresent image版本如果是laster=Always
     name: volume-test-container
     volumeMounts:
     - mountPath: /cache

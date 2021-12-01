@@ -21,3 +21,15 @@ spec:
         backend:
           serviceName: coffee-svc
           servicePort: 80
+  - host: www.mysite.com
+    http:
+      paths:
+      - backend:
+          serviceName: site-svc
+          servicePort: 80
+  - host: forums.mysite.com
+    http:
+      paths:
+      - backend:
+          serviceName: forums-svc
+          servicePort: 80

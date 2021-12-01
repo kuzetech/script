@@ -28,4 +28,4 @@ spec:
         port: 8080
       initialDelaySeconds: 5
       periodSeconds: 5
-    readinessProbe:  # Pod 是不是能被通过 Service 的方式访问到
+    readinessProbe:  # 判断 Pod 是不是能作为 Service 的 endpoint
