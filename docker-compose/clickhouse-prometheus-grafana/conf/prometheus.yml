@@ -28,8 +28,14 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:9090']
 
-  - job_name: 'clickhouse_exporter'
+  # - job_name: 'prometheus_pull'
+  #   # 覆盖全局的 scrape_interval
+  #   scrape_interval: 5s
 
+  #   static_configs:
+  #   - targets: ['clickhouse:9363']
+
+  - job_name: 'clickhouse_exporter'
     # 覆盖全局的 scrape_interval
     scrape_interval: 5s
 
