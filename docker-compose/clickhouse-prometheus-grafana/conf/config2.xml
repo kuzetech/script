@@ -232,8 +232,8 @@
          See https://clickhouse.yandex/docs/en/table_engines/replication/#creating-replicated-tables
       -->
     <macros incl="macros">
-        <shard>01</shard>
-        <replica>clickhouse</replica>
+        <shard>02</shard>
+        <replica>clickhouse2</replica>
     </macros>
 
 
