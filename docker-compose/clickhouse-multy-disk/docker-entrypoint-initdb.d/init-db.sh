@@ -18,5 +18,5 @@ clickhouse client -n <<-EOSQL
     CREATE TABLE IF NOT EXISTS test ON CLUSTER my as test_local
     ENGINE = Distributed(my, default, test_local, rand());
 
-    INSERT INTO test VALUES(1),(2),(3);
+    INSERT INTO test VALUES(4),(5),(6);
 EOSQL

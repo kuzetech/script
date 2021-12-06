@@ -25,22 +25,6 @@ services:
     ports:
       - 8123:8123
       - 9000:9000
-
-  clickhouse2:
-    image: yandex/clickhouse-server:21.7.8.58
-    container_name: clickhouse2
-    hostname: clickhouse2
-    depends_on:
-      - zookeeper
-    ulimits:
-      nofile:
-        soft: 262144
-        hard: 262144
-      nproc:
-        soft: 131072
-        hard: 131072
-    volumes:
-      - ./conf/config2.xml:/etc/clickhouse-server/config.xml
   
   prometheus:
     image: prom/prometheus:latest
