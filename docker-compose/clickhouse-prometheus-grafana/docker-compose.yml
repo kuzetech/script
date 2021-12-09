@@ -21,10 +21,12 @@ services:
         soft: 131072
         hard: 131072
     volumes:
+      - ./after-service-init-db.sh:/after-service-init-db.sh
       - ./conf/config.xml:/etc/clickhouse-server/config.xml
     ports:
       - 8123:8123
       - 9000:9000
+      - 9004:9004
   
   prometheus:
     image: prom/prometheus:latest
@@ -48,10 +50,24 @@ services:
     ports:
       - 9116:9116
 
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   hostname: grafana
+  #   depends_on:
+  #     - prometheus
+  #   ports:
+  #     - 3000:3000
+
   grafana:
-    image: grafana/grafana:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-grafana
+    image: grafana-clickhouse:1.0.0
     container_name: grafana
     hostname: grafana
+    environment:
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=vertamedia-clickhouse-datasource 
     depends_on:
       - prometheus
     ports:

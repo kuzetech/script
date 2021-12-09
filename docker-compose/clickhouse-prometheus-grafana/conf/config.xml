@@ -171,7 +171,7 @@
          https://clickhouse.tech/docs/en/operations/table_engines/distributed/
       -->
     <remote_servers incl="clickhouse_remote_servers" >
-        <my>
+        <c1s1r>
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -179,14 +179,7 @@
                     <port>9000</port>
                 </replica>
             </shard>
-            <shard>
-                <internal_replication>true</internal_replication>
-                <replica>
-                    <host>clickhouse2</host>
-                    <port>9000</port>
-                </replica>
-            </shard>
-        </my>
+        </c1s1r>
     </remote_servers>
 
     <!-- The list of hosts allowed to use in URL-related storage engines and table functions.
@@ -319,7 +312,7 @@
                 toStartOfHour(event_time)
         -->
         <partition_by>toYYYYMM(event_date)</partition_by>
-
+        <ttl>event_date + INTERVAL 30 DAY DELETE</ttl>
         <!-- Instead of partition_by, you can provide full engine expression (starting with ENGINE = ) with parameters,
              Example: <engine>ENGINE = MergeTree PARTITION BY toYYYYMM(event_date) ORDER BY (event_date, event_time) SETTINGS index_granularity = 1024</engine>
           -->
@@ -335,6 +328,7 @@
         <table>trace_log</table>
 
         <partition_by>toYYYYMM(event_date)</partition_by>
+        <ttl>event_date + INTERVAL 30 DAY DELETE</ttl>
         <flush_interval_milliseconds>7500</flush_interval_milliseconds>
     </trace_log>
 
@@ -344,6 +338,7 @@
         <database>system</database>
         <table>query_thread_log</table>
         <partition_by>toYYYYMM(event_date)</partition_by>
+        <ttl>event_date + INTERVAL 30 DAY DELETE</ttl>
         <flush_interval_milliseconds>7500</flush_interval_milliseconds>
     </query_thread_log>
 
@@ -371,6 +366,7 @@
     <metric_log>
         <database>system</database>
         <table>metric_log</table>
+        <ttl>event_date + INTERVAL 30 DAY DELETE</ttl>
         <flush_interval_milliseconds>7500</flush_interval_milliseconds>
         <collect_interval_milliseconds>1000</collect_interval_milliseconds>
     </metric_log>
