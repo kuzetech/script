@@ -6,4 +6,4 @@ clickhouse-client -n <<-EOSQL
     ENGINE = Distributed(c1s1r, system, query_log);
 EOSQL
 
-docker exec clickhouse clickhouse-client -q 'CREATE TABLE IF NOT EXISTS system.query_log_all ON CLUSTER c1s1r as system.query_log ENGINE = Distributed(c1s1r, system, query_log);'
+# docker exec clickhouse clickhouse-client -q 'CREATE TABLE IF NOT EXISTS system.query_log_all ON CLUSTER c1s1r as system.query_log ENGINE = Distributed(c1s1r, system, query_log);'
