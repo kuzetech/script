@@ -1,0 +1,5 @@
+docker exec -it hive_hive-server_1 /opt/hive/bin/beeline -u jdbc:hive2://hive-server:10000 hive hive
+
+docker exec -it hive_broker_1 kafka-console-producer --broker-list localhost:9092 --topic test
+
+docker exec -it hive_broker_1 kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning

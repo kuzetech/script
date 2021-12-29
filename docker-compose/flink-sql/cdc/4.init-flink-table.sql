@@ -1,6 +1,6 @@
 --Flink SQL
--- 设置 checkpoint 间隔为 3 秒                     
 
+-- 设置 checkpoint 间隔为 3 秒                     
 SET execution.checkpointing.interval = 3s;
 
 CREATE TABLE products (
