@@ -6,11 +6,15 @@
 
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic login_steps
 
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic preparation-default-user_login
+
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps_user
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps_error
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps_news
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps_wide
+
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic preparation-default-user_login --partitions 2 --replication-factor 1
 
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps_user --partitions 6 --replication-factor 2
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic login_steps --partitions 6 --replication-factor 2
@@ -34,3 +38,21 @@
 
 
 flink run -c com.xmfunny.flink.MainJob funnydb-enrich-1.0-SNAPSHOT.jar env-config-example.properties app-config-example.json
+
+
+
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic preparation-default-user_login
+
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic preparation-default-user_login --partitions 2 --replication-factor 1
+
+/opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic preparation-default-user_login 
+
+
+{"app_id":"sausage","event":"user-login","log_id":"aaaaa1","time":1630771200,"ip":"1.1.1.1"}
+
+
+{"app_id":"sausage","log_id":"aaaaa1","time":1630771200}
+{"app_id":"sausage","log_id":"aaaaa2","time":1630771200}
+{"app_id":"sausage","log_id":"aaaaa3","time":1630771200}
+{"app_id":"sausage","log_id":"aaaaa7","time":1630771200}
+{"app_id":"sausage","log_id":"aaaaa8","time":1630771200}
