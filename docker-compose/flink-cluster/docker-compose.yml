@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   jobmanager:
-    image: flink:1.13.1
+    image: flink:1.11.0
     expose:
       - "6123"
     ports:
@@ -11,7 +11,7 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
   taskmanager1:
-    image: flink:1.13.1
+    image: flink:1.11.0
     expose:
       - "6121"
       - "6122"
@@ -22,9 +22,10 @@ services:
       - "jobmanager:jobmanager"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - TASK_MANAGER_NUMBER_OF_TASK_SLOTS=1
 
   taskmanager2:
-    image: flink:1.13.1
+    image: flink:1.11.0
     expose:
       - "6121"
       - "6122"
@@ -35,3 +36,4 @@ services:
       - "jobmanager:jobmanager"
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - TASK_MANAGER_NUMBER_OF_TASK_SLOTS=1
