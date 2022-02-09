@@ -23,5 +23,5 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
-    volumes:
-      - ./init-topic.sh:/docker-entrypoint-initdb.d/init-topic.sh
+    # volumes:
+    #   - ./init-topic.sh:/docker-entrypoint-initdb.d/init-topic.sh
