@@ -23,3 +23,13 @@ services:
     ports:
       - 8123:8123
       - 9000:9000
+
+  # bytebase:
+  #   image: bytebase/bytebase:0.12.0
+  #   container_name: bytebase
+  #   hostname: bytebase
+  #   command: --data /var/opt/bytebase --host http://localhost --port 8080
+  #   volumes:
+  #     - ./data:/var/opt/bytebase
+  #   ports:
+  #     - 8080:8080
