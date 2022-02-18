@@ -50,6 +50,7 @@ flink run -c com.xmfunny.flink.MainJob funnydb-enrich-1.0-SNAPSHOT.jar env-confi
 
 {"app_id":"sausage","event":"user-login","log_id":"aaaaa1","time":1630771200,"ip":"1.1.1.1"}
 
+{"id":"1","time":1630771001}
 
 {"app_id":"sausage","log_id":"aaaaa1","time":1630771200}
 {"app_id":"sausage","log_id":"aaaaa2","time":1630771200}
