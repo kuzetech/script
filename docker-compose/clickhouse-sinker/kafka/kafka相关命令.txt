@@ -6,6 +6,8 @@
 
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic login_steps
 
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --describe --group clickhouse-test2-new_device --bootstrap-server localhost:9092
+
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic preparation-default-user_login
 
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic login_steps_user
@@ -51,6 +53,14 @@ flink run -c com.xmfunny.flink.MainJob funnydb-enrich-1.0-SNAPSHOT.jar env-confi
 {"app_id":"sausage","event":"user-login","log_id":"aaaaa1","time":1630771200,"ip":"1.1.1.1"}
 
 {"id":"1","time":1630771001}
+{"id":"2","time":1630771002}
+{"id":"3","time":1630771003}
+{"id":"6","time":1630771006}
+
+tail -f /var/log/clickhouse-server/clickhouse-server.err.log
+
+CREATE DATABASE IF NOT EXISTS test2 ENGINE = Replicated('/clickhouse/databases/test2', 'ck', 'clickhouse2');
+CREATE DATABASE IF NOT EXISTS test2_aux ENGINE = Replicated('/clickhouse/databases/test2_aux', 'ck', 'clickhouse2');
 
 {"app_id":"sausage","log_id":"aaaaa1","time":1630771200}
 {"app_id":"sausage","log_id":"aaaaa2","time":1630771200}
