@@ -171,7 +171,29 @@
          https://clickhouse.tech/docs/en/operations/table_engines/distributed/
       -->
     <remote_servers incl="clickhouse_remote_servers" >
-        
+        <my>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse1</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <internal_replication>true</internal_replication>
+                <replica>
+                    <host>clickhouse3</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </my>
     </remote_servers>
 
     <!-- The list of hosts allowed to use in URL-related storage engines and table functions.

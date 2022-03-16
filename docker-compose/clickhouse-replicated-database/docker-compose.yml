@@ -24,6 +24,7 @@ services:
         hard: 131072
     volumes:
       - ./config1.xml:/etc/clickhouse-server/config.xml
+      - ./docker-entrypoint-initdb.d1:/docker-entrypoint-initdb.d
     ports:
       - 8123:8123
       - 9000:9000
@@ -44,6 +45,7 @@ services:
         hard: 131072
     volumes:
       - ./config2.xml:/etc/clickhouse-server/config.xml
+      - ./docker-entrypoint-initdb.d2:/docker-entrypoint-initdb.d
 
   clickhouse3:
     image: yandex/clickhouse-server:21.7.8.58
@@ -60,4 +62,5 @@ services:
         hard: 131072
     volumes:
       - ./config3.xml:/etc/clickhouse-server/config.xml
+      - ./docker-entrypoint-initdb.d3:/docker-entrypoint-initdb.d
   
