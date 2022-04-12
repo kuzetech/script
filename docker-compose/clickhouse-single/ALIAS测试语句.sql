@@ -21,3 +21,15 @@ CREATE TABLE test_alis
 )
 ENGINE = MergeTree()
 ORDER BY id;
+
+CREATE TABLE test_alis2
+(
+    id Int32,
+    time UInt64,
+    kind String ALIAS multiIf(id=1, '分类1', '其他分类')
+)
+ENGINE = MergeTree()
+ORDER BY id;
+
+insert into test_alis2 values (1, 1),(2, 2);
+select kind from test_alis2;
