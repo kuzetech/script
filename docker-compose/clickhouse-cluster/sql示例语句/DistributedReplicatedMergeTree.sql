@@ -1,7 +1,7 @@
 CREATE TABLE test_rep_2s2r_local ON CLUSTER my2s2r (
     id UInt64,
     name String
-)ENGINE = ReplicatedMergeTree('/clickhouse/tables/{shard}/test_rep_2s2r_local', '{replica}')
+)ENGINE = ReplicatedMergeTree('/clickhouse/tables/{shard}/{database}/{table}', '{replica}')
 ORDER BY id 
 PARTITION BY id;
 

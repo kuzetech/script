@@ -1,3 +1,23 @@
+-- 参考 https://clickhouse.com/docs/zh/getting-started/example-datasets/star-schema/ 生成数据
+-- 然后通过第二步的 clickhouse-client 读取 tbl 文件写入表中
+-- 如果需要统计插入时间可以使用以下脚本
+
+/**
+#!/bin/bash
+set -e
+
+BEGIN=$(date +%s)
+echo "开始时间是" $(date "+%D %T")
+
+clickhouse-client --query "INSERT INTO lineorder FORMAT CSV" < lineorder.tbl
+
+
+END=`date +%s`
+echo "结束时间是" $(date "+%D %T")
+
+echo "一共用时" $(expr $END - $BEGIN) "秒"
+**/
+
 create database dm on cluster cluster3s;
 
 CREATE TABLE default.user_local ON CLUSTER cluster3s(
