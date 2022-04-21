@@ -6,6 +6,7 @@ select * from settings where name like '%quorum%';
 select * from settings where name = 'select_sequential_consistency';
 
 
+
 SELECT 
   name, 
   total_rows, 

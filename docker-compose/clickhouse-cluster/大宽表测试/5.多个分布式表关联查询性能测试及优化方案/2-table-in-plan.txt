@@ -12,6 +12,10 @@ GROUP BY year
 ORDER BY year ASC;
 " > /dev/null
 
+--该语句会先收集子查询的所有数据到 执行机器上，然后将这些数据发送到 其他分片机器  
+--所有分片机器使用本地 lineorder_local 表跟 发送的数据 进行聚合计算，  
+--执行机器收集其他分片机器上的汇总结果，再在本地执行一次汇总
+
 [clickhouse] 2021.08.17 06:41:30.830262 [ 50 ] {6116550e-811e-4875-b55d-f4b6c5743baa} <Debug> executeQuery: (from [::1]:41298, using production parser)  SELECT toYear(LO_ORDERDATE) AS year, sum(LO_REVENUE - LO_SUPPLYCOST) AS profit FROM sausage.lineorder_all WHERE LO_CUSTKEY GLOBAL IN ( SELECT C_CUSTKEY FROM sausage.customer_all WHERE C_REGION = 'AMERICA' ) GROUP BY year ORDER BY year ASC; 
 [clickhouse] 2021.08.17 06:41:30.833136 [ 50 ] {6116550e-811e-4875-b55d-f4b6c5743baa} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all
 [clickhouse] 2021.08.17 06:41:30.833300 [ 50 ] {6116550e-811e-4875-b55d-f4b6c5743baa} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all

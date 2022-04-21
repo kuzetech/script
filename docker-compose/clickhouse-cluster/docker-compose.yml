@@ -12,6 +12,9 @@ services:
     image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse1
     hostname: clickhouse1
+    depends_on:
+      - zookeeper
+      - clickhouse2
     ports:
       - 9001:9000
     ulimits:
@@ -27,13 +30,16 @@ services:
       - ./conf/node1/config.d:/etc/clickhouse-server/config.d
       - ./conf/node1/users.d:/etc/clickhouse-server/users.d
       - ./conf/node1/copier:/etc/clickhouse-server/copier
+      - ./conf/node1/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   clickhouse2:
     image: yandex/clickhouse-server:21.7.8.58
     container_name: clickhouse2
     hostname: clickhouse2
+    depends_on:
+      - zookeeper
     ports:
-      - 9000:9000
+      - 9002:9000
     ulimits:
       nofile:
         soft: 262144
@@ -46,3 +52,49 @@ services:
       - ./conf/node2/users.xml:/etc/clickhouse-server/users.xml
       - ./conf/node2/config.d:/etc/clickhouse-server/config.d
       - ./conf/node2/users.d:/etc/clickhouse-server/users.d
+      - ./conf/node2/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  clickhouse3:
+    image: yandex/clickhouse-server:21.7.8.58
+    container_name: clickhouse3
+    hostname: clickhouse3
+    depends_on:
+      - zookeeper
+      - clickhouse4
+    ports:
+      - 9003:9000
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+      nproc:
+        soft: 131072
+        hard: 131072
+    volumes:
+      - ./conf/node3/config.xml:/etc/clickhouse-server/config.xml
+      - ./conf/node3/users.xml:/etc/clickhouse-server/users.xml
+      - ./conf/node3/config.d:/etc/clickhouse-server/config.d
+      - ./conf/node3/users.d:/etc/clickhouse-server/users.d
+      - ./conf/node3/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  clickhouse4:
+    image: yandex/clickhouse-server:21.7.8.58
+    container_name: clickhouse4
+    hostname: clickhouse4
+    depends_on:
+      - zookeeper
+    ports:
+      - 9004:9000
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+      nproc:
+        soft: 131072
+        hard: 131072
+    volumes:
+      - ./conf/node4/config.xml:/etc/clickhouse-server/config.xml
+      - ./conf/node4/users.xml:/etc/clickhouse-server/users.xml
+      - ./conf/node4/config.d:/etc/clickhouse-server/config.d
+      - ./conf/node4/users.d:/etc/clickhouse-server/users.d
+      - ./conf/node4/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

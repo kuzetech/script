@@ -32,4 +32,21 @@ ENGINE = MergeTree()
 ORDER BY id;
 
 insert into test_alis2 values (1, 1),(2, 2);
+insert into test_alis2 values (1, 1),(2, 2);
 select kind from test_alis2;
+
+
+-- 测试 ALIAS 能够使用 select 语句
+CREATE TABLE test_alis3
+(
+    id Int32,
+    test String ALIAS 'select 1'
+)
+ENGINE = MergeTree()
+ORDER BY id;
+
+insert into test_alis3 values (1);
+-- 结论是不行，ALIAS 列的值 = 字符串字面值
+
+
+

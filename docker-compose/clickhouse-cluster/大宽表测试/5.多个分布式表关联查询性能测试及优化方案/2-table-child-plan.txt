@@ -17,6 +17,12 @@ GROUP BY year
 ORDER BY year ASC;
 " > /dev/null
 
+--该语句会先收集 c 表的所有数据到 执行机器  
+--然后收集 o 表的所有数据到 执行机器  
+--最外层的 select 语句因为数据都在本地了，所以会自动忽略 GLOBAL 关键词  
+--最终将收集回来的 c表数据 和 o表数据 在 执行机器 上聚合
+
+
 [clickhouse] 2021.08.18 08:02:56.877436 [ 51 ] {422e9c01-0a7d-496c-aec1-c0f74033f323} <Debug> executeQuery: (from [::1]:33144, using production parser)  SELECT toYear(o.LO_ORDERDATE) AS year, sum(o.LO_REVENUE - o.LO_SUPPLYCOST) AS profit FROM ( SELECT LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST, LO_CUSTKEY FROM sausage.lineorder_all ) o GLOBAL ANY left JOIN ( SELECT C_CUSTKEY FROM sausage.customer_all WHERE C_REGION = 'AMERICA' ) c ON c.C_CUSTKEY = o.LO_CUSTKEY WHERE c.C_CUSTKEY != 0 GROUP BY year ORDER BY year ASC; 
 [clickhouse] 2021.08.18 08:02:56.877817 [ 51 ] {422e9c01-0a7d-496c-aec1-c0f74033f323} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
 [clickhouse] 2021.08.18 08:02:56.877993 [ 51 ] {422e9c01-0a7d-496c-aec1-c0f74033f323} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON sausage.customer_all

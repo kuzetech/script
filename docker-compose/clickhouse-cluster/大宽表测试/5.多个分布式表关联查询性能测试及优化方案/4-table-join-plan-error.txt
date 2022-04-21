@@ -56,6 +56,7 @@ ORDER BY year ASC;
 
 [clickhouse] 2021.08.13 07:18:41.376478 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON _temporary_and_external_tables.`_tmp_15fe9a52-9ace-4f4a-95fe-9a529acebf4a`
 [clickhouse] 2021.08.13 07:18:41.376519 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+
 [clickhouse] 2021.08.13 07:18:41.376624 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_PARTKEY, LO_SUPPKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
 [clickhouse] 2021.08.13 07:18:41.376872 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(S_SUPPKEY) ON sausage.supplier_all
 [clickhouse] 2021.08.13 07:18:41.376937 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(S_SUPPKEY) ON sausage.supplier_all
@@ -78,6 +79,8 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.13 07:18:41.407564 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
 [clickhouse] 2021.08.13 07:18:41.407801 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1222/1222 marks by primary key, 1222 marks to read from 5 ranges
 [clickhouse] 2021.08.13 07:18:41.407965 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 10000049 rows with 4 streams
+[clickhouse] 2021.08.13 07:18:45.015544 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Information> executeQuery: Read 10000049 rows, 797.56 MiB in 3.608359631 sec., 2771355 rows/sec., 221.03 MiB/sec.
+[clickhouse] 2021.08.13 07:18:45.015584 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Debug> MemoryTracker: Peak memory usage (for query): 54.72 MiB.
 
 [clickhouse] 2021.08.13 07:18:41.407412 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> executeQuery: (from 192.168.0.38:59332, initial_query_id: c61a337a-035a-4206-8ccc-605e53a9a457, using production parser) SELECT C_CUSTKEY, C_NAME, C_ADDRESS, C_CITY, C_NATION, C_REGION, C_PHONE, C_MKTSEGMENT FROM sausage.customer_local
 [clickhouse] 2021.08.13 07:18:41.407769 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_NAME, C_ADDRESS, C_CITY, C_NATION, C_REGION, C_PHONE, C_MKTSEGMENT) ON sausage.customer_local
@@ -85,18 +88,17 @@ ORDER BY year ASC;
 [clickhouse] 2021.08.13 07:18:41.407878 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Key condition: unknown
 [clickhouse] 2021.08.13 07:18:41.408117 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Selected 5/5 parts by partition key, 5 parts by primary key, 1223/1223 marks by primary key, 1223 marks to read from 5 ranges
 [clickhouse] 2021.08.13 07:18:41.408253 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> sausage.customer_local (3dd3808e-694d-4a82-bdd3-808e694dca82) (SelectExecutor): Reading approx. 9999123 rows with 4 streams
+[clickhouse] 2021.08.13 07:18:45.076587 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Information> executeQuery: Read 9999123 rows, 797.45 MiB in 3.669143165 sec., 2725192 rows/sec., 217.34 MiB/sec.
+[clickhouse] 2021.08.13 07:18:45.076626 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> MemoryTracker: Peak memory usage (for query): 53.60 MiB.
 
 [clickhouse] 2021.08.13 07:18:42.619524 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Debug> MemoryTracker: Current memory usage (for query): 6.00 GiB.
 [clickhouse] 2021.08.13 07:18:43.511399 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Debug> MemoryTracker: Current memory usage (for query): 7.00 GiB.
 [clickhouse] 2021.08.13 07:18:44.380694 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Debug> MemoryTracker: Current memory usage (for query): 8.00 GiB.
-[clickhouse] 2021.08.13 07:18:45.015544 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Information> executeQuery: Read 10000049 rows, 797.56 MiB in 3.608359631 sec., 2771355 rows/sec., 221.03 MiB/sec.
-[clickhouse] 2021.08.13 07:18:45.015584 [ 51 ] {3acaeee0-9076-4bbd-84f9-1a569afedf54} <Debug> MemoryTracker: Peak memory usage (for query): 54.72 MiB.
 
-[clickhouse] 2021.08.13 07:18:45.076587 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Information> executeQuery: Read 9999123 rows, 797.45 MiB in 3.669143165 sec., 2725192 rows/sec., 217.34 MiB/sec.
-[clickhouse] 2021.08.13 07:18:45.076626 [ 589 ] {5461f568-14d3-48df-9c1f-27175dbf78b7} <Debug> MemoryTracker: Peak memory usage (for query): 53.60 MiB.
 
 [clickhouse] 2021.08.13 07:18:45.086007 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_REGION) ON _temporary_and_external_tables.`_tmp_aa6026e4-da33-44a3-aa60-26e4da33f4a3`
 [clickhouse] 2021.08.13 07:18:45.086046 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> InterpreterSelectQuery: FetchColumns -> Complete
+
 [clickhouse] 2021.08.13 07:18:45.086149 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(LO_CUSTKEY, LO_PARTKEY, LO_SUPPKEY, LO_ORDERDATE, LO_REVENUE, LO_SUPPLYCOST) ON sausage.lineorder_all
 [clickhouse] 2021.08.13 07:18:45.086600 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_NAME, C_ADDRESS, C_CITY, C_NATION, C_REGION, C_PHONE, C_MKTSEGMENT) ON sausage.customer_all
 [clickhouse] 2021.08.13 07:18:45.086751 [ 50 ] {c61a337a-035a-4206-8ccc-605e53a9a457} <Trace> ContextAccess (default): Access granted: SELECT(C_CUSTKEY, C_NAME, C_ADDRESS, C_CITY, C_NATION, C_REGION, C_PHONE, C_MKTSEGMENT) ON sausage.customer_all
