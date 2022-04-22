@@ -1,39 +1,55 @@
 
 create table test_funnel (
-    uid         String      COMMENT '用户ID',
+    uid         String      COMMENT '用户',
     eventId     String      COMMENT '事件名称',
+    city        String      COMMENT '事件发生所在城市',
+    region      String      COMMENT '大区名称',
     eventTime   UInt64      COMMENT '事件时间'
 ) engine = Memory;
 
 
 insert into test_funnel values 
-('A', 'login', 20200101),('A', 'view', 20200102),('A', 'buy', 20200103),
-('B', 'login', 20200101),('B', 'view', 20200102),
-('C', 'login', 20200101),('C', 'buy', 20200102),
-('D', 'login', 20200101),('D', 'view', 20200103),('D', 'buy', 20200102),
-('D', 'login', 20200201),('D', 'view', 20200202),('D', 'buy', 20200203);
+('小明', '登录', '厦门', '服务器1', 20200101), ('小明', '升级', '厦门', '服务器1', 20200102), ('小明', '充值', '厦门', '服务器1', 20200103),
+('小东', '登录', '厦门', '服务器2', 20200101), ('小东', '升级', '厦门', '服务器2', 20200102), ('小东', '充值', '厦门', '服务器2', 20200103),
+('小红', '登录', '厦门', '服务器1', 20200101), ('小红', '升级', '厦门', '服务器1', 20200102), ('小红', '升级', '厦门', '服务器1', 20200103), ('小红', '充值', '厦门', '服务器1', 20200103),
+('小张', '登录', '厦门', '服务器1', 20200101), ('小张', '升级', '厦门', '服务器1', 20200103), ('小张', '充值', '厦门', '服务器1', 20200103),
+('小黄', '登录', '北京', '服务器1', 20200101), ('小黄', '升级', '北京', '服务器1', 20200103), ('小黄', '充值', '北京', '服务器1', 20200103),
+('小黑', '登录', '北京', '服务器1', 20200101), ('小黑', '升级', '北京', '服务器1', 20200103);
+('小绿', '登录', '厦门', '服务器1', 20200101);
 
 
--- 求用户在 login - view - buy 路径下的漏斗分析
--- 事件的窗口为3，意味着路径的历时事件最长为3
 
-select 
-    level,
-    total,
-    neighbor(total, -1) as last,
-    if(last = 0, -999, round((total/last), 4)) as rate
-from(
-    SELECT
-        level,
-        count() AS total
-    FROM
-    (
-        select
-            uid,
-            windowFunnel(3)(eventTime, eventId='login', eventId='view', eventId='buy') as level
-        from test_funnel
-        group by uid
-    )
-    GROUP BY level
-    ORDER BY level ASC
-);
+SELECT 
+    level_index,
+    groupArray(uid) as uids,
+    count(1) as current,
+    neighbor(current, 1) as last,
+    if(last = 0, 0, round((current/last), 2)) as rate  -- 保留两位小数
+FROM (
+    SELECT 
+        uid, 
+        arrayWithConstant(level, 1) as levels,  -- 生成一个 item 都是 1 的指定长度的数组 
+        arrayJoin(arrayEnumerate(levels)) as level_index  -- arrayEnumerate 返回数组每个元素的下标
+    FROM (
+        SELECT 
+            uid, 
+            has(groupUniqArray(eventId), '登录') as exist_begin_event,  -- 返回 0 或 1 
+            (windowFunnel(1)(eventTime, eventId= '登录', eventId= '升级', eventId= '充值') + 1) AS level  -- 分析窗口期为1天, +1 是为了兼容开始事件
+        FROM (
+            SELECT * 
+            FROM (
+                SELECT * 
+                FROM test_funnel 
+                WHERE (eventId = '登录' and city = '厦门')  -- 该行是单独的事件过滤 
+                or  eventId = '升级' 
+                or  eventId = '充值' 
+            ) 
+            WHERE region = '服务器1'  -- 该行是全局筛选条件 
+            and eventTime between 20200101 and 20200103  -- 该行是 事件时间筛选区间 
+        ) 
+        GROUP BY uid 
+        having exist_begin_event != 0  -- 排除没有开始事件的用户 
+    ) 
+) 
+group by level_index 
+ORDER BY level_index asc
