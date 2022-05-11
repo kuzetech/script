@@ -1,0 +1,1 @@
+clickhouse-client --send_logs_level=trace --multiquery < /sql/test.sql > >/dev/null
