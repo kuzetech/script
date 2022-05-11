@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -17,7 +20,10 @@
         "type": "dashboard"
       },
       {
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "enable": true,
         "expr": "resets(ClickHouseAsyncMetrics_Uptime{instance=~\"$instance\"}[$__rate_interval])",
         "hide": false,
@@ -36,8 +42,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 14432,
   "graphTooltip": 1,
-  "id": 3,
-  "iteration": 1638932938747,
+  "id": 2,
+  "iteration": 1652174771701,
   "links": [
     {
       "asDropdown": false,
@@ -56,11 +62,112 @@
   "panels": [
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
         "y": 0
+      },
+      "id": 140,
+      "panels": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "mbiEIw_7k"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 1
+          },
+          "id": 141,
+          "maxDataPoints": 200,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.4.4",
+          "targets": [
+            {
+              "builderOptions": {
+                "database": "",
+                "fields": [],
+                "limit": 100,
+                "mode": "list",
+                "table": ""
+              },
+              "datasource": {
+                "type": "grafana-clickhouse-datasource",
+                "uid": "mbiEIw_7k"
+              },
+              "format": 1,
+              "meta": {
+                "builderOptions": {
+                  "database": "",
+                  "fields": [],
+                  "limit": 100,
+                  "mode": "list",
+                  "table": ""
+                }
+              },
+              "queryType": "sql",
+              "rawSql": "select database, table, sum(bytes) as total_bytes, count() as total_parts, sum(rows) as total_rows from system.parts_all where active = 1 and database != 'system' group by database, table",
+              "refId": "A"
+            }
+          ],
+          "title": "Table Info",
+          "transparent": true,
+          "type": "table"
+        }
+      ],
+      "title": "Table",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
       },
       "id": 136,
       "panels": [
@@ -70,7 +177,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Total amount of memory (bytes) allocated by the server.",
           "fill": 0,
@@ -102,7 +209,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -158,6 +265,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Number of connections to TCP server (clients with native interface), also included server-server distributed query connections. \nNumber of connections to HTTP server",
           "fill": 0,
           "fillGradient": 0,
@@ -188,7 +299,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -200,7 +311,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "ClickHouseMetrics_TCPConnection{instance=~\"$instance\"}",
@@ -211,7 +322,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "ClickHouseMetrics_HTTPConnection{instance=~\"$instance\"}",
@@ -223,7 +334,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "ClickHouseMetrics_InterserverConnection{instance=~\"$instance\"}",
@@ -234,7 +345,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "ClickHouseMetrics_MySQLConnection{instance=~\"$instance\"}",
@@ -245,7 +356,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "ClickHouseMetrics_PostgreSQLConnection{instance=~\"$instance\"}",
@@ -293,7 +404,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": {
         "type": "Prometheus"
       },
@@ -301,995 +412,552 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 2
       },
       "id": 12,
-      "panels": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of queries to be interpreted and potentially executed. Does not include queries that failed to parse or were rejected due to AST size limits, quota limits or limits on the number of simultaneously running queries. May include internal queries initiated by ClickHouse itself. Does not count subqueries.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 2
+          },
+          "hiddenSeries": false,
+          "id": 2,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time(irate(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
+              "interval": "",
+              "legendFormat": "{{instance}}-queries",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "max_over_time(irate(ClickHouseProfileEvents_FailedQuery{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
+              "interval": "",
+              "legendFormat": "{{instance}}-failed queries",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Queries",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "reqps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Avg queries latencies",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 2
+          },
+          "hiddenSeries": false,
+          "id": 8,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{instance}}-all",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{instance}}-insert",
+              "refId": "B"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{instance}}-select",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Query spend (avg)",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "µs",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": 1
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Same as Queries, but only for SELECT queries.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 10
+          },
+          "hiddenSeries": false,
+          "id": 3,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}-all",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedSelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}-failed",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "SELECT queries",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "reqps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Same as Queries, but only for INSERT queries.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 10
+          },
+          "hiddenSeries": false,
+          "id": 4,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}-all",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedInsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "{{instance}}-failed",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "INSERT queries",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "reqps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of queries that are stopped and waiting due to 'priority' setting.\nNumber of times when memory limit exceeded for query.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 18
+          },
+          "hiddenSeries": false,
+          "id": 86,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseMetrics_QueryPreempted{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}-preemted",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "{{instance}}-memory-limit",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Query preemted and memory limit",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "reqps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        }
+      ],
       "title": "Queries",
       "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of queries to be interpreted and potentially executed. Does not include queries that failed to parse or were rejected due to AST size limits, quota limits or limits on the number of simultaneously running queries. May include internal queries initiated by ClickHouse itself. Does not count subqueries.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 2
-      },
-      "hiddenSeries": false,
-      "id": 2,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time(irate(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
-          "interval": "",
-          "legendFormat": "{{instance}}-queries",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "max_over_time(irate(ClickHouseProfileEvents_FailedQuery{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
-          "interval": "",
-          "legendFormat": "{{instance}}-failed queries",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Queries",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "reqps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Avg queries latencies",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 2
-      },
-      "hiddenSeries": false,
-      "id": 8,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null as zero",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[$__rate_interval])",
-          "interval": "",
-          "legendFormat": "{{instance}}-all",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[$__rate_interval])",
-          "interval": "",
-          "legendFormat": "{{instance}}-insert",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[$__rate_interval])",
-          "interval": "",
-          "legendFormat": "{{instance}}-select",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Query spend (avg)",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "µs",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 1
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Same as Queries, but only for SELECT queries.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 3,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}-all",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedSelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}-failed",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "SELECT queries",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "reqps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Same as Queries, but only for INSERT queries.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 10
-      },
-      "hiddenSeries": false,
-      "id": 4,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}-all",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedInsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{instance}}-failed",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "INSERT queries",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "reqps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of queries that are stopped and waiting due to 'priority' setting.\nNumber of times when memory limit exceeded for query.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 18
-      },
-      "hiddenSeries": false,
-      "id": 86,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseMetrics_QueryPreempted{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}-preemted",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{instance}}-memory-limit",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Query preemted and memory limit",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "reqps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "collapsed": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 26
-      },
-      "id": 64,
-      "panels": [],
-      "title": "Insert",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Number of rows INSERTed to all tables.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 27
-      },
-      "hiddenSeries": false,
-      "id": 62,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertedRows{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Inserted rows",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Number of bytes (uncompressed; for columns as they stored in memory) INSERTed to all tables.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 27
-      },
-      "hiddenSeries": false,
-      "id": 65,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertedBytes{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Inserted bytes",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "binBps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of times the INSERT of a block to a MergeTree table was throttled due to high number of active data parts for partition.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 35
-      },
-      "hiddenSeries": false,
-      "id": 66,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_DelayedInserts{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Delayed inserts query",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of times the INSERT of a block to a MergeTree table was rejected with 'Too many parts' exception due to high number of active data parts for partition.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 35
-      },
-      "hiddenSeries": false,
-      "id": 67,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_RejectedInserts{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Rejected insert blocks",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Total number of milliseconds spent while the INSERT of a block to a MergeTree table was throttled due to high number of active data parts for partition.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 43
-      },
-      "hiddenSeries": false,
-      "id": 69,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null as zero",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "increase(ClickHouseProfileEvents_DelayedInsertsMilliseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_DelayedInserts{instance=~\"$instance\"}[$__rate_interval])",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Delayed inserts blocks (avg)",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "µs",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": 1
-      }
     },
     {
       "collapsed": true,
@@ -1300,7 +968,481 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 51
+        "y": 3
+      },
+      "id": 64,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Number of rows INSERTed to all tables.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 3
+          },
+          "hiddenSeries": false,
+          "id": 62,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "rate(ClickHouseProfileEvents_InsertedRows[5m])",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Inserted rows",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Number of bytes (uncompressed; for columns as they stored in memory) INSERTed to all tables.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 3
+          },
+          "hiddenSeries": false,
+          "id": 65,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertedBytes{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Inserted bytes",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "binBps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of times the INSERT of a block to a MergeTree table was throttled due to high number of active data parts for partition.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 11
+          },
+          "hiddenSeries": false,
+          "id": 66,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_DelayedInserts{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Delayed inserts query",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of times the INSERT of a block to a MergeTree table was rejected with 'Too many parts' exception due to high number of active data parts for partition.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 11
+          },
+          "hiddenSeries": false,
+          "id": 67,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_RejectedInserts{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Rejected insert blocks",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Total number of milliseconds spent while the INSERT of a block to a MergeTree table was throttled due to high number of active data parts for partition.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 19
+          },
+          "hiddenSeries": false,
+          "id": 69,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null as zero",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "increase(ClickHouseProfileEvents_DelayedInsertsMilliseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_DelayedInserts{instance=~\"$instance\"}[$__rate_interval])",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Delayed inserts blocks (avg)",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "µs",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": 1
+          }
+        }
+      ],
+      "title": "Insert",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "datasource": {
+        "type": "Prometheus"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
       },
       "id": 125,
       "panels": [
@@ -1310,7 +1452,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of data parts selected to read from a MergeTree table.",
           "fill": 0,
@@ -1319,7 +1461,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 4
           },
           "hiddenSeries": false,
           "id": 126,
@@ -1342,7 +1484,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1399,7 +1541,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of (non-adjacent) ranges in all data parts selected to read from a MergeTree table.",
           "fill": 0,
@@ -1408,7 +1550,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 4
           },
           "hiddenSeries": false,
           "id": 127,
@@ -1431,7 +1573,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1488,7 +1630,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of marks (index granules) selected to read from a MergeTree table.",
           "fill": 0,
@@ -1497,7 +1639,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 68
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 128,
@@ -1520,7 +1662,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1577,7 +1719,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of rows SELECTed from all tables.",
           "fill": 0,
@@ -1586,7 +1728,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 68
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 129,
@@ -1609,7 +1751,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1666,7 +1808,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of bytes (uncompressed; for columns as they stored in memory) SELECTed from all tables.",
           "fill": 0,
@@ -1675,7 +1817,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 76
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 130,
@@ -1698,7 +1840,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1755,11 +1897,15 @@
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 52
+        "y": 5
       },
       "id": 138,
       "panels": [
@@ -1769,7 +1915,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "由于读取速度慢而降低查询处理线程数的次数",
           "fill": 0,
@@ -1778,7 +1924,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 85
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 72,
@@ -1801,7 +1947,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1858,7 +2004,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of reads from a file that were slow. This indicate system overload. Thresholds are controlled by read_backoff_* settings.",
           "fill": 0,
@@ -1867,7 +2013,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 85
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 71,
@@ -1890,7 +2036,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1954,7 +2100,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 6
       },
       "id": 17,
       "panels": [
@@ -1963,6 +2109,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Number of times the 'lseek' function was called.\nlseek 函数的作用是设置读取文件的起始读取位置",
           "fill": 0,
           "fillGradient": 0,
@@ -1970,7 +2120,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 94
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 20,
@@ -1993,7 +2143,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2005,7 +2155,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_Seek{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2063,7 +2213,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 94
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 19,
@@ -2086,7 +2236,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2142,6 +2292,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Number of reads (read/pread) from a file descriptor. Does not include sockets.",
           "fill": 0,
           "fillGradient": 0,
@@ -2149,7 +2303,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 102
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 22,
@@ -2172,7 +2326,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2184,7 +2338,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReadBufferFromFileDescriptorRead{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2195,7 +2349,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReadBufferFromFileDescriptorReadFailed{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2243,6 +2397,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Number of writes (write/pwrite) to a file descriptor. Does not include sockets.",
           "fill": 0,
           "fillGradient": 0,
@@ -2250,7 +2408,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 102
+            "y": 14
           },
           "hiddenSeries": false,
           "id": 23,
@@ -2273,7 +2431,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2285,7 +2443,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_WriteBufferFromFileDescriptorWrite{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2296,7 +2454,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_WriteBufferFromFileDescriptorWriteFailed{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2354,7 +2512,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 110
+            "y": 22
           },
           "hiddenSeries": false,
           "id": 21,
@@ -2377,7 +2535,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2443,7 +2601,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 110
+            "y": 22
           },
           "hiddenSeries": false,
           "id": 26,
@@ -2466,7 +2624,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2522,6 +2680,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "*``compressed``: Number of bytes (the number of bytes before decompression) read from compressed sources (files, network).\n\n*``uncompressed``: Number of uncompressed bytes (the number of bytes after decompression) read from compressed sources (files, network).",
           "fill": 0,
           "fillGradient": 0,
@@ -2529,7 +2691,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 118
+            "y": 30
           },
           "hiddenSeries": false,
           "id": 51,
@@ -2554,7 +2716,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2566,7 +2728,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReadCompressedBytes{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2577,7 +2739,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": true,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_CompressedReadBufferBytes{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2625,6 +2787,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Number of compressed blocks (the blocks of data that are compressed independent of each other) read from compressed sources (files, network).",
           "fill": 0,
           "fillGradient": 0,
@@ -2632,7 +2798,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 118
+            "y": 30
           },
           "hiddenSeries": false,
           "id": 52,
@@ -2655,7 +2821,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2667,7 +2833,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_CompressedReadBufferBlocks{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -2715,7 +2881,7 @@
       "type": "row"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "datasource": {
         "type": "Prometheus"
       },
@@ -2723,471 +2889,480 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 54
+        "y": 7
       },
       "id": 56,
-      "panels": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of Replicated tables that are currently in readonly state due to re-initialization after ZooKeeper session loss or due to startup without ZooKeeper configured.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 7
+          },
+          "hiddenSeries": false,
+          "id": 74,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "ClickHouseMetrics_ReadonlyReplica",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Abnormal replica",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Number of times we prefer to download already merged part from replica of ReplicatedMergeTree table instead of performing a merge ourself (usually we prefer doing a merge ourself to save network traffic). This happens when we have not all source parts to perform a merge or when the data part is old enough.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 7
+          },
+          "hiddenSeries": false,
+          "id": 60,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFetchesOfMerged{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Replicated part fetches instead of merged",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "description": "Number of times a data part was downloaded from replica of a ReplicatedMergeTree table.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 57,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFetches{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            },
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "exemplar": true,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFailedFetches{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "hide": false,
+              "interval": "",
+              "legendFormat": "{{instance}}-failed",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Replicated part fetches",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Number of times a data part that we wanted doesn't exist on any replica (even on replicas that are offline right now). That data parts are definitely lost. This is normal due to asynchronous replication (if quorum inserts were not enabled), when the replica on which the data part was written was failed and when it became online after fail it doesn't contain that data part.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
+          "hiddenSeries": false,
+          "id": 61,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedDataLoss{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Replicated part data loss",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "description": "Number of times data parts of ReplicatedMergeTree tables were successfully merged.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 23
+          },
+          "hiddenSeries": false,
+          "id": 59,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "maxDataPoints": 200,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.4.4",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "exemplar": false,
+              "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartMerges{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+              "interval": "",
+              "legendFormat": "{{instance}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Replicated part successfully merges times",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:176",
+              "format": "cps",
+              "label": "",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:177",
+              "format": "short",
+              "logBase": 1,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        }
+      ],
       "title": "Replicas",
       "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of Replicated tables that are currently in readonly state due to re-initialization after ZooKeeper session loss or due to startup without ZooKeeper configured.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 55
-      },
-      "hiddenSeries": false,
-      "id": 74,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "ClickHouseMetrics_ReadonlyReplica",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Abnormal replica",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Number of times we prefer to download already merged part from replica of ReplicatedMergeTree table instead of performing a merge ourself (usually we prefer doing a merge ourself to save network traffic). This happens when we have not all source parts to perform a merge or when the data part is old enough.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 55
-      },
-      "hiddenSeries": false,
-      "id": 60,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFetchesOfMerged{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Replicated part fetches instead of merged",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Number of times a data part was downloaded from replica of a ReplicatedMergeTree table.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 63
-      },
-      "hiddenSeries": false,
-      "id": 57,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFetches{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "ridIFOh7z"
-          },
-          "exemplar": true,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartFailedFetches{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{instance}}-failed",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Replicated part fetches",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Number of times a data part that we wanted doesn't exist on any replica (even on replicas that are offline right now). That data parts are definitely lost. This is normal due to asynchronous replication (if quorum inserts were not enabled), when the replica on which the data part was written was failed and when it became online after fail it doesn't contain that data part.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 63
-      },
-      "hiddenSeries": false,
-      "id": 61,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedDataLoss{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Replicated part data loss",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "type": "Prometheus"
-      },
-      "description": "Number of times data parts of ReplicatedMergeTree tables were successfully merged.",
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 71
-      },
-      "hiddenSeries": false,
-      "id": 59,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "maxDataPoints": 200,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.3.0",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": false,
-          "expr": "max_over_time( (irate(ClickHouseProfileEvents_ReplicatedPartMerges{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Replicated part successfully merges times",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "transparent": true,
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:176",
-          "format": "cps",
-          "label": "",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:177",
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
     },
     {
       "collapsed": true,
@@ -3198,7 +3373,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 8
       },
       "id": 76,
       "panels": [
@@ -3208,7 +3383,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of launched background merges.",
           "fill": 0,
@@ -3217,7 +3392,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 152
+            "y": 8
           },
           "hiddenSeries": false,
           "id": 77,
@@ -3240,7 +3415,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3296,6 +3471,10 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "description": "Rows read for background merges. This is the number of rows before merge.",
           "fill": 0,
           "fillGradient": 0,
@@ -3303,7 +3482,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 152
+            "y": 8
           },
           "hiddenSeries": false,
           "id": 78,
@@ -3326,7 +3505,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3338,7 +3517,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "ridIFOh7z"
+                "uid": "${datasource}"
               },
               "exemplar": false,
               "expr": "max_over_time( (irate(ClickHouseProfileEvents_MergedRows{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
@@ -3387,7 +3566,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Uncompressed bytes (for columns as they stored in memory) that was read for background merges. This is the number before merge.",
           "fill": 0,
@@ -3396,7 +3575,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 160
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 79,
@@ -3419,7 +3598,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3476,7 +3655,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "description": "Avg merge duration",
           "fill": 0,
@@ -3485,7 +3665,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 160
+            "y": 16
           },
           "hiddenSeries": false,
           "id": 80,
@@ -3508,7 +3688,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3518,6 +3698,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": false,
               "expr": "increase(ClickHouseProfileEvents_MergesTimeMilliseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_Merge{instance=~\"$instance\"}[$__rate_interval])",
               "interval": "",
@@ -3566,7 +3750,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of rows INSERTed to MergeTree tables.",
           "fill": 0,
@@ -3575,7 +3759,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 168
+            "y": 24
           },
           "hiddenSeries": false,
           "id": 81,
@@ -3598,7 +3782,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3655,7 +3839,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of blocks INSERTed to MergeTree tables. Each block forms a data part of level zero.",
           "fill": 0,
@@ -3664,7 +3848,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 168
+            "y": 24
           },
           "hiddenSeries": false,
           "id": 82,
@@ -3687,7 +3871,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3744,7 +3928,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Uncompressed bytes (for columns as they stored in memory) INSERTed to MergeTree tables.",
           "fill": 0,
@@ -3753,7 +3937,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 176
+            "y": 32
           },
           "hiddenSeries": false,
           "id": 83,
@@ -3776,7 +3960,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3833,7 +4017,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Bytes written to filesystem for data INSERTed to MergeTree tables.",
           "fill": 0,
@@ -3842,7 +4026,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 176
+            "y": 32
           },
           "hiddenSeries": false,
           "id": 84,
@@ -3865,7 +4049,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -3922,7 +4106,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Disk space reserved for currently running background merges. It is slightly more than the total size of currently merging parts.",
           "fill": 0,
@@ -3931,7 +4115,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 184
+            "y": 40
           },
           "hiddenSeries": false,
           "id": 123,
@@ -3954,7 +4138,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4018,7 +4202,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 9
       },
       "id": 92,
       "panels": [
@@ -4028,7 +4212,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -4037,7 +4221,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 193
+            "y": 9
           },
           "hiddenSeries": false,
           "id": 102,
@@ -4060,7 +4244,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4117,7 +4301,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -4126,7 +4310,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 193
+            "y": 9
           },
           "hiddenSeries": false,
           "id": 103,
@@ -4149,7 +4333,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4206,7 +4390,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -4215,7 +4399,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 201
+            "y": 17
           },
           "hiddenSeries": false,
           "id": 104,
@@ -4238,7 +4422,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4295,7 +4479,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -4304,7 +4488,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 201
+            "y": 17
           },
           "hiddenSeries": false,
           "id": 105,
@@ -4327,7 +4511,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4391,7 +4575,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 81
+        "y": 10
       },
       "id": 90,
       "panels": [
@@ -4401,7 +4585,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "The part is generating now, it is not in data_parts list.",
           "fill": 0,
@@ -4410,7 +4594,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 210
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 114,
@@ -4433,7 +4617,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4490,7 +4674,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "The part is in data_parts, but not used for SELECTs.",
           "fill": 0,
@@ -4499,7 +4683,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 210
+            "y": 10
           },
           "hiddenSeries": false,
           "id": 115,
@@ -4522,7 +4706,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4579,7 +4763,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "The part is in data_parts, but not used for SELECTs.",
           "fill": 0,
@@ -4588,7 +4772,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 218
+            "y": 18
           },
           "hiddenSeries": false,
           "id": 116,
@@ -4611,7 +4795,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4668,7 +4852,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Not active data part, but could be used by only current SELECTs, could be deleted after SELECTs finishes.",
           "fill": 0,
@@ -4677,7 +4861,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 218
+            "y": 18
           },
           "hiddenSeries": false,
           "id": 117,
@@ -4700,7 +4884,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4757,7 +4941,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Not active data part with identity refcounter, it is deleting right now by a cleaner.",
           "fill": 0,
@@ -4766,7 +4950,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 226
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 118,
@@ -4789,7 +4973,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4846,7 +5030,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Part was moved to another disk and should be deleted in own destructor.",
           "fill": 0,
@@ -4855,7 +5039,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 226
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 119,
@@ -4878,7 +5062,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4935,7 +5119,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Wide 类型存储的 parts 数量",
           "fill": 0,
@@ -4944,7 +5128,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 234
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 120,
@@ -4967,7 +5151,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5024,7 +5208,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Compac 类型存储的 parts 数量",
           "fill": 0,
@@ -5033,7 +5217,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 234
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 122,
@@ -5056,7 +5240,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5113,7 +5297,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "In-memory parts.",
           "fill": 0,
@@ -5122,7 +5306,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 242
+            "y": 42
           },
           "hiddenSeries": false,
           "id": 121,
@@ -5145,7 +5329,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5202,290 +5386,6 @@
     },
     {
       "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 82
-      },
-      "id": 140,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 251
-          },
-          "hiddenSeries": false,
-          "id": 141,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.3.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "Prometheus"
-              },
-              "exemplar": false,
-              "expr": "clickhouse_table_parts_bytes{database=~\"$database\", table=~\"$table\"}",
-              "interval": "",
-              "intervalFactor": 3,
-              "legendFormat": "{{database}}.{{table}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Table Size",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "bytes",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 12,
-            "y": 251
-          },
-          "hiddenSeries": false,
-          "id": 142,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.3.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "Prometheus"
-              },
-              "exemplar": false,
-              "expr": "clickhouse_table_parts_count{database=~\"$database\", table=~\"$table\"}",
-              "interval": "",
-              "intervalFactor": 3,
-              "legendFormat": "{{database}}.{{table}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Table Partition Count",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "description": "",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 258
-          },
-          "hiddenSeries": false,
-          "id": 143,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.3.0",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "Prometheus"
-              },
-              "exemplar": false,
-              "expr": "clickhouse_table_parts_rows{database=~\"$database\", table=~\"$table\"}",
-              "interval": "",
-              "intervalFactor": 3,
-              "legendFormat": "{{database}}.{{table}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Table Row Count",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        }
-      ],
-      "title": "Table",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
       "datasource": {
         "type": "Prometheus"
       },
@@ -5493,7 +5393,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 11
       },
       "id": 94,
       "panels": [
@@ -5503,7 +5403,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
           },
           "description": "Number of connections to remote servers sending data that was INSERTed into Distributed tables. Both synchronous and asynchronous mode.",
           "fill": 0,
@@ -5512,7 +5413,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 266
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 112,
@@ -5535,7 +5436,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5592,7 +5493,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of pending files to process for asynchronous insertion into Distributed tables. Number of files for every shard is summed.",
           "fill": 0,
@@ -5601,7 +5502,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 266
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 113,
@@ -5624,7 +5525,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5681,7 +5582,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of times the INSERT of a block to a Distributed table was throttled due to high number of pending bytes.",
           "fill": 0,
@@ -5690,7 +5591,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 274
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 106,
@@ -5713,7 +5614,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5770,7 +5671,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of times the INSERT of a block to a Distributed table was rejected with 'Too many bytes' exception due to high number of pending bytes.",
           "fill": 0,
@@ -5779,7 +5680,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 274
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 107,
@@ -5802,7 +5703,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5859,7 +5760,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Total number of milliseconds spent while the INSERT of a block to a Distributed table was throttled due to high number of pending bytes.",
           "fill": 0,
@@ -5868,7 +5769,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 282
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 108,
@@ -5891,7 +5792,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -5949,7 +5850,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Total count when distributed connection fails with retry",
           "fill": 0,
@@ -5958,7 +5859,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 282
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 109,
@@ -5981,7 +5882,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6038,7 +5939,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Total count when distributed connection fails after all retries finished",
           "fill": 0,
@@ -6047,7 +5948,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 290
+            "y": 36
           },
           "hiddenSeries": false,
           "id": 110,
@@ -6070,7 +5971,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6127,7 +6028,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -6136,7 +6037,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 290
+            "y": 36
           },
           "hiddenSeries": false,
           "id": 111,
@@ -6159,7 +6060,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6223,7 +6124,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 84
+        "y": 12
       },
       "id": 88,
       "panels": [
@@ -6233,7 +6134,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "type": "prometheus",
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundProcessingPool (merges, mutations, or replication queue bookkeeping)",
           "fill": 0,
@@ -6242,7 +6144,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 299
+            "y": 45
           },
           "hiddenSeries": false,
           "id": 95,
@@ -6265,7 +6167,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6275,6 +6177,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
               "exemplar": false,
               "expr": "ClickHouseMetrics_BackgroundPoolTask{instance=~\"$instance\"}",
               "interval": "",
@@ -6322,7 +6228,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundFetchesPool",
           "fill": 0,
@@ -6331,7 +6237,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 299
+            "y": 45
           },
           "hiddenSeries": false,
           "id": 96,
@@ -6354,7 +6260,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6411,7 +6317,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundProcessingPool for moves",
           "fill": 0,
@@ -6420,7 +6326,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 307
+            "y": 53
           },
           "hiddenSeries": false,
           "id": 97,
@@ -6443,7 +6349,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6500,7 +6406,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundSchedulePool. This pool is used for periodic ReplicatedMergeTree tasks, like cleaning old data parts, altering data parts, replica re-initialization, etc.",
           "fill": 0,
@@ -6509,7 +6415,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 307
+            "y": 53
           },
           "hiddenSeries": false,
           "id": 98,
@@ -6532,7 +6438,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6589,7 +6495,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundBufferFlushSchedulePool. This pool is used for periodic Buffer flushes",
           "fill": 0,
@@ -6598,7 +6504,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 315
+            "y": 61
           },
           "hiddenSeries": false,
           "id": 99,
@@ -6621,7 +6527,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6678,7 +6584,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundDistributedSchedulePool. This pool is used for distributed sends that is done in background.",
           "fill": 0,
@@ -6687,7 +6593,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 315
+            "y": 61
           },
           "hiddenSeries": false,
           "id": 100,
@@ -6710,7 +6616,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6767,7 +6673,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of active tasks in BackgroundProcessingPool for message streaming",
           "fill": 0,
@@ -6776,7 +6682,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 323
+            "y": 69
           },
           "hiddenSeries": false,
           "id": 101,
@@ -6799,7 +6705,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6863,7 +6769,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 85
+        "y": 13
       },
       "id": 28,
       "panels": [
@@ -6873,7 +6779,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -6882,7 +6788,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 300
+            "y": 78
           },
           "hiddenSeries": false,
           "id": 30,
@@ -6905,7 +6811,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -6962,7 +6868,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -6971,7 +6877,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 300
+            "y": 78
           },
           "hiddenSeries": false,
           "id": 31,
@@ -6994,7 +6900,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7051,7 +6957,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7060,7 +6966,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 308
+            "y": 86
           },
           "hiddenSeries": false,
           "id": 32,
@@ -7083,7 +6989,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7140,7 +7046,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7149,7 +7055,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 308
+            "y": 86
           },
           "hiddenSeries": false,
           "id": 33,
@@ -7172,7 +7078,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7229,7 +7135,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7238,7 +7144,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 316
+            "y": 94
           },
           "hiddenSeries": false,
           "id": 34,
@@ -7261,7 +7167,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7318,7 +7224,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7327,7 +7233,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 316
+            "y": 94
           },
           "hiddenSeries": false,
           "id": 35,
@@ -7350,7 +7256,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7407,7 +7313,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7416,7 +7322,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 324
+            "y": 102
           },
           "hiddenSeries": false,
           "id": 36,
@@ -7439,7 +7345,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7496,7 +7402,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7505,7 +7411,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 324
+            "y": 102
           },
           "hiddenSeries": false,
           "id": 37,
@@ -7528,7 +7434,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7585,7 +7491,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7594,7 +7500,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 332
+            "y": 110
           },
           "hiddenSeries": false,
           "id": 38,
@@ -7617,7 +7523,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7674,7 +7580,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7683,7 +7589,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 332
+            "y": 110
           },
           "hiddenSeries": false,
           "id": 39,
@@ -7706,7 +7612,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7763,7 +7669,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7772,7 +7678,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 340
+            "y": 118
           },
           "hiddenSeries": false,
           "id": 40,
@@ -7795,7 +7701,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7852,7 +7758,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7861,7 +7767,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 340
+            "y": 118
           },
           "hiddenSeries": false,
           "id": 41,
@@ -7884,7 +7790,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -7941,7 +7847,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -7950,7 +7856,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 348
+            "y": 126
           },
           "hiddenSeries": false,
           "id": 42,
@@ -7973,7 +7879,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8030,7 +7936,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -8039,7 +7945,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 348
+            "y": 126
           },
           "hiddenSeries": false,
           "id": 43,
@@ -8062,7 +7968,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8119,7 +8025,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -8128,7 +8034,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 356
+            "y": 134
           },
           "hiddenSeries": false,
           "id": 46,
@@ -8151,7 +8057,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8208,7 +8114,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "",
           "fill": 0,
@@ -8217,7 +8123,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 356
+            "y": 134
           },
           "hiddenSeries": false,
           "id": 45,
@@ -8240,7 +8146,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8297,7 +8203,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of sessions (connections) to ZooKeeper. Should be no more than one, because using more than one connection to ZooKeeper may lead to bugs due to lack of linearizability (stale reads) that ZooKeeper consistency model allows.",
           "fill": 0,
@@ -8306,7 +8212,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 364
+            "y": 142
           },
           "hiddenSeries": false,
           "id": 48,
@@ -8329,7 +8235,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8386,7 +8292,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of ephemeral nodes hold in ZooKeeper.",
           "fill": 0,
@@ -8395,7 +8301,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 364
+            "y": 142
           },
           "hiddenSeries": false,
           "id": 47,
@@ -8418,7 +8324,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8475,7 +8381,8 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
           },
           "description": "Number of watches (event subscriptions) in ZooKeeper.",
           "fill": 0,
@@ -8484,7 +8391,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 372
+            "y": 150
           },
           "hiddenSeries": false,
           "id": 50,
@@ -8507,7 +8414,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8564,7 +8471,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of requests to ZooKeeper in fly.",
           "fill": 0,
@@ -8573,7 +8480,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 372
+            "y": 150
           },
           "hiddenSeries": false,
           "id": 49,
@@ -8596,7 +8503,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8653,7 +8560,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "Prometheus"
+            "uid": "${datasource}"
           },
           "description": "Number of times an error happened while trying to remove ephemeral node. This is not an issue, because our implementation of ZooKeeper library guarantee that the session will expire and the node will be removed.",
           "fill": 0,
@@ -8662,7 +8569,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 380
+            "y": 158
           },
           "hiddenSeries": false,
           "id": 70,
@@ -8685,7 +8592,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.3.0",
+          "pluginVersion": "8.4.4",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -8741,8 +8648,8 @@
       "type": "row"
     }
   ],
-  "refresh": "",
-  "schemaVersion": 33,
+  "refresh": "30s",
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [
     "ClickHouse",
@@ -8753,8 +8660,8 @@
       {
         "current": {
           "selected": false,
-          "text": "No data sources found",
-          "value": ""
+          "text": "Prometheus",
+          "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
@@ -8762,7 +8669,7 @@
         "multi": false,
         "name": "datasource",
         "options": [],
-        "query": "Prometheus",
+        "query": "prometheus",
         "queryValue": "",
         "refresh": 1,
         "regex": "",
@@ -8771,12 +8678,17 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
-          "type": "Prometheus"
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
         },
         "definition": "label_values(ClickHouseAsyncMetrics_Uptime, instance)",
         "hide": 0,
@@ -8787,7 +8699,7 @@
         "options": [],
         "query": {
           "query": "label_values(ClickHouseAsyncMetrics_Uptime, instance)",
-          "refId": "Prometheus-instance-Variable-Query"
+          "refId": "StandardVariableQuery"
         },
         "refresh": 1,
         "regex": "",
@@ -8808,6 +8720,10 @@
             "$__all"
           ]
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "definition": "label_values(clickhouse_tcp_connection, instance)",
         "hide": 0,
         "includeAll": true,
@@ -8823,7 +8739,10 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query"
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "current": {
@@ -8834,6 +8753,10 @@
           "value": [
             "$__all"
           ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
         },
         "definition": "label_values(clickhouse_table_parts_count, database)",
         "hide": 0,
@@ -8850,7 +8773,10 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query"
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       },
       {
         "current": {
@@ -8861,6 +8787,10 @@
           "value": [
             "$__all"
           ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
         },
         "definition": "label_values(clickhouse_table_parts_count, table)",
         "hide": 0,
@@ -8877,7 +8807,10 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
-        "type": "query"
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -8889,6 +8822,6 @@
   "timezone": "",
   "title": "ClickHouse_InterServer_Metrics",
   "uid": "K2llj9G7z22",
-  "version": 14,
+  "version": 30,
   "weekStart": ""
 }

@@ -27,9 +27,10 @@ services:
       - 8123:8123
       - 9000:9000
       - 9004:9004
+      - 9363:9363
   
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.35.0
     container_name: prometheus
     hostname: prometheus
     depends_on:
