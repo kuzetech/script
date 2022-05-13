@@ -43,7 +43,7 @@
   "gnetId": 14432,
   "graphTooltip": 1,
   "id": 2,
-  "iteration": 1652174771701,
+  "iteration": 1652421775522,
   "links": [
     {
       "asDropdown": false,
@@ -61,7 +61,7 @@
   "liveNow": false,
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
@@ -73,92 +73,93 @@
         "y": 0
       },
       "id": 140,
-      "panels": [
-        {
-          "datasource": {
-            "type": "grafana-clickhouse-datasource",
-            "uid": "mbiEIw_7k"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "align": "auto",
-                "displayMode": "auto"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 1
-          },
-          "id": 141,
-          "maxDataPoints": 200,
-          "options": {
-            "footer": {
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "8.4.4",
-          "targets": [
-            {
-              "builderOptions": {
-                "database": "",
-                "fields": [],
-                "limit": 100,
-                "mode": "list",
-                "table": ""
-              },
-              "datasource": {
-                "type": "grafana-clickhouse-datasource",
-                "uid": "mbiEIw_7k"
-              },
-              "format": 1,
-              "meta": {
-                "builderOptions": {
-                  "database": "",
-                  "fields": [],
-                  "limit": 100,
-                  "mode": "list",
-                  "table": ""
-                }
-              },
-              "queryType": "sql",
-              "rawSql": "select database, table, sum(bytes) as total_bytes, count() as total_parts, sum(rows) as total_rows from system.parts_all where active = 1 and database != 'system' group by database, table",
-              "refId": "A"
-            }
-          ],
-          "title": "Table Info",
-          "transparent": true,
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Table",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "mbiEIw_7k"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 141,
+      "maxDataPoints": 200,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "8.5.2",
+      "targets": [
+        {
+          "builderOptions": {
+            "database": "",
+            "fields": [],
+            "limit": 100,
+            "mode": "list",
+            "table": ""
+          },
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "mbiEIw_7k"
+          },
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "database": "",
+              "fields": [],
+              "limit": 100,
+              "mode": "list",
+              "table": ""
+            }
+          },
+          "queryType": "sql",
+          "rawSql": "select database, table, sum(bytes) as total_bytes, count() as total_parts, sum(rows) as total_rows from system.parts_all where active = 1 and database != 'system' group by database, table",
+          "refId": "A"
+        }
+      ],
+      "title": "Table Info",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
@@ -167,244 +168,243 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 8
       },
       "id": 136,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "uid": "${datasource}"
-          },
-          "description": "Total amount of memory (bytes) allocated by the server.",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 1
-          },
-          "hiddenSeries": false,
-          "id": 29,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "exemplar": false,
-              "expr": "ClickHouseMetrics_MemoryTracking{instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{instance}}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Memory",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "bytes",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Number of connections to TCP server (clients with native interface), also included server-server distributed query connections. \nNumber of connections to HTTP server",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 1
-          },
-          "hiddenSeries": false,
-          "id": 73,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "ClickHouseMetrics_TCPConnection{instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{instance}}-tcp",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "ClickHouseMetrics_HTTPConnection{instance=~\"$instance\"}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{instance}}-http",
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "ClickHouseMetrics_InterserverConnection{instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{instance}}-interserver",
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "ClickHouseMetrics_MySQLConnection{instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{instance}}-mysql",
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "ClickHouseMetrics_PostgreSQLConnection{instance=~\"$instance\"}",
-              "interval": "",
-              "legendFormat": "{{instance}}-postgre sql",
-              "refId": "E"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Connections",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        }
-      ],
+      "panels": [],
       "title": "Baisc",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Total amount of memory (bytes) allocated by the server.",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 29,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": false,
+          "expr": "ClickHouseMetrics_MemoryTracking{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Memory",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "bytes",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Number of connections to TCP server (clients with native interface), also included server-server distributed query connections. \nNumber of connections to HTTP server",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 73,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "ClickHouseMetrics_TCPConnection{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}-tcp",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "ClickHouseMetrics_HTTPConnection{instance=~\"$instance\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}}-http",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "ClickHouseMetrics_InterserverConnection{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}-interserver",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "ClickHouseMetrics_MySQLConnection{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}-mysql",
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "ClickHouseMetrics_PostgreSQLConnection{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}-postgre sql",
+          "refId": "E"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Connections",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "collapsed": false,
       "datasource": {
         "type": "Prometheus"
       },
@@ -412,552 +412,645 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 17
       },
       "id": 12,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Number of queries to be interpreted and potentially executed. Does not include queries that failed to parse or were rejected due to AST size limits, quota limits or limits on the number of simultaneously running queries. May include internal queries initiated by ClickHouse itself. Does not count subqueries.",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 2
-          },
-          "hiddenSeries": false,
-          "id": 2,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "max_over_time(irate(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
-              "interval": "",
-              "legendFormat": "{{instance}}-queries",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "max_over_time(irate(ClickHouseProfileEvents_FailedQuery{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
-              "interval": "",
-              "legendFormat": "{{instance}}-failed queries",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Queries",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "reqps",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Avg queries latencies",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 2
-          },
-          "hiddenSeries": false,
-          "id": 8,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{instance}}-all",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{instance}}-insert",
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[$__rate_interval])",
-              "interval": "",
-              "legendFormat": "{{instance}}-select",
-              "refId": "C"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Query spend (avg)",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "µs",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": 1
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Same as Queries, but only for SELECT queries.",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 10
-          },
-          "hiddenSeries": false,
-          "id": 3,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "max_over_time( (irate(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "interval": "",
-              "legendFormat": "{{instance}}-all",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedSelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "interval": "",
-              "legendFormat": "{{instance}}-failed",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "SELECT queries",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "reqps",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Same as Queries, but only for INSERT queries.",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 10
-          },
-          "hiddenSeries": false,
-          "id": 4,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "interval": "",
-              "legendFormat": "{{instance}}-all",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedInsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{instance}}-failed",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "INSERT queries",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "reqps",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "description": "Number of queries that are stopped and waiting due to 'priority' setting.\nNumber of times when memory limit exceeded for query.",
-          "fill": 0,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 18
-          },
-          "hiddenSeries": false,
-          "id": 86,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "maxDataPoints": 200,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "8.4.4",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": false,
-              "expr": "max_over_time( (irate(ClickHouseMetrics_QueryPreempted{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "interval": "",
-              "legendFormat": "{{instance}}-preemted",
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
-              },
-              "exemplar": true,
-              "expr": "max_over_time( (irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "{{instance}}-memory-limit",
-              "refId": "B"
-            }
-          ],
-          "thresholds": [],
-          "timeRegions": [],
-          "title": "Query preemted and memory limit",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "transparent": true,
-          "type": "graph",
-          "xaxis": {
-            "mode": "time",
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:176",
-              "format": "reqps",
-              "label": "",
-              "logBase": 1,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:177",
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false
-          }
-        }
-      ],
+      "panels": [],
       "title": "Queries",
       "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Number of queries to be interpreted and potentially executed. Does not include queries that failed to parse or were rejected due to AST size limits, quota limits or limits on the number of simultaneously running queries. May include internal queries initiated by ClickHouse itself. Does not count subqueries.",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max_over_time(irate(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
+          "interval": "",
+          "legendFormat": "{{instance}}-queries",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "max_over_time(irate(ClickHouseProfileEvents_FailedQuery{instance=~\"$instance\"}[2m])[$__rate_interval:15s])",
+          "interval": "",
+          "legendFormat": "{{instance}}-failed queries",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Queries",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "reqps",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Avg queries latencies",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null as zero",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "increase(ClickHouseProfileEvents_QueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_Query{instance=~\"$instance\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{instance}}-all",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{instance}}-insert",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds{instance=~\"$instance\"}[$__rate_interval]) / increase(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{instance}}-select",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Query spend (avg)",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "µs",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": 1
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Same as Queries, but only for SELECT queries.",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "hiddenSeries": false,
+      "id": 3,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max_over_time( (irate(ClickHouseProfileEvents_SelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "interval": "",
+          "legendFormat": "{{instance}}-all",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedSelectQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "interval": "",
+          "legendFormat": "{{instance}}-failed",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "SELECT queries",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "reqps",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Number of query processing threads",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "hiddenSeries": false,
+      "id": 142,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "ClickHouseMetrics_QueryThread{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}-all",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "QueryThreadNumber",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Number of queries that are stopped and waiting due to 'priority' setting.\nNumber of times when memory limit exceeded for query.",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 34
+      },
+      "hiddenSeries": false,
+      "id": 86,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max_over_time( (irate(ClickHouseMetrics_QueryPreempted{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "interval": "",
+          "legendFormat": "{{instance}}-preemted",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "max_over_time( (irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}}-memory-limit",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Query preemted and memory limit",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "reqps",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "description": "Same as Queries, but only for INSERT queries.",
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 34
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "maxDataPoints": 200,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max_over_time( (irate(ClickHouseProfileEvents_InsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "interval": "",
+          "legendFormat": "{{instance}}-all",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "exemplar": false,
+          "expr": "max_over_time( (irate(ClickHouseProfileEvents_FailedInsertQuery{instance=~\"$instance\"}[2m]))[$__rate_interval:15s] )",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}}-failed",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "INSERT queries",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:176",
+          "format": "reqps",
+          "label": "",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:177",
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
     },
     {
       "collapsed": true,
@@ -968,7 +1061,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 42
       },
       "id": 64,
       "panels": [
@@ -987,7 +1080,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 3
+            "y": 43
           },
           "hiddenSeries": false,
           "id": 62,
@@ -1010,7 +1103,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1077,7 +1170,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 3
+            "y": 43
           },
           "hiddenSeries": false,
           "id": 65,
@@ -1100,7 +1193,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1167,7 +1260,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 51
           },
           "hiddenSeries": false,
           "id": 66,
@@ -1190,7 +1283,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1261,7 +1354,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 11
+            "y": 51
           },
           "hiddenSeries": false,
           "id": 67,
@@ -1284,7 +1377,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1354,7 +1447,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 19
+            "y": 59
           },
           "hiddenSeries": false,
           "id": 69,
@@ -1377,7 +1470,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1442,7 +1535,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 43
       },
       "id": 125,
       "panels": [
@@ -1461,7 +1554,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 4
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 126,
@@ -1484,7 +1577,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1550,7 +1643,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 4
+            "y": 44
           },
           "hiddenSeries": false,
           "id": 127,
@@ -1573,7 +1666,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1639,7 +1732,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 12
+            "y": 52
           },
           "hiddenSeries": false,
           "id": 128,
@@ -1662,7 +1755,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1728,7 +1821,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 12
+            "y": 52
           },
           "hiddenSeries": false,
           "id": 129,
@@ -1751,7 +1844,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1817,7 +1910,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 20
+            "y": 60
           },
           "hiddenSeries": false,
           "id": 130,
@@ -1905,7 +1998,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 44
       },
       "id": 138,
       "panels": [
@@ -1924,7 +2017,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 5
+            "y": 45
           },
           "hiddenSeries": false,
           "id": 72,
@@ -1947,7 +2040,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2013,7 +2106,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 5
+            "y": 45
           },
           "hiddenSeries": false,
           "id": 71,
@@ -2036,7 +2129,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2100,7 +2193,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 45
       },
       "id": 17,
       "panels": [
@@ -2120,7 +2213,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 6
+            "y": 46
           },
           "hiddenSeries": false,
           "id": 20,
@@ -2143,7 +2236,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2213,7 +2306,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 6
+            "y": 46
           },
           "hiddenSeries": false,
           "id": 19,
@@ -2236,7 +2329,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2303,7 +2396,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 14
+            "y": 54
           },
           "hiddenSeries": false,
           "id": 22,
@@ -2326,7 +2419,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2408,7 +2501,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 14
+            "y": 54
           },
           "hiddenSeries": false,
           "id": 23,
@@ -2431,7 +2524,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2512,7 +2605,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 22
+            "y": 62
           },
           "hiddenSeries": false,
           "id": 21,
@@ -2535,7 +2628,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2601,7 +2694,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 22
+            "y": 62
           },
           "hiddenSeries": false,
           "id": 26,
@@ -2624,7 +2717,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2691,7 +2784,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 70
           },
           "hiddenSeries": false,
           "id": 51,
@@ -2716,7 +2809,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2798,7 +2891,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 70
           },
           "hiddenSeries": false,
           "id": 52,
@@ -2821,7 +2914,7 @@
             "alertThreshold": true
           },
           "percentage": false,
-          "pluginVersion": "8.4.4",
+          "pluginVersion": "8.5.2",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2889,7 +2982,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 46
       },
       "id": 56,
       "panels": [
@@ -3373,7 +3466,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 47
       },
       "id": 76,
       "panels": [
@@ -4202,7 +4295,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 48
       },
       "id": 92,
       "panels": [
@@ -4575,7 +4668,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 49
       },
       "id": 90,
       "panels": [
@@ -5393,7 +5486,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 50
       },
       "id": 94,
       "panels": [
@@ -6124,7 +6217,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 51
       },
       "id": 88,
       "panels": [
@@ -6769,7 +6862,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 52
       },
       "id": 28,
       "panels": [
@@ -8822,6 +8915,6 @@
   "timezone": "",
   "title": "ClickHouse_InterServer_Metrics",
   "uid": "K2llj9G7z22",
-  "version": 30,
+  "version": 37,
   "weekStart": ""
 }
