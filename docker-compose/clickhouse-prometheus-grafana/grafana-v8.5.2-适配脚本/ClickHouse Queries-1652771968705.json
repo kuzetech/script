@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 3,
-  "iteration": 1652421943512,
+  "iteration": 1652771951661,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -366,7 +366,19 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "memory"
+              "options": "result"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 141
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_bytes"
             },
             "properties": [
               {
@@ -378,12 +390,24 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "result"
+              "options": "memory_usage"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 141
+                "id": "unit",
+                "value": "bytes"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "read_rows"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
               }
             ]
           }
@@ -428,7 +452,7 @@
             }
           },
           "queryType": "sql",
-          "rawSql": "SELECT\n    event_time,\n    user,\n    query_duration_ms duration,\n    memory_usage memory,\n    if(exception!='', 'fail', 'success') result,\n    query\nFROM $table\nWHERE $__timeFilter(event_time)\n    AND type in ($type)\n    AND initial_user in ($user)\n    AND has(databases, '$except_db') = 0\n    AND is_initial_query in ($is_init_query)\n    AND('$query_type' = 'all' or(positionCaseInsensitive(query,  '$query_type') = 1))\nORDER BY duration desc, memory DESC\nLIMIT 50",
+          "rawSql": "SELECT\n    event_time,\n    user,\n    databases,\n    tables,\n    query_duration_ms duration,\n    memory_usage,\n    read_rows,\n    read_bytes,\n    if(exception!='', 'fail', 'success') result,\n    query\nFROM $table\nWHERE $__timeFilter(event_time)\n    AND type in ($type)\n    AND initial_user in ($user)\n    AND has(databases, '$except_db') = 0\n    AND is_initial_query in ($is_init_query)\n    AND('$query_type' = 'all' or(positionCaseInsensitive(query,  '$query_type') = 1))\nORDER BY duration desc, memory_usage DESC\nLIMIT 50",
           "refId": "A"
         }
       ],
@@ -944,6 +968,6 @@
   "timezone": "",
   "title": "ClickHouse Queries",
   "uid": "UYYz0Q_nk",
-  "version": 77,
+  "version": 79,
   "weekStart": ""
 }
