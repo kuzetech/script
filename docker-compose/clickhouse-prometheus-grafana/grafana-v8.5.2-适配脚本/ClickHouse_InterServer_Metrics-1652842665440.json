@@ -43,7 +43,7 @@
   "gnetId": 14432,
   "graphTooltip": 1,
   "id": 2,
-  "iteration": 1652421775522,
+  "iteration": 1652842555091,
   "links": [
     {
       "asDropdown": false,
@@ -80,7 +80,7 @@
     {
       "datasource": {
         "type": "grafana-clickhouse-datasource",
-        "uid": "mbiEIw_7k"
+        "uid": "PDEE91DDB90597936"
       },
       "description": "",
       "fieldConfig": {
@@ -128,29 +128,20 @@
       "pluginVersion": "8.5.2",
       "targets": [
         {
-          "builderOptions": {
-            "database": "",
-            "fields": [],
-            "limit": 100,
-            "mode": "list",
-            "table": ""
-          },
           "datasource": {
             "type": "grafana-clickhouse-datasource",
-            "uid": "mbiEIw_7k"
+            "uid": "PDEE91DDB90597936"
           },
           "format": 1,
           "meta": {
             "builderOptions": {
-              "database": "",
               "fields": [],
               "limit": 100,
-              "mode": "list",
-              "table": ""
+              "mode": "list"
             }
           },
           "queryType": "sql",
-          "rawSql": "select database, table, sum(bytes) as total_bytes, count() as total_parts, sum(rows) as total_rows from system.parts_all where active = 1 and database != 'system' group by database, table",
+          "rawSql": "select database, table, sum(bytes) as total_bytes, count() as total_parts, sum(rows) as total_rows \nfrom system.parts_all \nwhere active = 1 \nand database != 'system' \ngroup by database, table",
           "refId": "A"
         }
       ],
@@ -8741,7 +8732,7 @@
       "type": "row"
     }
   ],
-  "refresh": "30s",
+  "refresh": "",
   "schemaVersion": 36,
   "style": "dark",
   "tags": [
@@ -8802,108 +8793,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
-        "definition": "label_values(clickhouse_tcp_connection, instance)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Einstance",
-        "multi": true,
-        "name": "export_instance",
-        "options": [],
-        "query": {
-          "query": "label_values(clickhouse_tcp_connection, instance)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
-        "definition": "label_values(clickhouse_table_parts_count, database)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Database",
-        "multi": true,
-        "name": "database",
-        "options": [],
-        "query": {
-          "query": "label_values(clickhouse_table_parts_count, database)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
-        "definition": "label_values(clickhouse_table_parts_count, table)",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Table",
-        "multi": true,
-        "name": "table",
-        "options": [],
-        "query": {
-          "query": "label_values(clickhouse_table_parts_count, table)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
       }
     ]
   },
@@ -8915,6 +8804,6 @@
   "timezone": "",
   "title": "ClickHouse_InterServer_Metrics",
   "uid": "K2llj9G7z22",
-  "version": 37,
+  "version": 8,
   "weekStart": ""
 }
