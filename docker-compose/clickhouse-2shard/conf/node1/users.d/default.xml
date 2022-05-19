@@ -2,7 +2,7 @@
 <yandex>
     <default>
         <max_memory_usage>10000000000</max_memory_usage>
-
+        <max_threads>8</max_threads>
         <!-- Use cache of uncompressed blocks of data. Meaningful only for processing many of very short queries. -->
         <use_uncompressed_cache>0</use_uncompressed_cache>
         <max_replicated_fetches_network_bandwidth_for_server>0</max_replicated_fetches_network_bandwidth_for_server>
