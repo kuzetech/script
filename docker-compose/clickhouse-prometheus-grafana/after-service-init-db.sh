@@ -9,4 +9,6 @@ EOSQL
 
 # CREATE TABLE IF NOT EXISTS system.query_log_all ON CLUSTER default as system.query_log ENGINE = Distributed(default, system, query_log);
 
+# CREATE TABLE IF NOT EXISTS system.query_thread_log_all ON CLUSTER default as system.query_thread_log ENGINE = Distributed(default, system, query_thread_log);
+
 # CREATE TABLE IF NOT EXISTS system.parts_all ON CLUSTER default as system.parts ENGINE = Distributed(default, system, parts);
