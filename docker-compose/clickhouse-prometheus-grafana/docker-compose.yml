@@ -23,6 +23,7 @@ services:
     volumes:
       - ./after-service-init-db.sh:/after-service-init-db.sh
       - ./conf/config.xml:/etc/clickhouse-server/config.xml
+      - ./config.d:/etc/clickhouse-server/config.d
     ports:
       - 8123:8123
       - 9000:9000
