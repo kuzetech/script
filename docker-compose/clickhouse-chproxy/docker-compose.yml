@@ -81,15 +81,30 @@ services:
     depends_on:
       - zookeeper
 
-  proxy:
+  proxy1:
     image: contentsquareplatform/chproxy:1.15.1
-    container_name: proxy
-    hostname: proxy
+    container_name: proxy1
+    hostname: proxy1
     volumes:
       - ./proxy-config.yml:/config.yml
     command: ["-config", "/config.yml"]
     ports:
       - 9090:9090
+    depends_on:
+      - clickhouse1
+      - clickhouse2
+      - clickhouse3
+      - clickhouse4
+  
+  proxy2:
+    image: contentsquareplatform/chproxy:1.15.1
+    container_name: proxy2
+    hostname: proxy2
+    volumes:
+      - ./proxy-config.yml:/config.yml
+    command: ["-config", "/config.yml"]
+    ports:
+      - 9091:9090
     depends_on:
       - clickhouse1
       - clickhouse2

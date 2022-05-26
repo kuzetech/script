@@ -13,6 +13,7 @@ users:
   - name: "test"
     to_cluster: "my"
     to_user: "default"
+    requests_per_minute: 1
 
 clusters:
   - name: "my"
