@@ -141,6 +141,25 @@ services:
     networks:
       - dolphinscheduler
 
+  clickhouse:
+    image: yandex/clickhouse-server:21.7.8.58
+    profiles: ["all"]
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+      nproc:
+        soft: 131072
+        hard: 131072
+    volumes:
+      - ./config.xml:/etc/clickhouse-server/config.xml
+    ports:
+      - 8123:8123
+      - 9000:9000
+      - 9004:9004
+    networks:
+      - dolphinscheduler
+
 networks:
   dolphinscheduler:
     driver: bridge
