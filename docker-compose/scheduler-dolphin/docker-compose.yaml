@@ -152,7 +152,7 @@ services:
         soft: 131072
         hard: 131072
     volumes:
-      - ./config.xml:/etc/clickhouse-server/config.xml
+      - ./clickhouse-config.xml:/etc/clickhouse-server/config.xml
     ports:
       - 8123:8123
       - 9000:9000
