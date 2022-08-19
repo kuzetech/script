@@ -1,3 +1,7 @@
+## 官网地址
+
+https://dolphinscheduler.apache.org/
+
 ## 执行步骤
 
 1. 执行 `docker-compose --profile schema up -d` 初始化 postgresql 中的表结构
