@@ -20,4 +20,4 @@ https://airflow.apache.org/docs/apache-airflow/stable/tutorial.html#
 ## 命令行安装 provider package
 
 1. 可以在 [这里](https://airflow.apache.org/docs/apache-airflow-providers/packages-ref.html) 查看可以安装的包
-2. 执行 `pip installl apache-airflow-providers-jdbc` 安装对应的包
+2. 执行 `pip install apache-airflow-providers-jdbc` 安装对应的包
