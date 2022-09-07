@@ -21,3 +21,5 @@ https://airflow.apache.org/docs/apache-airflow/stable/tutorial.html#
 
 1. 可以在 [这里](https://airflow.apache.org/docs/apache-airflow-providers/packages-ref.html) 查看可以安装的包
 2. 执行 `pip install apache-airflow-providers-jdbc` 安装对应的包
+3. 想通过 jdbc 访问 clickhouse，但是安装相应的 provider 后，web 界面并没有多出 jdbc 的数据源可选
+4. 还没有尝试通过 python 代码定义 dag 的方式能否使用 jdbc
