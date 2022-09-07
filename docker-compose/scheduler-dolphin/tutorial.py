@@ -12,7 +12,7 @@ with ProcessDefinition(
     name="tutorial",
     schedule="0 0 0 * * ? *",
     start_time="2021-01-01",
-    tenant="kuze",
+    tenant="linux",
 ) as pd:
     # [end workflow_declare]
     # [start task_declare]
