@@ -86,6 +86,7 @@ services:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
       - dolphinscheduler-resource-local:/dolphinscheduler
+      - ./api-conf/common.properties:/opt/dolphinscheduler/conf/common.properties
     networks:
       - dolphinscheduler
 
@@ -118,6 +119,7 @@ services:
     volumes:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
+      - /Users/huangsw/soft/flink-1.14.2:/opt/soft/flink
     networks:
       - dolphinscheduler
 
@@ -137,7 +139,9 @@ services:
       - dolphinscheduler-worker-data:/tmp/dolphinscheduler
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
+      - /Users/huangsw/soft/flink-1.14.2:/opt/soft/flink
       - dolphinscheduler-resource-local:/dolphinscheduler
+      - ./worker-conf/common.properties:/opt/dolphinscheduler/conf/common.properties
     networks:
       - dolphinscheduler
 
