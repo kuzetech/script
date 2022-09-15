@@ -19,6 +19,10 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:29092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://localhost:9092,EXTERNAL://broker:29092
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
 
@@ -27,7 +31,7 @@ services:
     container_name: kafka-exporter
     hostname: kafka-exporter
     command: 
-      - --kafka.server=broker:9092
+      - --kafka.server=broker:29092
     depends_on:
       - broker
     ports:
@@ -50,6 +54,101 @@ services:
       - prometheus
     ports:
       - 3000:3000
+
+  master:
+    image: bitnami/spark:3.2.2
+    container_name: master
+    user: root
+    environment:
+      - HADOOP_USER_NAME=hdfsuser
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - 4040:4040
+      - 8080:8080
+      - 8282:8282
+      - 7077:7077
+    volumes:
+      - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/quickly-start/log4j.properties:/opt/bitnami/spark/conf/log4j.properties
+      - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/quickly-start/util:/util
+      - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/target:/spark_src
+      
+  worker:
+    image: bitnami/spark:3.2.2
+    container_name: worker
+    user: root
+    depends_on:
+      - master
+    ports:
+      - 8081:8081
+    environment:
+      - HADOOP_USER_NAME=hdfsuser
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://master:7077
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_WORKER_CORES=2
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+  
+  namenode:
+    image: singularities/hadoop:2.8
+    command: start-hadoop namenode
+    hostname: namenode
+    container_name: namenode
+    environment:
+      HDFS_USER: hdfsuser
+    ports:
+      - "8020:8020"
+      - "9000:9000"
+      - "50070:50070"
+      - "50075:50075"
+    depends_on:
+      - zookeeper
+
+  clickhouse1:
+    image: clickhouse/clickhouse-server:22.7.2.15
+    container_name: clickhouse1
+    hostname: clickhouse1
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+      nproc:
+        soft: 131072
+        hard: 131072
+    volumes:
+      - /Users/huangsw/code/study/study-spark/quickly-start/config1.xml:/etc/clickhouse-server/config.xml
+    ports:
+      - 8121:8123
+      - 9001:9000
+    depends_on:
+      - zookeeper
+
+  clickhouse2:
+    image: clickhouse/clickhouse-server:22.7.2.15
+    container_name: clickhouse2
+    hostname: clickhouse2
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+      nproc:
+        soft: 131072
+        hard: 131072
+    volumes:
+      - /Users/huangsw/code/study/study-spark/quickly-start/config2.xml:/etc/clickhouse-server/config.xml
+      - /Users/huangsw/code/study/study-spark/quickly-start/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 8122:8123
+      - 9002:9000
+    depends_on:
+      - zookeeper
+      - clickhouse1
 
 
   

@@ -25,10 +25,6 @@ done
 
 echo "Kafka custom init"
 
-/opt/bitnami/kafka/bin/kafka-topics.sh --zookeeper zookeeper:2181 --create  --replication-factor 1 --partitions 1 --topic demo
-#/opt/bitnami/kafka/bin/kafka-topics.sh --zookeeper zookeeper:2181 --list
-#/opt/bitnami/kafka/bin/kafka-topics.sh --zookeeper zookeeper:2181 --describe
-#/opt/bitnami/kafka/bin/kafka-topics.sh --zookeeper zookeeper:2181 --delete --topic test
-#/opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic demo
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic demo --partitions 3 --replication-factor 1
 
 echo "Kafka custom init done"

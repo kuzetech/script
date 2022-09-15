@@ -1,26 +1,18 @@
-
+## kafka-topics.sh
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
-/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic preparation-default-user_login
-docker exec broker /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic chk_demo --partitions 3 --replication-factor 1
-/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic login_steps
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic demo --partitions 3 --replication-factor 1
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic demo
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo
 
-/opt/bitnami/kafka/bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type brokers --entity-name 1 --describe
+## 获取消费者组的消费情况
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group demo_consumer_group --describe
 
-/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --describe --group clickhouse-test2-new_device --bootstrap-server localhost:9092
+## 生产者和消费者
+/opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic demo
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic event --group demo_consumer_group --from-beginning
 
-/opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic event 
-
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic login_steps_user
-
+## json 消息样例
 {"table":"sausage","event":"user-login","uid":"aaaaa1","event_time":"2022-01-01"}
 {"eventId":"user-login","eventTime":"2022-01-01","uid":1}
 {"eventId":"user-login","eventTime":"2022-01-01","uid":2}
 {"eventId":"user-login","eventTime":"2022-01-01","uid":3}
-
-CREATE TABLE test_local on cluster my(
-    uid         String      COMMENT '用户',
-    eventId     String      COMMENT '事件名称',
-    eventTime   Date        COMMENT '事件时间'
-) ENGINE = MergeTree PARTITION BY eventId ORDER BY (uid, eventTime);
-
-CREATE TABLE test_all on cluster my as test_local ENGINE = Distributed(my, default, test_local, rand());
