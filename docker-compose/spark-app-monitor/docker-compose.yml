@@ -8,6 +8,14 @@ services:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 300M
+        reservations:
+          cpus: '0.1'
+          memory: 150M
 
   broker:
     image: 'bitnami/kafka:2.8.1'
@@ -25,6 +33,14 @@ services:
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 2000M
+        reservations:
+          cpus: '0.25'
+          memory: 500M
 
   kafka-exporter:
     image: bitnami/kafka-exporter:1.6.0
@@ -36,6 +52,14 @@ services:
       - broker
     ports:
       - 9308:9308
+    deploy:
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 50M
+        reservations:
+          cpus: '0.1'
+          memory: 10M
 
   prometheus:
     image: prom/prometheus:v2.35.0
@@ -45,6 +69,14 @@ services:
       - ./conf:/etc/prometheus
     ports:
       - 9090:9090
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 200M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
 
   grafana:
     image: grafana/grafana:9.1.5
@@ -54,6 +86,14 @@ services:
       - prometheus
     ports:
       - 3000:3000
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 200M
+        reservations:
+          cpus: '0.1'
+          memory: 50M
 
   master:
     image: bitnami/spark:3.2.2
@@ -75,6 +115,14 @@ services:
       - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/quickly-start/log4j.properties:/opt/bitnami/spark/conf/log4j.properties
       - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/quickly-start/util:/util
       - /Users/huangsw/code/funny/funnydb/spark-block-aggregator/target:/spark_src
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 2000M
+        reservations:
+          cpus: '0.1'
+          memory: 500M
       
   worker:
     image: bitnami/spark:3.2.2
@@ -88,12 +136,20 @@ services:
       - HADOOP_USER_NAME=hdfsuser
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://master:7077
-      - SPARK_WORKER_MEMORY=2G
-      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2.5G
+      - SPARK_WORKER_CORES=3
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
       - SPARK_SSL_ENABLED=no
+    deploy:
+      resources:
+        limits:
+          cpus: '2.5'
+          memory: 3000M
+        reservations:
+          cpus: '1'
+          memory: 500M
   
   namenode:
     image: singularities/hadoop:2.8
@@ -109,6 +165,14 @@ services:
       - "50075:50075"
     depends_on:
       - zookeeper
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 1200M
+        reservations:
+          cpus: '0.1'
+          memory: 500M
 
   clickhouse1:
     image: clickhouse/clickhouse-server:22.7.2.15
@@ -128,6 +192,14 @@ services:
       - 9001:9000
     depends_on:
       - zookeeper
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 800M
+        reservations:
+          cpus: '0.25'
+          memory: 300M
 
   clickhouse2:
     image: clickhouse/clickhouse-server:22.7.2.15
@@ -149,6 +221,14 @@ services:
     depends_on:
       - zookeeper
       - clickhouse1
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 800M
+        reservations:
+          cpus: '0.25'
+          memory: 300M
 
 
   
