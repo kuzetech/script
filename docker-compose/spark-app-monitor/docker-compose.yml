@@ -11,10 +11,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 300M
         reservations:
-          cpus: '0.1'
           memory: 150M
 
   broker:
@@ -36,10 +35,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 2000M
+          cpus: '2'
+          memory: 1000M
         reservations:
-          cpus: '0.25'
           memory: 500M
 
   kafka-exporter:
@@ -58,7 +56,6 @@ services:
           cpus: '0.1'
           memory: 50M
         reservations:
-          cpus: '0.1'
           memory: 10M
 
   prometheus:
@@ -72,10 +69,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 200M
         reservations:
-          cpus: '0.1'
           memory: 50M
 
   grafana:
@@ -89,10 +85,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
+          cpus: '0.1'
           memory: 200M
         reservations:
-          cpus: '0.1'
           memory: 50M
 
   master:
@@ -118,10 +113,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.25'
-          memory: 2000M
+          cpus: '0.8'
+          memory: 1400M
         reservations:
-          cpus: '0.1'
           memory: 500M
       
   worker:
@@ -136,8 +130,8 @@ services:
       - HADOOP_USER_NAME=hdfsuser
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://master:7077
-      - SPARK_WORKER_MEMORY=2.5G
-      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=2500m
+      - SPARK_WORKER_CORES=2
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
       - SPARK_RPC_ENCRYPTION_ENABLED=no
       - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
@@ -145,10 +139,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2.5'
-          memory: 3000M
+          cpus: '1.2'
+          memory: 2500M
         reservations:
-          cpus: '1'
           memory: 500M
   
   namenode:
@@ -169,9 +162,8 @@ services:
       resources:
         limits:
           cpus: '0.25'
-          memory: 1200M
+          memory: 1000M
         reservations:
-          cpus: '0.1'
           memory: 500M
 
   clickhouse1:
@@ -195,10 +187,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.5'
+          cpus: '0.5'
           memory: 800M
         reservations:
-          cpus: '0.25'
           memory: 300M
 
   clickhouse2:
@@ -224,10 +215,9 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.5'
+          cpus: '0.5'
           memory: 800M
         reservations:
-          cpus: '0.25'
           memory: 300M
 
 
