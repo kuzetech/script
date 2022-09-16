@@ -20,3 +20,5 @@ kubectl run -i --tty --image busybox:1.28.4 dns-test --restart=Never --rm /bin/s
 kubectl rollout undo
 kubectl rollout history
 kubectl rollout history deployment/nginx-deployment --revision=2
+
+export KUBECONFIG=/Users/huangsw/secret/kubeconfig-huangshaowei.yaml
