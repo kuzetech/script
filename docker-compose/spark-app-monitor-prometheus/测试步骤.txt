@@ -1,14 +1,15 @@
-
 docker exec broker /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic event --partitions 2 --replication-factor 1
 
 docker exec broker /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic event --group demo
 
 docker exec master chmod +x /util/commit.sh
 
-docker exec master /util/commit.sh
+docker exec -it master bash
 
-创建 grafana datasource 
-http://prometheus:9090
-创建 grafana dashborad
+/util/commit.sh
 
-postman 创建 event 处理流
+创建 grafana datasource 和  dashborad   http://prometheus:9090
+
+postman 创建 event 处理流  然后开启数据 mock
+
+docker-compose rm -s -v broker
