@@ -14,14 +14,15 @@ services:
           cpus: '0.1'
           memory: 300M
         reservations:
-          memory: 150M
+          memory: 300M
 
   broker:
     image: 'bitnami/kafka:2.8.1'
     container_name: broker
     hostname: broker
     ports:
-      - '9092:9092'
+      - 9092:9092
+      - 7891:7891
     environment:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
@@ -30,12 +31,13 @@ services:
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:29092
       - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://localhost:9092,EXTERNAL://broker:29092
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+      - JMX_PORT=7891
     depends_on:
       - zookeeper
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: '1'
           memory: 1000M
         reservations:
           memory: 500M
@@ -57,6 +59,27 @@ services:
           memory: 50M
         reservations:
           memory: 10M
+
+  jmx-exporter:
+    image: bitnami/jmx-exporter:0.17.1
+    container_name: jmx-exporter
+    hostname: jmx-exporter
+    volumes:
+      - ./conf/jmx-exporter-config.yml:/jmx-exporter-config.yml
+    command: 
+      - '5556'
+      - /jmx-exporter-config.yml
+    depends_on:
+      - broker
+    ports:
+      - 5556:5556
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 200M
+        reservations:
+          memory: 150M
 
   prometheus:
     image: prom/prometheus:v2.35.0
@@ -113,7 +136,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.8'
+          cpus: '0.5'
           memory: 1400M
         reservations:
           memory: 500M
@@ -139,7 +162,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '1.2'
+          cpus: '1'
           memory: 2500M
         reservations:
           memory: 500M
@@ -187,8 +210,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 800M
+          cpus: '1'
+          memory: 2000M
         reservations:
           memory: 300M
 
@@ -215,8 +238,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.5'
-          memory: 800M
+          cpus: '1'
+          memory: 2000M
         reservations:
           memory: 300M
 
