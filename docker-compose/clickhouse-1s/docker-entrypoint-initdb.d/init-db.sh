@@ -1,18 +1,42 @@
 #!/bin/bash
+# 表不能使用 memory 类型，执行完该脚本后，服务器才启动，执行的插入语句数据都会丢失
 set -e
 
 clickhouse client -n <<-EOSQL
-    use default;
 
-    create table test (
-        uid         String      COMMENT '用户',
-        eventId     String      COMMENT '事件名称',
-        eventTime   Date        COMMENT '事件时间'
-    ) engine = Memory;
+    create table default.action (
+        uid     Int32,
+        event   String,
+        time    datetime
+    ) 
+    ENGINE = MergeTree()
+    PARTITION BY uid
+    ORDER BY xxHash32(uid)
+    SAMPLE BY xxHash32(uid)
+    SETTINGS index_granularity = 8192;
 
-    insert into test values ('小明', '登录', '2020-01-01'), ('小明', '升级', '2020-01-01'), ('小明', '充值', '2020-01-01');
-    insert into test values ('小明', '登录', '2020-01-02'); 
-    insert into test values ('小明', '升级', '2020-01-03'); 
-    insert into test values ('小明', '充值', '2020-01-04');
+    insert into default.action values(1,'浏览','2020-01-02 11:00:00'); 
+    insert into default.action values(1,'点击','2020-01-02 11:10:00'); 
+    insert into default.action values(1,'下单','2020-01-02 11:20:00'); 
+    insert into default.action values(1,'支付','2020-01-02 11:30:00'); 
+
+    insert into default.action values(2,'下单','2020-01-02 11:00:00'); 
+    insert into default.action values(2,'支付','2020-01-02 11:10:00'); 
+
+    insert into default.action values(1,'浏览','2020-01-02 11:00:00'); 
+
+    insert into default.action values(3,'浏览','2020-01-02 11:20:00'); 
+    insert into default.action values(3,'点击','2020-01-02 12:00:00'); 
+
+    insert into default.action values(4,'浏览','2020-01-02 11:50:00'); 
+    insert into default.action values(4,'点击','2020-01-02 12:00:00'); 
+
+    insert into default.action values(5,'浏览','2020-01-02 11:50:00'); 
+    insert into default.action values(5,'点击','2020-01-02 12:00:00'); 
+    insert into default.action values(5,'下单','2020-01-02 11:10:00'); 
+
+    insert into default.action values(6,'浏览','2020-01-02 11:50:00'); 
+    insert into default.action values(6,'点击','2020-01-02 12:00:00'); 
+    insert into default.action values(6,'下单','2020-01-02 12:10:00'); 
 
 EOSQL
