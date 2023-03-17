@@ -1,0 +1,5 @@
+git log
+
+git rebase -i e688329af565155e6f1114c6561b5ed85811d896
+
+git push --force

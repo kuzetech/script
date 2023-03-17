@@ -1,0 +1,34 @@
+kubectl -n personal-public get pods
+
+kubectl -n personal-public get pod game-0 -o yaml
+
+kubectl -n personal-public describe pod ingest-client-pnhdn
+
+kubectl -n personal-public logs -f ingest-client-k2624
+kubectl -n personal-public logs -f ingest-client-j4nhj
+
+kubectl -n personal-public logs -f ingest-client-pnhdn | grep 丢弃序列化异常的数据
+kubectl -n personal-public logs ingest-client-847h5 --tail 50
+
+kubectl -n personal-public exec -it ingest-client-qgngx -- bash
+
+/ingest-client/data/game-server/k8s-node2/game-0/stat_log/campfire_develop_s1/debug/2022-11-30-21:00.log
+/ingest-client/data/game-server/*        /*     /stat_log/*                  /*   /20*.log
+
+/ingest-client/data/passport/k8s-node2/passport-0/stat_log/info/2022-12-01-14:00.log
+/ingest-client/data/passport/*        /*         /stat_log/info/20*.log
+
+kubectl -n personal-public get volumns
+kubectl -n feature-stat-log get pvc feature-stat-log-data -o yaml
+kubectl -n feature-stat-log describe pvc ingest-client-log-ingest-client-0
+
+kubectl -n feature-stat-log exec -it game-0 -- sh
+kubectl -n feature-stat-log exec -it shushu-log-0 -- sh
+
+kubectl -n feature-stat-log run gotest --image=registry.wll:5000/campfire/ingest-client:1.0.0-s221108-1443-2bd5a4d7 --command -- sleep 1000000
+kubectl -n feature-stat-log exec -it gotest -- sh
+kubectl -n feature-stat-log delete pod gotest
+
+apt-get update
+apt install inotify-tools
+inotifywait -mrq -e create,modify,delete /ingest-client/data/game-server/k8s-node2/game-0/stat_log/campfire_feature_stat_log_s1/info

@@ -1,5 +1,0 @@
-docker image inspect quay.io/housepower/clickhouse_sinker
-
-docker build -t registry.biubiubiu.io/turbine/clickhouse-sinker:0.1.1 ./Dockerfile
-
-docker image rm registry.biubiubiu.io/turbine/clickhouse-sinker:0.1.1
