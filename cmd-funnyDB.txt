@@ -1,5 +1,5 @@
-export KUBECONFIG=/Users/huangsw/secret/kubeconfig-huangshaowei.yaml
-export KUBECONFIG=/Users/huangsw/secret/kubeconfig.yaml
+export KUBECONFIG=/Users/huangsw/secret/kubeconfig-funnyDB-internal.yaml
+export KUBECONFIG=/Users/huangsw/secret/kubeconfig-sausage-internal-first.yaml
 
 kubectl get pods | grep ingest
 
