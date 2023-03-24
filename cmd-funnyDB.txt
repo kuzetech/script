@@ -5,7 +5,7 @@ kubectl get pods | grep ingest
 
 kubectl describe pod ingest-0
 
-kubectl exec -it ingest-test-0 -- bash
+kubectl exec -it ingest-0 -- bash
 kubectl exec -it clickhouse-1-0 -- bash
 kubectl exec -it clickhouse-1-0 -- clickhouse-client --send_logs_level=trace -m
 

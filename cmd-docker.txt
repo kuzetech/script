@@ -15,7 +15,8 @@ docker network ls --filter driver=bridge --format "{{.ID}}" | xargs docker netwo
 docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q) 
 
 # docker logs 过滤
-docker logs nginx 2>&1 | grep INFO
+docker logs -f server 2>&1 | grep INFO
+docker exec -it clickhouse1 tail -f /var/log/clickhouse-server/clickhouse-server.log 2>&1 | grep executeQuery
 
 docker run --rm -it --name test registry.biubiubiu.io/turbine/ingest:2.0.0-s230209-1522-3f2b7d34 bash
 
