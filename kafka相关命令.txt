@@ -9,10 +9,12 @@
 
 ## 生产者和消费者
 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --group test --from-beginning
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic pass3 --group test --from-beginning
 
 ## json 消息样例
-{"table":"sausage","event":"user-login","uid":"aaaaa1","event_time":"2022-01-01"}
+
+{"type":"Event","data":{"event":"login","pid":1,"time":1663296551}}
+
 {"eventId":"user-login","eventTime":"2022-01-01","uid":1}
-{"eventId":"user-login","eventTime":"2022-01-01","uid":2}
-{"eventId":"user-login","eventTime":"2022-01-01","uid":3}
+
+{"level":"info","date":"2023-03-24 17:02:00.000Z08:00","caller":"system/global.go:48","msg":"online num","spec":"0 */1 * * * *","app":"campfire"}
