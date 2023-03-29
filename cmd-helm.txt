@@ -15,7 +15,7 @@ helm get values api > ~/helm/api.yaml
 vi ~/helm/ingest.yaml
 
 # 更新版本(若仅更新配置,则版本号要使用原先的版本号)
-helm upgrade -f ~/helm/ingest.yaml --version 2.0.0-s230224-1117-50ec938e ingest turbine/ingest
+helm upgrade -f ~/helm/ingest.yaml --version 2.0.0-s230317-1724-48c7c085 ingest turbine/ingest
 helm upgrade -f ~/helm/api.yaml --version 0.9.0-s230208-1411-0e25fa09 turbine-api turbine/turbine-api
 
 ingest 稳定版本
@@ -29,11 +29,12 @@ ingest 稳定版本
 2.0.0-s230215-1915-c33b79ef 事务版本，修正 kafka read message 超时设置果断问题
 2.0.0-s230220-1423-5aa20e29 事务版本，增加日志
 2.0.0-s230224-1117-50ec938e 事务版本，修复 redis pendingmap 没添加
+2.0.0-s230310-1033-795e682c 事务版本，增加 validate code
+2.0.0-s230317-1724-48c7c085 事务版本，支持 redis 集群 + 修复 kafka 仅写入单分区
 
 
 ingest-client 稳定版本
 1.0.0-s230210-1525-e688329a 开启事务 + 文件句柄复用 + 请求重试
-
 
 
 # 以下为回滚操作
