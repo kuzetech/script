@@ -15,8 +15,11 @@ helm get values api > ~/helm/api.yaml
 vi ~/helm/ingest.yaml
 
 # 更新版本(若仅更新配置,则版本号要使用原先的版本号)
-helm upgrade -f ~/helm/ingest.yaml --version 2.0.0-s230317-1724-48c7c085 ingest turbine/ingest
 helm upgrade -f ~/helm/api.yaml --version 0.9.0-s230208-1411-0e25fa09 turbine-api turbine/turbine-api
+
+helm upgrade -f ~/helm/ingest-2.0.0-s230224-1117-50ec938e.yaml --version 2.0.0-s230224-1117-50ec938e ingest turbine/ingest
+helm upgrade -f ~/helm/ingest-2.0.0-s230317-1724-48c7c085.yaml --version 2.0.0-s230317-1724-48c7c085 ingest turbine/ingest
+
 
 ingest 稳定版本
 2.0.0-s221206-1013-ec171064 第一个稳定版本，非事务版本
