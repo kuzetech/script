@@ -1,19 +1,3 @@
-
-使用brew安装docker-connector
-brew install wenjunxiao/brew/docker-connector
-
-使用sudo启动docker-connector服务
-sudo brew services start docker-connector
-
-使用下面命令创建wenjunxiao/mac-docker-connector容器，要求使用 host 网络并且允许 NET_ADMIN
-docker run -it -d --restart always --net host --cap-add NET_ADMIN --name connector wenjunxiao/mac-docker-connector
-
-执行下面命令将docker所有 bridge 网络都添加到docker-connector路由
-docker network ls --filter driver=bridge --format "{{.ID}}" | xargs docker network inspect --format "route {{range .IPAM.Config}}{{.Subnet}}{{end}}" >> /usr/local/etc/docker-connector.conf
-
-# 获取所有容器的 IP
-docker inspect --format='{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -q) 
-
 # docker logs 过滤
 docker logs -f server 2>&1 | grep INFO
 docker exec -it clickhouse1 tail -f /var/log/clickhouse-server/clickhouse-server.log 2>&1 | grep executeQuery
