@@ -16,6 +16,10 @@
 
 {"type":"Event","data":{"event":"login","pid":1,"time":1663296551}}
 
+{"type":"Event","data":{"event":"login","date":"2023-04-12 9:04:05.000"}}
+
+{"event":"login","date":"2023-04-12 9:04:05.000"}
+
 {"eventId":"user-login","eventTime":"2022-01-01","uid":1}
 
 {"level":"info","date":"2023-03-24 17:02:00.000","caller":"system/global.go:48","msg":"online num","spec":"0 */1 * * * *","app":"campfire"}
