@@ -62,9 +62,11 @@ kubectl -n personal-public top pod | grep ingest-client
 kubectl -n personal-public exec -it ingest-client-all-ctxn5 -- bash
 apt-get update && apt-get install curl -y && curl -o heap.out http://localhost:10000/debug/pprof/heap
 
+kubectl -n personal-public cp ingest-client-all-ctxn5:/heap.out /tmp/pprof/heap-ctxn5.out
+
 kubectl -n personal-public exec ingest-client-all-ctxn5 -- curl -o heap.out http://localhost:10000/debug/pprof/heap
 
-kubectl -n personal-public cp ingest-client-all-ctxn5:/heap.out /tmp/pprof/heap-ctxn5.out
+
 
 // 然后通过 “文件管理” 功能下载，最后在本地通过 go 命令查看
 go tool pprof /Users/huangsw/Downloads/heap.out
