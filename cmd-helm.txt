@@ -27,6 +27,7 @@ ingest 稳定版本 2.0.0-s230414-1630-3fb8717a
 2.0.0-s230306-1557-f5ee2ff1 非事务版本，增加 IP 归属地解析支持大洲
 2.0.0-s230406-1104-0a7067fe 非事务版本，增加 自定义 json schema 校验 + error code
 2.0.0-s230414-1630-3fb8717a 非事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
+2.0.0-s230426-1351-076fd35d 非事务版本，增加 LifeCycleProcessor
 
 2.0.0-s230207-1408-7f9499e3 事务版本
 2.0.0-s230208-1442-c6b72404 事务版本，key_fields
@@ -40,6 +41,7 @@ ingest 稳定版本 2.0.0-s230414-1630-3fb8717a
 2.0.0-s230404-1731-8c1ea572 事务版本，增加 自定义 json schema 校验 + error code + 修复 NaN, Infinity, -Infinity 问题
 2.0.0-s230413-1108-669f0ccb 事务版本，支持 schema 校验环节非必要字段提示 缺失、上报nil、多余字段
 2.0.0-s230414-1614-abbd6fb6 事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
+2.0.0-s230425-1617-da9c6cfe 事务版本，增加 LifeCycleProcessor
 
 ingest-client 稳定版本
 1.0.0-s230210-1525-e688329a 开启事务 + 文件句柄复用 + 请求重试
@@ -50,6 +52,7 @@ ingest-client 稳定版本
 api-server 稳定版本 0.9.0-s230414-1625-3649c0f1
 0.9.0-s230331-1022-e126a456 元数据增加自定义 json schema 校验配置
 0.9.0-s230414-1625-3649c0f1 json schema 校验配置增加 ignore_miss 配置
+0.9.0-s230427-1058-966604d0 增加 LifeCycleProcessor
 
 # 以下为回滚操作
 # 查看历史部署版本
