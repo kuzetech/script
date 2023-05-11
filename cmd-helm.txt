@@ -29,6 +29,7 @@ ingest 稳定版本 2.0.0-s230414-1630-3fb8717a
 2.0.0-s230414-1630-3fb8717a 非事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
 2.0.0-s230426-1351-076fd35d 非事务版本，增加 LifeCycleProcessor
 2.0.0-s230509-1347-f4bbccb6 非事务版本，修复 LifeCycleProcessor 无法处理 float64
+2.0.0-s230510-1407-60d33975 非事务版本，修改 LifeCycleProcessor 可以注入空字符串
 
 2.0.0-s230207-1408-7f9499e3 事务版本
 2.0.0-s230208-1442-c6b72404 事务版本，key_fields

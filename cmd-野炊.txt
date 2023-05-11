@@ -71,3 +71,6 @@ kubectl -n personal-public exec ingest-client-all-ctxn5 -- curl -o heap.out http
 // 然后通过 “文件管理” 功能下载，最后在本地通过 go 命令查看
 go tool pprof /Users/huangsw/Downloads/heap.out
 
+
+curl 'http://localhost:10000/debug/pprof/heap?debug=1'
+curl 'http://localhost:10000/debug/pprof/goroutine?debug=1'
