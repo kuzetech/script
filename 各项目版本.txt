@@ -1,0 +1,44 @@
+ingest 事务版本
+2.0.0-s230208-1442-c6b72404 事务版本，key_fields
+2.0.0-s230209-1442-9fcb712f 事务版本，修正关闭所有 processor
+2.0.0-s230215-1041-d608491e 事务版本，修正最大关闭时长无效问题
+2.0.0-s230215-1915-c33b79ef 事务版本，修正 kafka read message 超时设置果断问题
+2.0.0-s230220-1423-5aa20e29 事务版本，增加日志
+2.0.0-s230224-1117-50ec938e 事务版本，修复 redis pendingmap 没添加
+2.0.0-s230310-1033-795e682c 事务版本，增加 validate code
+2.0.0-s230317-1724-48c7c085 事务版本，支持 redis 集群 + 修复 kafka 仅写入单分区
+2.0.0-s230404-1731-8c1ea572 事务版本，增加 自定义 json schema 校验 + error code + 修复 NaN, Infinity, -Infinity 问题
+2.0.0-s230413-1108-669f0ccb 事务版本，支持 schema 校验环节非必要字段提示 缺失、上报nil、多余字段
+2.0.0-s230414-1614-abbd6fb6 事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
+2.0.0-s230425-1617-da9c6cfe 事务版本，增加 LifeCycleProcessor
+2.0.0-s230510-1409-a65c7014  事务版本，修改 LifeCycleProcessor 可以注入空字符串
+
+ingest-client
+1.0.0-s230210-1525-e688329a 开启事务 + 文件句柄复用 + 请求重试
+1.0.0-s230227-1832-d0368bd3 增加自定义数据添加
+1.0.0-s230328-1835-0cafc706 增加调试日志收集模式
+1.0.0-s230412-1111-7b8327f6 增加 stats 日志统计模式
+1.0.0-s230427-1733-358849a9 增加 appsflyer（wal）模式
+1.0.0-s230511-1007-7e500fb3 修改 appsflyer 模式不适用 wal ，并且修复了 file 模式 readByteCount 统计问题，该问题可能导致数据丢失
+
+
+ingest 稳定版本
+2.0.0-s221206-1013-ec171064 非事务版本，第一个稳定版本
+2.0.0-s230130-1357-86c63b3b 非事务版本，增加 keep_unknown_fields，
+2.0.0-s230306-1557-f5ee2ff1 非事务版本，增加 IP 归属地解析支持大洲
+2.0.0-s230406-1104-0a7067fe 非事务版本，增加 自定义 json schema 校验 + error code
+2.0.0-s230414-1630-3fb8717a 非事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
+2.0.0-s230426-1351-076fd35d 非事务版本，增加 LifeCycleProcessor
+2.0.0-s230509-1347-f4bbccb6 非事务版本，修复 LifeCycleProcessor 无法处理 float64
+2.0.0-s230510-1407-60d33975 非事务版本，修改 LifeCycleProcessor 可以注入空字符串
+
+
+funnydb-collector
+registry.biubiubiu.io/funnydb/funnydb-collector
+1.0.0-s230601-1804-fcd12b72 统计数据收集 + sdk 信息注入
+
+
+api-server 稳定版本
+0.9.0-s230331-1022-e126a456 元数据增加自定义 json schema 校验配置
+0.9.0-s230414-1625-3649c0f1 json schema 校验配置增加 ignore_miss 配置
+0.9.0-s230427-1058-966604d0 增加 LifeCycleProcessor
