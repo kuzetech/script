@@ -11,15 +11,10 @@ ingest 事务版本
 2.0.0-s230413-1108-669f0ccb 事务版本，支持 schema 校验环节非必要字段提示 缺失、上报nil、多余字段
 2.0.0-s230414-1614-abbd6fb6 事务版本，增加连接测试接口，json schema 校验配置增加 ignore_miss 配置
 2.0.0-s230425-1617-da9c6cfe 事务版本，增加 LifeCycleProcessor
-2.0.0-s230510-1409-a65c7014  事务版本，修改 LifeCycleProcessor 可以注入空字符串
-
-ingest-client
-1.0.0-s230210-1525-e688329a 开启事务 + 文件句柄复用 + 请求重试
-1.0.0-s230227-1832-d0368bd3 增加自定义数据添加
-1.0.0-s230328-1835-0cafc706 增加调试日志收集模式
-1.0.0-s230412-1111-7b8327f6 增加 stats 日志统计模式
-1.0.0-s230427-1733-358849a9 增加 appsflyer（wal）模式
-1.0.0-s230511-1007-7e500fb3 修改 appsflyer 模式不适用 wal ，并且修复了 file 模式 readByteCount 统计问题，该问题可能导致数据丢失
+2.0.0-s230510-1409-a65c7014 事务版本，修改 LifeCycleProcessor 可以注入空字符串
+2.0.0-s230531-1014-cb2d7513 事务版本，优化 ingest 数据类型校验规则（float 和 int 判断问题）
+2.0.0-s230607-1812-5f93595d 事务版本，增加获取元数据的接口
+                            事务版本，修复整批消息超限和单条消息超限提示相同的错误语句
 
 
 ingest 稳定版本
@@ -31,14 +26,33 @@ ingest 稳定版本
 2.0.0-s230426-1351-076fd35d 非事务版本，增加 LifeCycleProcessor
 2.0.0-s230509-1347-f4bbccb6 非事务版本，修复 LifeCycleProcessor 无法处理 float64
 2.0.0-s230510-1407-60d33975 非事务版本，修改 LifeCycleProcessor 可以注入空字符串
+                            非事务版本，优化 ingest 数据类型校验规则（float 和 int 判断问题）
+                            非事务版本，增加获取元数据的接口
+                            非事务版本，修复整批消息超限和单条消息超限提示相同的错误语句
+
+
+ingest-client
+1.0.0-s230210-1525-e688329a 开启事务 + 文件句柄复用 + 请求重试
+1.0.0-s230227-1832-d0368bd3 增加自定义数据添加
+1.0.0-s230328-1835-0cafc706 增加调试日志收集模式
+1.0.0-s230412-1111-7b8327f6 增加 stats 日志统计模式
+1.0.0-s230427-1733-358849a9 增加 appsflyer（wal）模式
+1.0.0-s230511-1007-7e500fb3 修改 appsflyer 模式不适用 wal ，并且修复了 file 模式 readByteCount 统计问题，该问题可能导致数据丢失
+1.0.0-s230613-1422-8792f019 优化 野炊国内正式服上报数据过大导致的异常，具体是修复一次性写入几十M日志导致的请求大小超限，并提供了开关可以跳过超过单条数据限制大小的行数据
+
+
 
 
 funnydb-collector
 registry.biubiubiu.io/funnydb/funnydb-collector
 1.0.0-s230601-1804-fcd12b72 统计数据收集 + sdk 信息注入
+                            还原 enrich_content 功能并优化代码
 
 
 api-server 稳定版本
 0.9.0-s230331-1022-e126a456 元数据增加自定义 json schema 校验配置
 0.9.0-s230414-1625-3649c0f1 json schema 校验配置增加 ignore_miss 配置
 0.9.0-s230427-1058-966604d0 增加 LifeCycleProcessor
+
+
+TURBINE_INGEST_max_batch_size
