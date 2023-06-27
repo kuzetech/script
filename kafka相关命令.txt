@@ -7,13 +7,15 @@
 ## 获取消费者组的消费情况
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group demo_consumer_group --describe
 
+## topic 各分区偏移量
+/opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic pass2 
+
 ## 生产者和消费者
-/opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic test
+/opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list  localhost:9092 --topic pass3
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic pass3 --group test --from-beginning
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-ingest-events-receive-log --group test --from-beginning
 
 ## json 消息样例
-
 {"type":"Event","data":{"event":"login","pid":1,"time":1663296551}}
 
 {"type":"Event","data":{"event":"login","date":"2023-04-12 9:04:05.000"}}
