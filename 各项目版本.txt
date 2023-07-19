@@ -42,7 +42,7 @@ ingest-client
 1.0.0-s230614-1409-cbb12c81 完善 上报 ingest 过程中如果出错打印当前批次读取的信息
 1.0.0-s230614-1833-011db7fd 硬编码 op=1
 1.0.0-s230614-2103-3990b570 硬编码 #op=1
-
+                            使用 inode 代替 path 标识文件
 
 
 
@@ -57,6 +57,8 @@ api-server 稳定版本
 0.9.0-s230414-1625-3649c0f1 json schema 校验配置增加 ignore_miss 配置
 0.9.0-s230427-1058-966604d0 增加 LifeCycleProcessor
 
+
 data-quality-validator
 registry.biubiubiu.io/turbine/data-quality-validator
 1.0.0-s230627-1626-0d825ecd 首个版本
+                            增加 SDK 多项目支持
