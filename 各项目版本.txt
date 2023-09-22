@@ -18,6 +18,7 @@ ingest-v3
 0.0.1 初始化版本
 0.0.2 默认开启 kafka 生产者压缩 lz4
 0.0.3 增加基础监控指标
+0.0.4 升级 jdk 到 17
 
 
 ingest-client
