@@ -14,6 +14,10 @@ ingest 稳定版本
 2.0.0-s230831-1149-674db9e0 非事务版本，更新 ip 库到20230731
 2.0.0-s230818-1639-3ce54677 非事务版本，更新 ip 库到20230731 并且 修复 sdk 发送过期 life cycle 数据 ingest 返回 500 异常
 
+ingest-v3
+0.0.1 初始化版本
+0.0.2 默认开启 kafka 生产者压缩 lz4
+0.0.3 增加基础监控指标
 
 
 ingest-client
@@ -22,15 +26,12 @@ ingest-client
 1.2.0 实现香肠数据转换逻辑
 1.2.1 修复香肠数据事件名需要拼接来源
 1.3.0 移除 Mem_Buf_Limit 配置 ｜ 增加 log-chunk-overlimit-pause 配置项
-
-
-
+1.3.1 增加 pprof 默认监控 10000 端口提示语
 
 api-server 稳定版本
 0.9.0-s230331-1022-e126a456 元数据增加自定义 json schema 校验配置
 0.9.0-s230414-1625-3649c0f1 json schema 校验配置增加 ignore_miss 配置
 0.9.0-s230427-1058-966604d0 增加 LifeCycleProcessor
-
 
 data-quality-validator
 registry.biubiubiu.io/turbine/data-quality-validator
