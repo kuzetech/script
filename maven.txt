@@ -1,0 +1,5 @@
+// cannot down load resource
+mvn dependency:resolve -Dclassifier=sources
+
+// 编译本地依赖子模块
+mvn clean package -pl {模块名} -am -amd
