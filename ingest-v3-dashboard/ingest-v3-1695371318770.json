@@ -959,7 +959,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "30s",
+  "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -974,6 +974,6 @@
   "timezone": "",
   "title": "ingest-v3",
   "uid": "a42f0154-96f2-4c59-bc84-9d337efb6a79",
-  "version": 6,
+  "version": 9,
   "weekStart": ""
 }
