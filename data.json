@@ -1,0 +1,24 @@
+{
+  "type": "Event",
+  "app": "funnydbshu_ju_cai_ji_zlof46go",
+  "ingest_time": 1683532800001,
+  "ip": "127.0.0.1",
+  "data": {
+    "#op": 1,
+    "#device_id": "device_id",
+    "#channel": "channel",
+    "#device_model": "device_model",
+    "#ip": "ip",
+    "#os_platform": "os_platform",
+    "#sdk_type": "sdk_type",
+    "#sdk_version": "sdk_version",
+    "#account_id": "account_id",
+    "#ip_country": "ip_country",
+    "#zone_offset": 1,
+    "#event": "#account_create",
+    "#log_id": "log_id",
+    "#source": "source",
+    "#time": 1683532800001,
+    "#data_lifecycle": "data_lifecycle"
+  }
+}
