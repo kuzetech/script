@@ -4,11 +4,12 @@
   "ingest_time": 1683532800001,
   "ip": "127.0.0.1",
   "data": {
+    "#a": 1,
     "#op": 1,
     "#device_id": "device_id",
     "#channel": "channel",
     "#device_model": "device_model",
-    "#ip": "ip",
+    "#ip": "134.68.246.32",
     "#os_platform": "os_platform",
     "#sdk_type": "sdk_type",
     "#sdk_version": "sdk_version",
@@ -22,3 +23,5 @@
     "#data_lifecycle": "data_lifecycle"
   }
 }
+
+
