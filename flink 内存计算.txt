@@ -1,0 +1,11 @@
+JVM Metaspace       固定为 256 MB
+Framework Heap      固定为 128 MB
+Framework Off-Heap  固定为 128 MB
+
+taskmanager.memory.jvm-overhead = 4096 * 0.1 = 409.6 MB
+taskmanager.memory.flink.size = 4096 - 409.6 - 256 = 3430.4 MB
+
+taskmanager.memory.network = 3430.4 * 0.1 = 343.04 MB
+
+taskmanager.memory.managed = 3430.4 * 0.6 = 1372.16 MB      Flink Managed Memory
+taskmanager.memory.task.heap.size = 3430.4 - 128 * 2 - 1372.16 - 343.04 = 1459.2 MB     JVM Heap Size
