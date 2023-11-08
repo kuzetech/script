@@ -3,7 +3,6 @@
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pipeline-error  --partitions 9 --replication-factor 3
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-ingest-receive
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo
-
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
 ## 获取消费者组的消费情况
@@ -12,22 +11,23 @@
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic ingest-v3-test-events 
 
-
 ## 生产者和消费者
 /opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list  localhost:9092 --topic pass3
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-pipeline-error
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-ingest-events-receive-log --group test --from-beginning
 
-
 ## json 消息样例
 {"type":"Event","data":{"event":"login","pid":1,"time":1663296551}}
-
 {"type":"Event","data":{"event":"login","date":"2023-04-12 9:04:05.000"}}
-
 {"event":"login","date":"2023-04-12 9:04:05.000"}
-
 {"#event":"demo","date":"2023-04-12 9:04:05.000"}
-
 {"eventId":"user-login","eventTime":"2022-01-01","uid":1}
-
 {"level":"info","date":"2023-03-24 17:02:00.000","caller":"system/global.go:48","msg":"online num","spec":"0 */1 * * * *","app":"campfire"}
+
+## flink 运行命令
+flink run -d -p 2 /target/funnydb-ingest-processor-1.0-SNAPSHOT.jar
+flink stop --savepointPath /funnydb-ingest-processor/savepoints b2312cbdcfd8a13f53ee2b66ffb7bd3e
+flink run -d -p 4 --fromSavepoint /funnydb-ingest-processor/savepoints/savepoint-b2312c-0c0c4ce505ac /target/funnydb-ingest-processor-1.0-SNAPSHOT.jar
+
+
+Adding split(s) to reader
