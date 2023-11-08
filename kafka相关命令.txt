@@ -1,8 +1,10 @@
 ## kafka-topics.sh
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pipeline-error  --partitions 9 --replication-factor 3
-/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic ying_yue_cheng_yu_dian_zi_ji_nei_wang_ce_o0dppomn-flink-events
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-ingest-receive
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo
+
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
 ## 获取消费者组的消费情况
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group demo_consumer_group --describe
