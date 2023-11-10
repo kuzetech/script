@@ -23,6 +23,8 @@ services:
       - zookeeper
   clickhouse:
     image: bitnami/clickhouse:22.8.21
+    ports:
+      - '8123:8123'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
 
