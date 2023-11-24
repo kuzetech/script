@@ -1,0 +1,91 @@
+select 
+  $__time(s.send_time),
+  (s.app || '-' || s.event) as metric,
+  CASE WHEN r.total is NULL then s.total else (s.total - r.total) end as result 
+from (
+  select 
+    app,
+    event,
+    begin_time as send_time, 
+    sum(count) as total
+  from docker_record
+  where category='ingest'
+  and (begin_time / 1000) >= $__unixEpochFrom()
+  and (begin_time / 1000) <= $__unixEpochTo()
+  group by app, event, send_time
+) s
+left join (
+  select 
+    app,
+    event,
+    begin_time as recv_time, 
+    sum(count) as total
+  from docker_record
+  where category='clickhouse'
+  and (begin_time / 1000) >= $__unixEpochFrom()
+  and (begin_time / 1000) <= $__unixEpochTo()
+  group by app, event, recv_time
+) r
+on s.send_time = r.recv_time and s.app = r.app and s.event = r.event
+order by s.send_time asc
+
+
+
+select 
+  $__time(s.send_time),
+  (s.app) as metric,
+  CASE WHEN r.total is NULL then s.total else (s.total - r.total) end as result 
+from (
+  select 
+    app,
+    begin_time as send_time, 
+    sum(count) as total
+  from docker_record
+  where category='ingest'
+  and (begin_time / 1000) >= $__unixEpochFrom()
+  and (begin_time / 1000) <= $__unixEpochTo()
+  group by app, send_time
+) s
+left join (
+  select 
+    app,
+    begin_time as recv_time, 
+    sum(count) as total
+  from docker_record
+  where category='clickhouse'
+  and (begin_time / 1000) >= $__unixEpochFrom()
+  and (begin_time / 1000) <= $__unixEpochTo()
+  group by app, recv_time
+) r
+on s.send_time = r.recv_time and s.app = r.app
+order by s.send_time asc
+
+
+
+WITH 1700205600000 as ts_begin
+select
+  toDateTime64(s.`#begin` / 1000,0,'Asia/Shanghai') as t,
+  s.total
+from(
+  select 
+    (`#time` - modulo(`#time`, 60000)) as `#begin`,
+    count() as total
+  from xiang_chang_zheng_shi_fu_shu_ju_zhuan_fa_5qop0toy.events 
+  where 
+    `#dt`='2023-11-17' 
+    and `#time` >= ts_begin 
+    and `#time` <= (ts_begin + 600000)
+    and `#event` = 'gameserver_login'
+  group by `#begin`
+  order by `#begin` asc
+) s;
+
+
+SELECT date_format(from_unixtime(TIME-TIME%60), '%Y-%m-%d %H:%i'),
+       count(*)
+FROM gameserver_login
+WHERE dt>='2023-11-16'
+  AND TIME >= 1700130600
+  AND TIME < 1700131200
+GROUP BY 1
+ORDER BY 1
