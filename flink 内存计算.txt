@@ -1,5 +1,14 @@
-
-
+resources:
+    jobmanager:
+        cpu: 1
+        memory: 2Gi
+    taskmanager:
+        cpu: 3
+        memory: 6Gi
+flinkConfiguration:
+    taskmanager.memory.network.fraction: '0.01'
+    taskmanager.memory.managed.fraction: '0.1'
+    taskmanager.numberOfTaskSlots: '3'
 
 
 JVM Metaspace       固定为 256 MB
@@ -48,3 +57,32 @@ taskmanager.memory.task.off-heap.size = 0mb 默认
 taskmanager.memory.task.heap.size = 7116.8 - 128 * 2 - 4270.1 - 71.1 = 2519.6mb
 
 
+
+
+taskmanager 内存 6144 MB
+
+可运行前提条件
+taskmanager.memory.network 长期使用为 2mb
+taskmanager.memory.managed 分配 3.45gb 可运行 
+taskmanager.memory.task.heap.size 分配 1.47gb 会出现 oom
+
+taskmanager.memory.jvm-overhead.min = 192mb 默认
+taskmanager.memory.jvm-overhead.max = 1gb 默认
+taskmanager.memory.jvm-overhead.fraction: 0.1 默认
+taskmanager.memory.jvm-overhead = 6144 * 0.1 = 614.4mb
+
+taskmanager.memory.jvm-metaspace.size = 256mb 默认
+taskmanager.memory.flink.size = 6144 - 614.4 - 256 = 5273.6mb
+
+taskmanager.memory.network.min = 64mb 默认
+taskmanager.memory.network.max = infinite 默认
+taskmanager.memory.network.fraction: 由默认 0.1 调整到 0.01
+taskmanager.memory.network = 5273.6 * 0.01 = 52.736
+
+taskmanager.memory.managed.fraction: 由默认 0.4 调整到 0.1
+taskmanager.memory.managed = 5273.6 * 0.1 = 527.36mb
+
+taskmanager.memory.framework.heap.size = 128mb 默认
+taskmanager.memory.framework.off-heap.size = 128mb 默认
+taskmanager.memory.task.off-heap.size = 0mb 默认
+taskmanager.memory.task.heap.size = 5273.6 - 128 * 2 - 527.36 - 52.736 = 4437.504mb
