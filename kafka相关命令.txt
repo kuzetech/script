@@ -5,8 +5,9 @@
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic demo
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
-## 获取消费者组的消费情况
-/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group demo_consumer_group --describe
+## 消费者组相关
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group funnydb-ingest-pipeline --describe
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group funnydb-ingest-pipeline --delete
 
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic ingest-v3-test-events 
@@ -14,6 +15,8 @@
 ## 生产者和消费者
 /opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list  localhost:9092 --topic pass3
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-ingest-events-receive-log
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-pipeline-error
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic v3-docker --group test --from-beginning
 
 ## json 消息样例
