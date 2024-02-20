@@ -1,0 +1,5 @@
+
+RocksDB 默认使用 taskmanager 的 managed memory
+state.backend.rocksdb.memory.managed = true 默认
+
+Flink 并不直接控制 RocksDB 的 native 内存分配，而是通过配置 RocksDB 来确保其使用的内存正好与 Flink 的托管内存预算相同。这是在任务槽（per-slot）级别上完成的（托管内存以任务槽为粒度计算）
