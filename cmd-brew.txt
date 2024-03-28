@@ -1,0 +1,5 @@
+brew list |grep jdk
+
+brew install openjdk@7
+
+brew link openjdk@11
