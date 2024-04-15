@@ -1,0 +1,13 @@
+version: '3'
+services:
+  sdc:
+    restart: always
+    image: streamsets/datacollector:3.14.0  #高于该版本需要注册账号
+    volumes:
+      - data:/data
+      - ./sdc.properties:/etc/sdc/sdc.properties
+    ports:
+      - 18630:18630
+
+volumes:
+  data: {}
