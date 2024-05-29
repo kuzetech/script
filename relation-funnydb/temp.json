@@ -1,0 +1,42 @@
+{
+    "type": "Event",
+    "app": "demo",
+    "data": {
+        "#data_lifecycle": "lifecycle",
+        "#log_id": "log",
+        "#device_id": "device",
+        "#user_id": "user",
+        "#event": "test",
+        "#ingest_time": 1702535259214,
+        "#time": 1702535259214
+    }
+}
+
+{
+    "type": "Event",
+    "app": "demo",
+    "data": {
+        "#data_lifecycle": "lifecycle",
+        "#log_id": "log",
+        "#device_id": "device",
+        "#user_id": "user",
+        "#event": "#user_login",
+        "#ingest_time": 1702535259214,
+        "#time": 1702535259214
+    }
+}
+
+
+{
+    "type": "Event",
+    "app": "demo",
+    "data": {
+        "#data_lifecycle": "lifecycle",
+        "#log_id": "log",
+        "#device_id": "device",
+        "#user_id": "user",
+        "#event": "#device_login",
+        "#ingest_time": 1702535259214,
+        "#time": 1702535259214
+    }
+}
