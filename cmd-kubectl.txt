@@ -1,0 +1,10 @@
+## 端口转发
+kubectl port-forward svc/alluxio-master 19999:19999
+
+alluxio fs copyToLocal /ssp/data/flink-savepoints/namespaces/funnydb/deployments/679eb215-487c-49ec-a731-fe378f725922/692a3924-bb66-4ce6-8619-015db7e1b742/savepoint-229e0c-e59b9ec25909 /tmp/keepalive
+
+kubectl cp default/alluxio-master-0:/tmp/keepalive /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/keepalive
+
+alluxio fs copyToLocal /ssp/data/flink-savepoints/namespaces/funnydb/deployments/52901a9b-c2c9-4d3e-85f8-d33a54721ef0/b0a621f5-cda2-4ff7-9d6f-4fe166a3ff37/savepoint-57bd6e-ce0ea1f9000a /tmp/devive
+
+kubectl cp default/alluxio-master-0:/tmp/devive /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/devive
