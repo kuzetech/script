@@ -11,3 +11,5 @@ docker run --rm -it --name test                        docker.io/library/zlog-12
 docker cp test:/maxmind-geoip2-city.mmdb /Users/huangsw/code/funny/turbine/sources/ingest/geoip2/maxmind-geoip2-city.mmdb
 docker cp test:/maxmind-geoip2-country.mmdb /Users/huangsw/code/funny/turbine/sources/ingest/geoip2/maxmind-geoip2-country.mmdb
 docker cp test:/maxmind-geoip2-isp.mmdb /Users/huangsw/code/funny/turbine/sources/ingest/geoip2/maxmind-geoip2-isp.mmdb
+
+docker cp test:/opt/flink/artifacts/funnydb-ingest-processor/funnydb-ingest-processor-1.2.1-240109-1844-2cec8c12.jar /Users/huangsw/soft/funnydb-ingest-processor-1.2.1-240109-1844-2cec8c12.jar
