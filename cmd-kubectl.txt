@@ -1,8 +1,28 @@
 ## 端口转发
 kubectl port-forward svc/alluxio-master 19999:19999
 
-alluxio fs copyToLocal /stage-api-server/flink/application/funnydb-funnydb-ingest-flink-processor/checkpoints/a6de66b8a422286f2d798114087bbe81/chk-2994 /tmp/pipeline
-alluxio fs copyToLocal /stage-api-server/flink/application/funnydb-track-event-process-flow-controller/checkpoints/3705c81d542a90b17abcd4366620d9d3/chk-45889 /tmp/track
+## sg
+alluxio fs copyToLocal /ssp/data/flink-savepoints/namespaces/funnydb/deployments/5df4763f-e9b7-4e81-b607-6988acbbac35/e1609a2a-f679-4950-a3ad-33318a2e8dcf/savepoint-d7dbc8-8250d9823a70 /tmp/pipeline
+alluxio fs copyToLocal /ssp/data/flink-savepoints/namespaces/funnydb/deployments/6937a305-4900-4551-956d-fad02101d6b7/95e305d0-11ac-4509-a234-7a1bce2c1980/savepoint-b5c948-6710675eddf9 /tmp/track
 
-kubectl cp default/alluxio-master-0:/tmp/pipeline /Users/huangsw/code/lab/lab-java-all/flink-state-processor/checkpoints/pipeline
-kubectl cp default/alluxio-master-0:/tmp/track /Users/huangsw/code/lab/lab-java-all/flink-state-processor/checkpoints/track
+cd /tmp
+
+tar -czvf track.tar.gz track
+tar -czvf pipeline.tar.gz pipeline
+
+tar -czvf all.tar.gz track pipeline
+
+kubectl cp default/alluxio-master-0:/tmp/track.tar.gz /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/track.tar.gz
+kubectl cp default/alluxio-master-0:/tmp/pipeline.tar.gz /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/pipeline.tar.gz
+
+kubectl cp default/alluxio-master-0:/tmp/all.tar.gz /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/all.tar.gz
+
+cd /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints
+
+tar -czvf new.tar.gz new
+
+kubectl cp new.tar.gz default/alluxio-master-0:/tmp/new.tar.gz
+
+tar -zxvf new.tar.gz
+
+alluxio fs copyFromLocal new /ssp/data/flink-savepoints/namespaces/funnydb/deployments/6937a305-4900-4551-956d-fad02101d6b7/e94503e9-5755-4f8d-a043-7be98bdf10b5/savepoint-new-001
