@@ -1,0 +1,4 @@
+## 
+alluxio fs copyToLocal /ssp/data/flink/savepoint /tmp/pipeline
+
+alluxio fs copyFromLocal new /ssp/data/flink/savepoint-new-001
