@@ -1,2 +1,4 @@
 ## 下载源代码，解决 idea sources not found for 某个包的异常
 mvn dependency:resolve -Dclassifier=sources
+
+mvn clean package -Dmaven.test.skip=true
