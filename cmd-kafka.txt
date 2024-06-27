@@ -20,19 +20,3 @@
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-ingest-events-receive-log
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-pipeline-error
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic v3-docker --group test --from-beginning
-
-## json 消息样例
-{"type":"Event","data":{"event":"login","pid":1,"time":1663296551}}
-{"type":"Event","data":{"event":"login","date":"2023-04-12 9:04:05.000"}}
-{"event":"login","date":"2023-04-12 9:04:05.000"}
-{"#event":"demo","date":"2023-04-12 9:04:05.000"}
-{"eventId":"user-login","eventTime":"2022-01-01","uid":1}
-{"level":"info","date":"2023-03-24 17:02:00.000","caller":"system/global.go:48","msg":"online num","spec":"0 */1 * * * *","app":"campfire"}
-
-## flink 运行命令
-flink run -d -p 2 /target/funnydb-ingest-processor-1.0-SNAPSHOT.jar
-flink stop --savepointPath /funnydb-ingest-processor/savepoints b2312cbdcfd8a13f53ee2b66ffb7bd3e
-flink run -d -p 4 --fromSavepoint /funnydb-ingest-processor/savepoints/savepoint-b2312c-0c0c4ce505ac /target/funnydb-ingest-processor-1.0-SNAPSHOT.jar
-
-
-Adding split(s) to reader
