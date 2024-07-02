@@ -1,3 +1,6 @@
+## 其他
+unset JMX_PORT
+
 ## kafka-topics.sh
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pipeline-error  --partitions 9 --replication-factor 3
