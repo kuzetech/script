@@ -1,3 +1,5 @@
+#! /bin/bash
+
 brew install direnv
 
 echo -e "\n"

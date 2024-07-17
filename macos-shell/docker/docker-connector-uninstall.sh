@@ -1,3 +1,5 @@
+#! /bin/bash
+
 docker stop connector
 
 docker rm -v connector

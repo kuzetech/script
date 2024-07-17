@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # 使用brew安装docker-connector
 brew install wenjunxiao/brew/docker-connector
 

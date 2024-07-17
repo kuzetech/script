@@ -1,3 +1,5 @@
+#! /bin/bash
+
 brew install zsh-autosuggestions
 
 echo -e "\n"
