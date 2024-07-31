@@ -1,4 +1,10 @@
 ## 
-alluxio fs copyToLocal /ssp/data/flink/savepoint /tmp/pipeline
+alluxio fs copyToLocal /stage-api-server/flink/application/funnydb-mutation-event-process-flow-controller/savepoints/savepoint-87a6f8-15589a5ec059 /tmp/mutation
+
+tar -czvf mutation.tar.gz /tmp/mutation
+
+kubectl cp default/alluxio-master-0:/tmp/mutation.tar.gz /Users/huangsw/code/lab/lab-java-all/flink-state-processor/savepoints/mutation.tar.gz
+
+tar -xvf mutation.tar.gz
 
 alluxio fs copyFromLocal new /ssp/data/flink/savepoint-new-001
