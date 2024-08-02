@@ -9,8 +9,6 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
-
-
 ## 消费者组相关
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --describe
@@ -19,7 +17,6 @@ unset JMX_PORT
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic funnydb-flink-track-events --time -1
-
 
 ## 生产者
 /opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list  localhost:9092 --topic pass3
@@ -31,6 +28,14 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic v3-docker --group test --from-beginning
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group test
 
+## 事务
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-ingest-mutation-events
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-flink-track-events
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 abort --topic funnydb-ingest-mutation-events --partition 7 --producer-id 289595 --producer-epoch 0 --coordinator-epoch -1 
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 abort --topic funnydb-ingest-mutation-events --partition 7 --start-offset 200251563
+
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-ingest-mutation-events | awk '{print $6}'
 
 kafkactl consume test1 -g test -i ReadCommitted --max-messages 10
 kafkactl consume test1 -g test -i ReadUncommitted --max-messages 10
