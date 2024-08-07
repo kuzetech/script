@@ -19,9 +19,3 @@ terraform apply --target=module.main.module.funnydb-mutation-event-processor
 
 initialSavepointPath: >-
   alluxio://alluxio-master.default.svc.cluster.local:19998/stage-api-server/flink/application/funnydb-mutation-event-process-flow-controller/checkpoints/e1301a3cb27064b4c1cb4e6ca5fc8eae/chk-1112
-
-
-funnydb-event-process-flow-controller-1.2.5-240717-1729-c7294b59.jar
-
-
-funnydb-event-process-flow-controller-1.2.7.jar
