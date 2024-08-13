@@ -38,7 +38,7 @@ git add
 git rebase --continue
 
 ## 在任何时候，我们都可以用 --abort 参数来终止 rebase 的行动，并且分支会回到 rebase 开始前的状态
-git rebase —abort
+git rebase --abort
 
 ######### 特别注意！！！！！
 如果 feature1 不止一个人开发时，需要慎用 rebase 命令

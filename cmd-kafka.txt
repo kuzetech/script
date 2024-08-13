@@ -32,8 +32,10 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-flink-track-events
+/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic wu_la_la_quan_qiu_fu_wv18n35j-ingest-events-receive-stats
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 abort --topic funnydb-ingest-mutation-events --partition 7 --producer-id 289595 --producer-epoch 0 --coordinator-epoch -1 
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 abort --topic funnydb-ingest-mutation-events --partition 7 --start-offset 200251563
+
 
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-ingest-mutation-events | awk '{print $6}'
 
