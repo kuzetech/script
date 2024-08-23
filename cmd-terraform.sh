@@ -18,4 +18,4 @@ terraform apply --target=module.main.module.funnydb-mutation-event-processor
 
 
 initialSavepointPath: >-
-  alluxio://alluxio-master.default.svc.cluster.local:19998/stage-api-server/flink/application/funnydb-mutation-event-process-flow-controller/checkpoints/e1301a3cb27064b4c1cb4e6ca5fc8eae/chk-1112
+  alluxio://alluxio-master.default.svc.cluster.local:19998/stage-api-server/flink/application/funnydb-track-event-process-flow-controller/savepoints/savepoint-a71ce9-85862d6378a0
