@@ -18,3 +18,4 @@ terraform apply --target=module.main.module.funnydb-mutation-event-processor
 
 
 terraform apply --target="module.main.module.ingest-v3.helm_release.ingest"
+terraform apply --target="module.main.module.ingest-v4.helm_release.ingest-v4"

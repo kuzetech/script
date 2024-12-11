@@ -22,12 +22,8 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-console-producer.sh --broker-list  localhost:9092 --topic pass3
 
 ## 消费者
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic wu_la_la_tai_fu_6iqrtsuf-flink-events
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic demo-ingest-events-receive-log
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-pipeline-error
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic v3-docker --group test --from-beginning
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group test
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-track-events --group test
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-demo --from-beginning
 
 ## 事务
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
