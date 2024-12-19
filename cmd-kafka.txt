@@ -23,7 +23,7 @@ unset JMX_PORT
 
 ## 消费者
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic v3-docker --group test --from-beginning
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-demo --from-beginning
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-ad_click --from-beginning
 
 ## 事务
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
