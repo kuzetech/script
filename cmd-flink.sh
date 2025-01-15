@@ -1,0 +1,6 @@
+--checkpoint.interval 15000
+--checkpoint.path file:///Users/huangsw/code/funny/funnyads/ads-pipeline/send-activation-event-to-ingest/checkpoints
+--debug.parallelism 3
+--debug.taskmanager.slot.number 4
+--debug.web.port 9990
+--savepoint.recover.path /Users/huangsw/code/funny/funnyads/ads-pipeline/send-activation-event-to-ingest/checkpoints/3af1261fcfde0e16d6b25902d82db10f/chk-14

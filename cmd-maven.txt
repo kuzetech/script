@@ -2,3 +2,5 @@
 mvn dependency:resolve -Dclassifier=sources
 
 mvn clean package -Dmaven.test.skip=true
+
+mvn clean package -am -pl com.demo:springboot-demo
