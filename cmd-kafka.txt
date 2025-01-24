@@ -12,7 +12,7 @@ unset JMX_PORT
 ## 消费者组相关
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --describe
-/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --delete
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kuze --delete
 
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic funnydb-ingest-mutation-events
@@ -23,7 +23,10 @@ unset JMX_PORT
 
 ## 消费者
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-tencent_click --group test --from-beginning
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-ad_click --from-beginning
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic yu_mao_qiu_dui_jue_yaftfsqn-flink-events --group kuze
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events --group kuze
+
+20184923
 
 ## 事务
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
