@@ -5,7 +5,7 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pipeline-error  --partitions 9 --replication-factor 3
-/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-flink-track-events
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic __transaction_state
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
@@ -26,7 +26,6 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic yu_mao_qiu_dui_jue_yaftfsqn-flink-events --group kuze
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events --group kuze
 
-20184923
 
 ## 事务
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 list
@@ -37,14 +36,10 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 abort --topic funnydb-ingest-mutation-events --partition 7 --start-offset 200251563
 
 
-/opt/bitnami/kafka/bin/kafka-transactions.sh --bootstrap-server localhost:9092 find-hanging --topic funnydb-ingest-mutation-events | awk '{print $6}'
-
-kafkactl consume test1 -g test -i ReadCommitted --max-messages 10
-kafkactl consume test1 -g test -i ReadUncommitted --max-messages 10
-
-kafkactl consume funnydb-ingest-track-events -g test -i ReadCommitted --max-messages 10
-
 kafkactl consume funnydb-flink-track-events -g test2 -i ReadCommitted --max-messages 10
 kafkactl consume funnydb-flink-track-events -g test3 -i ReadUncommitted --max-messages 10
 
 kcat -C -b localhost:9092 -t demo-ingest-users -X isolation.level=read_committed
+
+
+/opt/bitnami/kafka/bin/kafka-configs.sh --bootstrap-server localhost:9092 --broker 0 --describe --all
