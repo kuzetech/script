@@ -23,10 +23,9 @@ minikube image load docker.io/grafana/grafana:11.3.0
 minikube image load registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20221220-controller-v1.5.1-58-g787ea74b6
 minikube image load registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.13.0
 
-helm install \
-    --values examples/values-minikube.yaml \
-    --namespace pulsar \
-    pulsar-mini apache/pulsar
+helm install --values examples/values-minikube.yaml -n pulsar pulsar-mini apache/pulsar
+
+helm uninstall -n pulsar pulsar-mini
 
 kubectl get pods -n pulsar
 kubectl get services -n pulsar
