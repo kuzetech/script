@@ -52,6 +52,8 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-inges
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group kuze4 --max-messages 1000
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group kuze4 --reset-offsets --to-datetime 2025-03-05T10:10:00.000 --execute
 
-/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kuze3 --delete
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kuze --delete
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group pulsar-validator --delete
+
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --max-messages 1000 --property print.headers=true
 
