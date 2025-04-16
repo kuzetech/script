@@ -24,7 +24,7 @@ unset JMX_PORT
 ## 消费者
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnyads-ingest-tencent_click --group test --from-beginning
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic yu_mao_qiu_dui_jue_yaftfsqn-flink-events --group kuze2 --from-beginning
-/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze2 --from-beginning
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events --group kuze3
 
 
@@ -57,3 +57,5 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-inges
 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --max-messages 1000 --property print.headers=true
 
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze | grep 1744378051
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --reset-offsets --to-datetime 2025-04-14T07:03:30.000 --execute
