@@ -4,8 +4,9 @@ unset JMX_PORT
 ## kafka-topics.sh
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-mutation-events
-/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pipeline-error  --partitions 9 --replication-factor 3
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pulsar-copy  --partitions 9 --replication-factor 3
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic __transaction_state
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-ingest-receive
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
 
