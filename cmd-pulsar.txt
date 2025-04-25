@@ -1,0 +1,101 @@
+
+git clone https://github.com/apache/pulsar-helm-chart
+cd pulsar-helm-chart
+
+./scripts/pulsar/prepare_helm_release.sh -n pulsar -k pulsar -c
+
+helm install -n pulsar -f pulsar.yaml pulsar sofunny/pulsar
+helm install -n pulsar -f cn.yaml pulsar ./pulsar
+helm upgrade pulsar ./pulsar -n pulsar -f cn.yaml
+helm uninstall -n pulsar pulsar
+
+kubectl get pods -n pulsar
+kubectl get pvc -n pulsar
+kubectl delete pvc --all -n pulsar
+
+kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
+kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
+kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
+
+for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
+for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
+for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
+
+pulsar-admin topics list public/default
+pulsar-admin --admin-url=http://pulsar-broker.pulsar.:8080/ topics list public/default 
+pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
+pulsar-admin topics create-partitioned-topic public/default/test -p 9
+pulsar-admin topics delete-partitioned-topic public/default/test
+pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-1
+pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
+pulsar-admin topics stats-internal persistent://public/default/funny-partition-1
+
+pulsar-admin brokers list-dynamic-config
+
+pulsar-admin brokers get-runtime-config
+pulsar-admin brokers get-runtime-config | grep loadManagerClassName
+pulsar-admin brokers get-runtime-config | grep loadBalancerDebugModeEnabled
+pulsar-admin brokers get-runtime-config | grep brokerDeduplicationEnabled
+
+pulsar-admin brokers update-dynamic-config --config=loadBalancerDebugModeEnabled --value=true
+pulsar-admin brokers update-dynamic-config --config=loadManagerClassName --value=org.apache.pulsar.broker.loadbalance.impl.ModularLoadManagerImpl
+pulsar-admin brokers update-dynamic-config --config=loadManagerClassName --value=org.apache.pulsar.broker.loadbalance.extensions.ExtensibleLoadManagerImpl
+pulsar-admin brokers update-dynamic-config --config=loadBalancerAutoBundleSplitEnabled --value=true
+
+pulsar-admin brokers delete-dynamic-config
+pulsar-admin brokers get-all-dynamic-config
+
+pulsar-admin namespaces list public
+pulsar-admin namespaces create -b 16 public/test
+pulsar-admin namespaces bundles public/default
+pulsar-admin namespaces policies public/default
+pulsar-admin namespaces get-backlog-quotas public/default
+pulsar-admin namespaces get-message-ttl public/default
+pulsar-admin namespaces get-retention public/default
+
+pulsar-perf produce \
+--compression=LZ4 \
+--test-duration=30 \
+--batch-time-window=1 \
+--rate=100 \
+--num-test-threads=1 \
+--num-producers=1 \
+public/default/funnydb-ingest-receive
+
+pulsar-perf consume \
+--acks-delay-millis=100 \
+--batch-index-ack=true \
+--test-duration=30 \
+--rate=0.0 \
+--subscription-position=Earliest \
+--num-consumers=1 \
+--subscription-type=Exclusive \
+public/default/funnydb-ingest-receive
+
+pulsar-perf produce --num-messages=1500 --rate=10 public/default/funny
+pulsar-perf consume --subscriptions=sub --subscription-position=Earliest public/default/funny
+
+kubectl exec -it pulsar-bookie-1 -n pulsar -- bin/bookkeeper shell bookieformat
+
+kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
+kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
+kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
+
+kubectl exec -it broker -- /bin/bash
+
+pulsar-admin topics create-partitioned-topic public/default/test -p 9
+pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
+
+pulsar-perf produce --rate=11 public/default/funny1
+pulsar-perf consume --subscription-position=Earliest public/default/funny1
+
+bookkeeper shell listbookies -a
+bookkeeper shell listledgers -bookieid pulsar-bookie-3.pulsar-bookie.pulsar.svc.cluster.local:3181
+
+pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s test persistent://public/default/funnydb-ingest-receive
+
+bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
+
+
+docker-compose exec broker pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
