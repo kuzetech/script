@@ -4,9 +4,16 @@ cd pulsar-helm-chart
 
 ./scripts/pulsar/prepare_helm_release.sh -n pulsar -k pulsar -c
 
+helm repo add apache https://pulsar.apache.org/charts
+helm repo update
+helm repo add sofunny https://registry.sofunny.io/chartrepo/turbine
+
 helm install -n pulsar -f pulsar.yaml pulsar sofunny/pulsar
-helm install -n pulsar -f cn.yaml pulsar ./pulsar
-helm upgrade pulsar ./pulsar -n pulsar -f cn.yaml
+helm upgrade pulsar sofunny/pulsar -n pulsar -f /Users/huangsw/code/funny/funnydb-deployment/env/production-cn/external/values/pulsar.yaml
+
+helm install -n pulsar -f test.yaml pulsar ./pulsar
+helm upgrade pulsar ./pulsar -n pulsar -f test.yaml
+
 helm uninstall -n pulsar pulsar
 
 kubectl get pods -n pulsar
@@ -22,7 +29,6 @@ for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funny
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
 
 pulsar-admin topics list public/default
-pulsar-admin --admin-url=http://pulsar-broker.pulsar.:8080/ topics list public/default 
 pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
 pulsar-admin topics create-partitioned-topic public/default/test -p 9
 pulsar-admin topics delete-partitioned-topic public/default/test
@@ -88,6 +94,8 @@ pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-recei
 
 pulsar-perf produce --rate=11 public/default/funny1
 pulsar-perf consume --subscription-position=Earliest public/default/funny1
+
+pulsar-client produce public/kuze/funnydb-ingest-receive-partition-0 --messages 'Hello Pulsar!'
 
 bookkeeper shell listbookies -a
 bookkeeper shell listledgers -bookieid pulsar-bookie-3.pulsar-bookie.pulsar.svc.cluster.local:3181
