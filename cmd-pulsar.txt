@@ -59,6 +59,9 @@ pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
 pulsar-admin namespaces get-retention public/default
 
+pulsar-admin namespaces set-retention public/default --size 200G --time 24h
+pulsar-admin namespaces get-retention public/default
+
 pulsar-perf produce \
 --compression=LZ4 \
 --test-duration=30 \
