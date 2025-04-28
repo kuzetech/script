@@ -29,12 +29,16 @@ for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funny
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
 
 pulsar-admin topics list public/default
+pulsar-admin topics list-partitioned-topics public/default
+
+pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
+pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
+pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
 pulsar-admin topics create-partitioned-topic public/default/test -p 9
 pulsar-admin topics delete-partitioned-topic public/default/test
-pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
-pulsar-admin topics stats-internal persistent://public/default/funny-partition-1
+pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 
 pulsar-admin brokers list-dynamic-config
 
@@ -90,14 +94,6 @@ kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
 kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
 kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
 
-kubectl exec -it broker -- /bin/bash
-
-pulsar-admin topics create-partitioned-topic public/default/test -p 9
-pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
-
-pulsar-perf produce --rate=11 public/default/funny1
-pulsar-perf consume --subscription-position=Earliest public/default/funny1
-
 pulsar-client produce public/kuze/funnydb-ingest-receive-partition-0 --messages 'Hello Pulsar!'
 
 bookkeeper shell listbookies -a
@@ -108,5 +104,8 @@ pulsar-admin topics unsubscribe -s test persistent://public/default/funnydb-inge
 
 bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
 
-
 docker-compose exec broker pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
+
+pulsar-admin namespaces get-topic-positions -b=0x00000000_0x10000000 public/default
+
+pulsar-admin namespaces unload -b=0x00000000_0x10000000 -d=pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
