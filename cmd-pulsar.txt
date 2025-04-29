@@ -11,8 +11,8 @@ helm repo add sofunny https://registry.sofunny.io/chartrepo/turbine
 helm install -n pulsar -f pulsar.yaml pulsar sofunny/pulsar
 helm upgrade pulsar sofunny/pulsar -n pulsar -f /Users/huangsw/code/funny/funnydb-deployment/env/production-cn/external/values/pulsar.yaml
 
-helm install -n pulsar -f test.yaml pulsar ./pulsar
-helm upgrade pulsar ./pulsar -n pulsar -f test.yaml
+helm install -n pulsar -f dev.yaml pulsar ./pulsar
+helm upgrade pulsar ./pulsar -n pulsar -f dev.yaml
 
 helm uninstall -n pulsar pulsar
 
@@ -27,8 +27,11 @@ kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
 for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
 for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
+for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
 
-pulsar-admin topics list public/default
+
+pulsar-admin topics list -ist public/default
+pulsar-admin topics list -ist pulsar/system
 pulsar-admin topics list-partitioned-topics public/default
 
 pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
@@ -88,6 +91,9 @@ public/default/funnydb-ingest-receive
 pulsar-perf produce --num-messages=1500 --rate=10 public/default/funny
 pulsar-perf consume --subscriptions=sub --subscription-position=Earliest public/default/funny
 
+pulsar-perf produce --rate=100 -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
+pulsar-perf consume --subscriptions=test --subscription-position=Earliest -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
+
 kubectl exec -it pulsar-bookie-1 -n pulsar -- bin/bookkeeper shell bookieformat
 
 kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
@@ -106,6 +112,7 @@ bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pul
 
 docker-compose exec broker pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
 
-pulsar-admin namespaces get-topic-positions -b=0x00000000_0x10000000 public/default
+pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
+pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
 
-pulsar-admin namespaces unload -b=0x00000000_0x10000000 -d=pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
+pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
