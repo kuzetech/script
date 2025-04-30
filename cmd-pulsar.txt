@@ -1,18 +1,17 @@
 
 git clone https://github.com/apache/pulsar-helm-chart
 cd pulsar-helm-chart
-
 ./scripts/pulsar/prepare_helm_release.sh -n pulsar -k pulsar -c
 
 helm repo add apache https://pulsar.apache.org/charts
-helm repo update
 helm repo add sofunny https://registry.sofunny.io/chartrepo/turbine
+helm repo update
 
 helm install -n pulsar -f pulsar.yaml pulsar sofunny/pulsar
-helm upgrade pulsar sofunny/pulsar -n pulsar -f /Users/huangsw/code/funny/funnydb-deployment/env/production-cn/external/values/pulsar.yaml
+helm upgrade pulsar sofunny/pulsar -n pulsar -f pulsar.yaml
 
-helm install -n pulsar -f dev.yaml pulsar ./pulsar
-helm upgrade pulsar ./pulsar -n pulsar -f dev.yaml
+helm install -n pulsar -f dev.yaml pulsar sofunny/pulsar
+helm upgrade pulsar sofunny/pulsar -n pulsar -f dev.yaml
 
 helm uninstall -n pulsar pulsar
 
@@ -106,7 +105,7 @@ bookkeeper shell listbookies -a
 bookkeeper shell listledgers -bookieid pulsar-bookie-3.pulsar-bookie.pulsar.svc.cluster.local:3181
 
 pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
-pulsar-admin topics unsubscribe -s test persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s pulsar-to-kafka persistent://public/default/funnydb-ingest-receive
 
 bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
 
