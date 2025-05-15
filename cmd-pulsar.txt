@@ -1,7 +1,7 @@
 
 git clone https://github.com/apache/pulsar-helm-chart
 cd pulsar-helm-chart
-./scripts/pulsar/prepare_helm_release.sh -n pulsar -k pulsar -c
+./scripts/pulsar/prepare_helm_release.sh -n default -k pulsar -c
 
 helm repo add apache https://pulsar.apache.org/charts
 helm repo add sofunny https://registry.sofunny.io/chartrepo/turbine
@@ -17,11 +17,11 @@ helm uninstall -n pulsar pulsar
 
 kubectl get pods -n pulsar
 kubectl get pvc -n pulsar
-kubectl delete pvc --all -n pulsar
+kubectl get pvc -l app=pulsar | awk 'NR!=1{print $1}' | xargs kubectl delete pvc
 
 kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
 kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
+kubectl exec -it -n default pulsar-broker-0 -- /bin/bash
 
 for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
 for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
