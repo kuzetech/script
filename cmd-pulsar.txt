@@ -19,41 +19,44 @@ kubectl get pods -n pulsar
 kubectl get pvc -n pulsar
 kubectl get pvc -l app=pulsar | awk 'NR!=1{print $1}' | xargs kubectl delete pvc
 
+kubectl exec -it -n default pulsar-broker-0 -- /bin/bash
 kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
 kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
-kubectl exec -it -n default pulsar-broker-0 -- /bin/bash
+kubectl exec -it -n pulsar pulsar-bookie-1 -- bin/bookkeeper shell bookieformat
+kubectl exec -it -n pulsar pulsar-broker-0 -- bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
 
 for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
 for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
 for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
 
-
 pulsar-admin topics list -ist public/default
 pulsar-admin topics list -ist pulsar/system
 pulsar-admin topics list-partitioned-topics public/default
-
 pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
 pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
-pulsar-admin topics create-partitioned-topic public/default/test -p 9
 pulsar-admin topics delete-partitioned-topic public/default/funnydb-ingest-receive
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
+pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics create-subscription persistent://public/default/funnydb-ingest-receive  -s funnydb-ingest-pipeline -m latest
+pulsar-admin topics reset-cursor persistent://public/default/funnydb-ingest-receive-partition-2 -s funnydb-ingest-pipeline -m '6401:23484'
+pulsar-admin topics get-subscription-properties persistent://public/default/funnydb-ingest-receive -s pulsar-to-kafka
 
 pulsar-admin brokers list-dynamic-config
-
 pulsar-admin brokers get-runtime-config
 pulsar-admin brokers get-runtime-config | grep loadManagerClassName
 pulsar-admin brokers get-runtime-config | grep loadBalancerDebugModeEnabled
 pulsar-admin brokers get-runtime-config | grep brokerDeduplicationEnabled
-
 pulsar-admin brokers update-dynamic-config --config=loadBalancerDebugModeEnabled --value=true
 pulsar-admin brokers update-dynamic-config --config=loadManagerClassName --value=org.apache.pulsar.broker.loadbalance.impl.ModularLoadManagerImpl
 pulsar-admin brokers update-dynamic-config --config=loadManagerClassName --value=org.apache.pulsar.broker.loadbalance.extensions.ExtensibleLoadManagerImpl
 pulsar-admin brokers update-dynamic-config --config=loadBalancerAutoBundleSplitEnabled --value=true
-
 pulsar-admin brokers delete-dynamic-config
 pulsar-admin brokers get-all-dynamic-config
 
@@ -64,9 +67,13 @@ pulsar-admin namespaces policies public/default
 pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
 pulsar-admin namespaces get-retention public/default
-
 pulsar-admin namespaces set-retention public/default --size 200G --time 24h
-pulsar-admin namespaces get-retention public/default
+pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
+pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
+pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
+
+pulsar-client produce --messages 'Hello Pulsar!' public/kuze/funnydb-ingest-receive-partition-0
+pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
 
 pulsar-perf produce \
 --compression=LZ4 \
@@ -76,6 +83,9 @@ pulsar-perf produce \
 --num-test-threads=1 \
 --num-producers=1 \
 public/default/funnydb-ingest-receive
+
+pulsar-perf produce --num-messages=1500 --rate=10 public/default/funny
+pulsar-perf produce --rate=100 -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
 
 pulsar-perf consume \
 --acks-delay-millis=100 \
@@ -87,31 +97,9 @@ pulsar-perf consume \
 --subscription-type=Exclusive \
 public/default/funnydb-ingest-receive
 
-pulsar-perf produce --num-messages=1500 --rate=10 public/default/funny
 pulsar-perf consume --subscriptions=sub --subscription-position=Earliest public/default/funny
-
-pulsar-perf produce --rate=100 -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
+pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
 pulsar-perf consume --subscriptions=test --subscription-position=Earliest -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
-
-kubectl exec -it pulsar-bookie-1 -n pulsar -- bin/bookkeeper shell bookieformat
-
-kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-broker-0 -- /bin/bash
-
-pulsar-client produce public/kuze/funnydb-ingest-receive-partition-0 --messages 'Hello Pulsar!'
 
 bookkeeper shell listbookies -a
 bookkeeper shell listledgers -bookieid pulsar-bookie-3.pulsar-bookie.pulsar.svc.cluster.local:3181
-
-pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
-pulsar-admin topics unsubscribe -s pulsar-to-kafka persistent://public/default/funnydb-ingest-receive
-
-bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
-
-docker-compose exec broker pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
-
-pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
-pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
-
-pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
