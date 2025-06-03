@@ -13,7 +13,7 @@ unset JMX_PORT
 ## 消费者组相关
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --describe
-/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --delete
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group funnydb-ingest-pipeline --delete
 
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic funnydb-ingest-mutation-events
@@ -59,4 +59,4 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-inges
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --max-messages 1000 --property print.headers=true
 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze | grep 1744378051
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --reset-offsets --to-datetime 2025-04-14T07:03:30.000 --execute
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze --reset-offsets --to-datetime 2025-04-14T07:03:30.000 --executea
