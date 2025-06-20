@@ -27,6 +27,8 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic yu_mao_qiu_dui_jue_yaftfsqn-flink-events --group kuze2 --from-beginning
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events --group kuze3
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic xiang_chang_nei_wang_shu_ju_zheng_que_xing_ynrhzo2a-flink-events --group kuze
+
 
 
 ## 事务
@@ -51,7 +53,7 @@ kcat -C -b localhost:9092 -t demo-ingest-users -X isolation.level=read_committed
 kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group kuze3 --reset-offsets --to-datetime 2025-03-04T09:50:00.000 --execute
 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group kuze4 --max-messages 1000
-kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-mutation-events --group kuze4 --reset-offsets --to-datetime 2025-03-05T10:10:00.000 --execute
+kafka-consumer-groups.sh --bootstrap-server localhost:9092 --topic xiang_chang_nei_wang_shu_ju_zheng_que_xing_ynrhzo2a-flink-events --group kuze --reset-offsets --to-datetime 2025-06-10T05:45:00.000 --execute
 
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kuze --delete
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group pulsar-validator --delete
