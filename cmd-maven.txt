@@ -4,3 +4,4 @@ mvn dependency:resolve -Dclassifier=sources
 mvn clean package -Dmaven.test.skip=true
 
 mvn clean package -am -pl com.demo:springboot-demo
+mvn clean package -am -pl com.kuzetech.bigdata.flink:pulsar-copier

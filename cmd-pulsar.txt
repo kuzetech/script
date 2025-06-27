@@ -43,7 +43,8 @@ pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-re
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
-pulsar-admin topics unsubscribe -s pulsar-to-kafka-staging persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s pulsar-transaction-copier persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s kuze persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics create-subscription persistent://public/default/funnydb-ingest-receive  -s funnydb-ingest-pipeline -m latest
 pulsar-admin topics reset-cursor persistent://public/default/funnydb-ingest-receive-partition-2 -s funnydb-ingest-pipeline -m '6401:23484'
 pulsar-admin topics get-subscription-properties persistent://public/default/funnydb-ingest-receive -s pulsar-to-kafka
@@ -67,13 +68,14 @@ pulsar-admin namespaces policies public/default
 pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
 pulsar-admin namespaces get-retention public/default
-pulsar-admin namespaces set-retention public/default --size 80G --time 3d
+pulsar-admin namespaces set-retention public/default --size 70G --time 1d
 pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
 pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
 pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
 
 pulsar-client produce --messages 'Hello Pulsar!' public/kuze/funnydb-ingest-receive-partition-0
 pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
+pulsar-client consume -p Latest -s kuze public/temp/funnydb-ingest-receive-copy
 
 pulsar-perf produce \
 --compression=LZ4 \
