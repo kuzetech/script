@@ -38,6 +38,7 @@ pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
 pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
 pulsar-admin topics delete-partitioned-topic public/default/funnydb-ingest-receive
+pulsar-admin topics delete-partitioned-topic public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
