@@ -78,7 +78,7 @@ pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-
 
 pulsar-client produce --messages 'Hello Pulsar!' public/kuze/funnydb-ingest-receive-partition-0
 pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
-pulsar-client consume -p Latest -s kuze public/temp/funnydb-ingest-receive-copy
+pulsar-client consume -p Latest -s kuze public/temp/funnydb-ingest-receive-copy    
 
 pulsar-perf produce \
 --compression=LZ4 \
