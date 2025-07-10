@@ -4,3 +4,16 @@
 --debug.taskmanager.slot.number 4
 --debug.web.port 9990
 --savepoint.recover.path /Users/huangsw/code/funny/funnyads/ads-pipeline/send-activation-event-to-ingest/savepoints/savepoint-7d05ba-ab472acb294f
+
+
+
+hdfs://gd-hdfs/turbine/funnydb/flink/application/funnydb-track-event-process-flow-controller/savepoints/129/savepoint-6f85df-e2d35541b904
+
+hdfs://gd-hdfs/turbine/funnydb/flink/application/funnydb-track-event-process-flow-controller/savepoints/processor20/track4
+
+hdfs://gd-hdfs/turbine/funnydb/flink/application/funnydb-track-event-process-flow-controller/savepoints/processor17-1/track4
+
+pipeline.max-parallelism: '128'
+
+--pulsar.start.cursor 36161:5384:0,36101:8265:1,36000:14591:2,36274:1801:3,36159:5421:4,36102:8443:5,35999:14551:6,36275:1766:7,36160:5441:8
+
