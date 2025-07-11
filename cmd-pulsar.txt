@@ -34,6 +34,7 @@ pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
 pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
+pulsar-admin topics create-partitioned-topic public/default/funnydb-flink-track-events -p 9
 pulsar-admin topics delete-partitioned-topic public/default/funnydb-ingest-receive
 pulsar-admin topics delete-partitioned-topic public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
@@ -42,6 +43,7 @@ pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest
 pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s pulsar-transaction-copier persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline-bypass persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s kuze persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics unsubscribe -s pulsar-transaction-validator persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics create-subscription persistent://public/default/funnydb-ingest-receive  -s funnydb-ingest-pipeline -m latest
