@@ -1,0 +1,5 @@
+## 打印 jvm 当前参数
+java -XX:+PrintFlagsFinal -version
+
+## 排查丢内存使用
+java -XX:+PrintFlagsFinal -version | grep HeapSize
