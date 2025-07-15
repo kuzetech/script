@@ -27,7 +27,7 @@ for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funny
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
 for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
 
-pulsar-admin topics list -ist public/default
+pulsar-admin topics list public/default
 pulsar-admin topics list -ist pulsar/system
 pulsar-admin topics list-partitioned-topics public/default
 pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
@@ -37,6 +37,7 @@ pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-recei
 pulsar-admin topics create-partitioned-topic public/default/funnydb-flink-track-events -p 9
 pulsar-admin topics delete-partitioned-topic public/default/funnydb-ingest-receive
 pulsar-admin topics delete-partitioned-topic public/temp/funnydb-ingest-receive-copy
+pulsar-admin topics delete-partitioned-topic public/default/funnydb-flink-track-events
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
@@ -64,7 +65,6 @@ pulsar-admin brokers get-all-dynamic-config
 
 pulsar-admin namespaces list public
 pulsar-admin namespaces create -b 16 public/test
-pulsar-admin namespaces bundles public/default
 pulsar-admin namespaces policies public/default
 pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
@@ -73,7 +73,14 @@ pulsar-admin namespaces set-retention public/default --size 60G --time 1d
 pulsar-admin namespaces set-retention public/default --size 150G --time 2d      （8 * 850 = 60%）
 pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
 pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
-pulsar-admin namespaces unload -b 0x68000000_0x70000000 -d http://pulsar-broker-1.pulsar-broker.pulsar.svc.cluster.local:8080 public/default
+
+pulsar-admin namespaces bundles public/default
+pulsar-admin namespaces split-bundle -b 0x00000000_0x10000000 public/default
+pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
+## -d指定要分配到哪台broker
+pulsar-admin namespaces unload -b 0x60000000_0x70000000 -d http://pulsar-broker-0.pulsar-broker.default.svc.cluster.local:8080 public/default
+pulsar-admin namespaces unload -b 0x80000000_0x90000000 -d http://pulsar-broker-1.pulsar-broker.default.svc.cluster.local:8080 public/default
+
 
 pulsar-client produce --messages 'Hello Pulsar!' public/kuze/funnydb-ingest-receive-partition-0
 pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
