@@ -44,6 +44,7 @@ pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest
 pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s pulsar-transaction-copier persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline-test persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline-bypass persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s kuze persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics unsubscribe -s pulsar-transaction-validator persistent://public/temp/funnydb-ingest-receive-copy
