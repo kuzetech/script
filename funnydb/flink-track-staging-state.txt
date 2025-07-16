@@ -1,0 +1,8 @@
+[
+    OperatorState(operatorID: 3366a3857ca0300dc2f09764ab83300c, parallelism: 1, maxParallelism: 256, coordinatorState: (none), sub task states: 1, total size (bytes): 1926997), 
+    OperatorState(operatorID: 0ea815154bed2eb6a7f66670387f378e, parallelism: 1, maxParallelism: 256, coordinatorState: (none), sub task states: 1, total size (bytes): 2004622),
+    OperatorState(operatorID: 380eb24e048ac7ba0619bfd79af9a464, parallelism: 1, maxParallelism: 256, coordinatorState: (none), sub task states: 1, total size (bytes): 60353060), 
+    OperatorState(operatorID: 9393a856d72fdb16789a198cff93a284, parallelism: 1, maxParallelism: 256, coordinatorState: (none), sub task states: 1, total size (bytes): 674617)
+]
+
+

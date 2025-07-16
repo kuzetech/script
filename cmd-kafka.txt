@@ -5,7 +5,9 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-ingest-pulsar-copy  --partitions 9 --replication-factor 3
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic funnydb-flink-track-events-test  --partitions 27 --replication-factor 3
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic __transaction_state
+/opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-ingest-receive
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic funnydb-ingest-receive
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic funnydb-ingest-mutation-events
 /opt/bitnami/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic topic --partitions 4
@@ -14,6 +16,7 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --list
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group test --describe
 /opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group funnydb-ingest-pipeline --delete
+/opt/bitnami/kafka/bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kuze --delete
 
 ## topic 各分区偏移量
 /opt/bitnami/kafka/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic funnydb-ingest-mutation-events
@@ -27,6 +30,7 @@ unset JMX_PORT
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic yu_mao_qiu_dui_jue_yaftfsqn-flink-events --group kuze2 --from-beginning
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-ingest-receive --group kuze 
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events --group kuze3
+/opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic funnydb-flink-track-events-test --group kuze --from-beginning --max-messages 10
 /opt/bitnami/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic xiang_chang_nei_wang_shu_ju_zheng_que_xing_ynrhzo2a-flink-events --group kuze
 
 
