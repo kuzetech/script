@@ -33,15 +33,21 @@ pulsar-admin topics list-partitioned-topics public/default
 pulsar-admin topics lookup public/default/funnydb-ingest-receive-partition-1
 pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
 pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
-pulsar-admin topics create-partitioned-topic public/default/funnydb-ingest-receive -p 9
-pulsar-admin topics create-partitioned-topic public/default/funnydb-flink-track-events -p 9
-pulsar-admin topics delete-partitioned-topic public/default/funnydb-ingest-receive
-pulsar-admin topics delete-partitioned-topic public/temp/funnydb-ingest-receive-copy
-pulsar-admin topics delete-partitioned-topic public/default/funnydb-flink-track-events
+
+pulsar-admin topics create-partitioned-topic persistent://public/default/funnydb-ingest-receive -p 9
+pulsar-admin topics create-partitioned-topic persistent://public/default/funnydb-flink-track-events -p 9
+pulsar-admin topics create-partitioned-topic persistent://public/default/abc-test -p 9
+pulsar-admin topics delete-partitioned-topic persistent://public/default/abc-test
+pulsar-admin topics delete-partitioned-topic persistent://public/temp/funnydb-ingest-receive-copy
+pulsar-admin topics delete-partitioned-topic persistent://public/default/funnydb-flink-track-events
+
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics partitioned-stats persistent://public/default/abc-test
 pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics update-partitioned-topic -p=32 persistent://public/default/funnydb-flink-track-events
+
 pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s pulsar-transaction-copier persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline-test persistent://public/default/funnydb-ingest-receive
@@ -50,7 +56,7 @@ pulsar-admin topics unsubscribe -s kuze persistent://public/temp/funnydb-ingest-
 pulsar-admin topics unsubscribe -s pulsar-transaction-validator persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics create-subscription persistent://public/default/funnydb-ingest-receive  -s funnydb-ingest-pipeline -m latest
 pulsar-admin topics reset-cursor persistent://public/default/funnydb-ingest-receive-partition-2 -s funnydb-ingest-pipeline -m '6401:23484'
-pulsar-admin topics get-subscription-properties persistent://public/default/funnydb-ingest-receive -s pulsar-to-kafka
+pulsar-admin topics get-subscription-properties persistent://public/default/funnydb-ingest-receive -s funnydb-ingest-pipeline
 
 pulsar-admin brokers list-dynamic-config
 pulsar-admin brokers get-runtime-config
@@ -78,6 +84,7 @@ pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/defa
 pulsar-admin namespaces bundles public/default
 pulsar-admin namespaces split-bundle -b 0x00000000_0x10000000 public/default
 pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
+pulsar-admin topics partitioned-lookup public/default/funnydb-test
 ## -d指定要分配到哪台broker
 pulsar-admin namespaces unload -b 0x60000000_0x70000000 -d http://pulsar-broker-0.pulsar-broker.default.svc.cluster.local:8080 public/default
 pulsar-admin namespaces unload -b 0x80000000_0x90000000 -d http://pulsar-broker-1.pulsar-broker.default.svc.cluster.local:8080 public/default
@@ -96,7 +103,9 @@ pulsar-perf produce \
 --num-producers=1 \
 public/default/funnydb-ingest-receive
 
-pulsar-perf produce --num-messages=1500 --rate=10 public/default/funny
+pulsar-perf produce -txn --txn-timeout=100 --num-messages=30 --rate=1 --numMessage-perTransaction=10 public/default/abc-test
+pulsar-perf produce --num-messages=1500 --rate=10 public/default/funnydb-flink-track-events
+pulsar-perf produce -txn --num-messages=100 --rate=1  public/default/funnydb-flink-track-events
 pulsar-perf produce --rate=100 -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
 
 pulsar-perf consume \
