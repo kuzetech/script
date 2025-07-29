@@ -35,17 +35,13 @@ pulsar-admin topics partitioned-lookup public/default/funnydb-ingest-receive
 pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-1
 
 pulsar-admin topics create-partitioned-topic persistent://public/default/funnydb-ingest-receive -p 9
-pulsar-admin topics create-partitioned-topic persistent://public/default/funnydb-flink-track-events -p 9
-pulsar-admin topics create-partitioned-topic persistent://public/default/abc-test -p 9
-pulsar-admin topics delete-partitioned-topic persistent://public/default/abc-test
-pulsar-admin topics delete-partitioned-topic persistent://public/temp/funnydb-ingest-receive-copy
 pulsar-admin topics delete-partitioned-topic persistent://public/default/funnydb-flink-track-events
 
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics partitioned-stats persistent://public/default/abc-test
-pulsar-admin topics partitioned-stats-internal persistent://public/default/funnydb-ingest-receive
+pulsar-admin topics partitioned-stats-internal persistent://public/default/abc-test
 pulsar-admin topics update-partitioned-topic -p=32 persistent://public/default/funnydb-flink-track-events
 
 pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-receive
@@ -104,7 +100,7 @@ pulsar-perf produce \
 public/default/funnydb-ingest-receive
 
 pulsar-perf produce -txn --txn-timeout=100 --num-messages=30 --rate=1 --numMessage-perTransaction=10 public/default/abc-test
-pulsar-perf produce --num-messages=1500 --rate=10 public/default/funnydb-flink-track-events
+pulsar-perf produce --num-messages=1500 --rate=10 public/default/funnydb-flink-track-events 
 pulsar-perf produce -txn --num-messages=100 --rate=1  public/default/funnydb-flink-track-events
 pulsar-perf produce --rate=100 -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
 
