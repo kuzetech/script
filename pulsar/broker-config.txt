@@ -1,0 +1,530 @@
+loadBalancerNamespaceBundleMaxBandwidthMbytes    100
+managedLedgerMaxUnackedRangesToPersistInMetadataStore    1000
+numExecutorThreadPoolSize    2
+messagePublishBufferCheckIntervalInMillis    100
+managedLedgerCursorResetLedgerCloseTimestampMaxClockSkewMillis    60000
+bookkeeperClientNumIoThreads    4
+managedLedgerCursorBackloggedThreshold    1000
+exposePreciseBacklogInPrometheus    false
+transactionLogBatchedWriteMaxRecords    512
+bookkeeperClientHealthCheckErrorThresholdPerInterval    5
+dispatcherRetryBackoffInitialTimeInMs    1
+brokerDeduplicationEntriesInterval    1000
+anonymousUserRole    
+isDelayedDeliveryDeliverAtTimeStrict    false
+triggerOffloadOnTopicLoad    false
+jvmGCMetricsLoggerClassName    
+packagesManagementStorageProvider    org.apache.pulsar.packages.management.storage.bookkeeper.BookKeeperPackagesStorageProvider
+brokerClientTlsKeyStoreType    JKS
+loadBalancerAutoBundleSplitEnabled    true
+managedLedgerDefaultAckQuorum    2
+loadBalancerSheddingBundlesWithPoliciesEnabled    false
+forceDeleteNamespaceAllowed    false
+webSocketConnectionsPerBroker    2
+webSocketPulsarClientMemoryLimitInMB    0
+webServiceLogDetailedAddresses    
+loadBalancerSplitIntervalMinutes    1
+delayedDeliveryEnabled    true
+managedCursorInfoCompressionType    NONE
+functionsWorkerEnabled    false
+backlogQuotaDefaultLimitBytes    -1
+bookkeeperClientEnforceMinNumRacksPerWriteQuorum    false
+brokerClientTlsEnabled    false
+kinitCommand    /usr/bin/kinit
+replicatedSubscriptionsSnapshotMaxCachedPerSubscription    10
+httpServerThreadPoolQueueSize    8192
+maxNumPartitionsPerPartitionedTopic    0
+loadBalancerReportUpdateMinIntervalMillis    5000
+managedLedgerMinLedgerRolloverTimeMinutes    10
+messagingProtocols    []
+clusterName    pulsar
+superUserRoles    []
+authenticationProviders    []
+protocolHandlerDirectory    ./protocols
+dispatcherMaxReadSizeBytes    5242880
+tlsCiphers    []
+maxNamespacesPerTenant    0
+exposeManagedLedgerMetricsInPrometheus    true
+loadBalancerBrokerComfortLoadLevelPercentage    65
+loadBalancerServiceUnitStateTombstoneDelayTimeInSeconds    3600
+useSeparateThreadPoolForProtocolHandlers    true
+loadBalancerBandwidthInResourceWeight    1.0
+advertisedAddress    
+maxSameAddressProducersPerTopic    0
+loadBalancerDistributeBundlesEvenlyEnabled    true
+brokerDeduplicationEnabled    true
+topicOrderedExecutorThreadNum    2
+transactionPendingAckBatchedWriteMaxDelayInMillis    1
+dispatcherRetryBackoffMaxTimeInMs    10
+bookkeeperTLSTrustCertTypes    PEM
+advertisedListeners    
+metricsBufferResponse    false
+exposeManagedCursorMetricsInPrometheus    false
+numHttpServerThreads    8
+managedLedgerCacheEvictionWatermark    0.9
+httpRequestsFailOnUnknownPropertiesEnabled    false
+webSocketSessionIdleTimeoutMillis    300000
+loadBalancerTransferEnabled    true
+allowAutoTopicCreationType    partitioned
+acknowledgmentAtBatchIndexLevelEnabled    false
+managedLedgerMaxSizePerLedgerMbytes    2048
+exposePublisherStats    true
+tlsKeyStoreType    JKS
+maxUnackedMessagesPerConsumer    50000
+saslJaasServerSectionName    PulsarBroker
+managedCursorInfoCompressionThresholdInBytes    16384
+metadataStoreConfigPath    
+maxConcurrentHttpRequests    1024
+createTopicToRemoteClusterForReplication    true
+loadBalancerMsgThroughputMultiplierDifferenceShedderThreshold    4.0
+dispatcherMaxReadBatchSize    100
+managedLedgerMinimumBacklogCursorsForCaching    0
+transactionLogBatchedWriteEnabled    false
+brokerClientAuthenticationPlugin    org.apache.pulsar.client.impl.auth.AuthenticationDisabled
+subscribeThrottlingRatePerConsumer    0
+loadBalancerMemoryResourceWeight    0.0
+brokerClientTlsKeyStorePassword    
+numAcceptorThreads    1
+metadataStoreBatchingEnabled    true
+proxyRoles    []
+backlogQuotaDefaultRetentionPolicy    producer_request_hold
+loadBalancerReportUpdateThresholdPercentage    10
+subscriptionKeySharedEnable    true
+loadBalancerAvgShedderHitCountHighThreshold    2
+managedLedgerMinimumBacklogEntriesForCaching    1000
+resourceUsageTransportClassName    
+sslFactoryPlugin    org.apache.pulsar.common.util.DefaultPulsarSslFactory
+maxConcurrentTopicLoadRequest    5000
+enablePersistentTopics    true
+resourceUsageTransportPublishIntervalInSecs    60
+persistentUnackedRangesWithMultipleEntriesEnabled    false
+dispatcherEntryFilterRescheduledMessageDelay    1000
+managedLedgerMaxReadsInFlightSizeInMB    0
+dispatcherReadFailureBackoffMaxTimeInMs    60000
+httpServerGzipCompressionExcludedPaths    []
+entryFilterNames    []
+authenticationRefreshCheckSeconds    60
+dispatcherMaxRoundRobinBatchSize    20
+maxPendingPublishRequestsPerConnection    1000
+delayedDeliveryFixedDelayDetectionLookahead    50000
+enableBrokerSideSubscriptionPatternEvaluation    true
+webSocketMaxTextFrameSize    1048576
+backlogQuotaCheckEnabled    true
+loadBalancerMaxNumberOfBundlesToSplitPerCycle    10
+bookkeeperClientIsolationGroups    
+strictBookieAffinityEnabled    false
+subscriptionPatternMaxLength    50
+namespaceBundleUnloadingTimeoutMs    60000
+configurationStoreServers    pulsar-zookeeper:2181
+loadManagerServiceUnitStateTableViewClassName    org.apache.pulsar.broker.loadbalance.extensions.channel.ServiceUnitStateTableViewImpl
+brokerInterceptors    []
+brokerClientTlsProtocols    []
+additionalServlets    []
+topicBundleAssignmentStrategy    org.apache.pulsar.common.naming.ConsistentHashingTopicBundleAssigner
+exposeConsumerLevelMetricsInPrometheus    false
+loadBalancerSheddingIntervalMinutes    1
+dispatcherDispatchMessagesInSubscriptionThread    true
+loadManagerClassName    org.apache.pulsar.broker.loadbalance.extensions.ExtensibleLoadManagerImpl
+metadataSyncEventTopic    
+numCacheExecutorThreadPoolSize    10
+brokerDeduplicationSnapshotIntervalSeconds    120
+loadBalancerSheddingGracePeriodMinutes    30
+loadBalancerBandwithOutResourceWeight    1.0
+allowAclChangesOnNonExistentTopics    false
+tlsTrustCertsFilePath    
+maxPublishRatePerTopicInBytes    0
+managedLedgerCacheEvictionFrequency    0.0
+bookkeeperClientHealthCheckEnabled    true
+statsUpdateFrequencyInSecs    60
+managedLedgerInfoCompressionThresholdInBytes    16384
+maxMessageSize    10485760
+loadBalancerLoadSheddingStrategy    org.apache.pulsar.broker.loadbalance.extensions.scheduler.TransferShedder
+loadBalancerBrokerMaxTopics    50000
+healthCheckMetricsUpdateTimeInSeconds    -1
+loadBalancerSheddingConditionHitCountThreshold    3
+configurationMetadataStoreUrl    
+managedLedgerMaxEntriesPerLedger    50000
+loadBalancerNamespaceMaximumBundles    128
+managedLedgerCacheCopyEntries    false
+tlsCertRefreshCheckDurationSec    300
+saslJaasClientAllowedIds    .*pulsar.*
+bindAddress    0.0.0.0
+transactionMetadataStoreProviderClassName    org.apache.pulsar.transaction.coordinator.impl.MLTransactionMetadataStoreProvider
+tlsAllowInsecureConnection    false
+numWorkerThreadsForNonPersistentTopic    -1
+httpMaxRequestSize    -1
+bookkeeperClientAuthenticationParameters    
+numIOThreads    4
+delayedDeliveryMaxIndexesPerBucketSnapshotSegment    5000
+loadBalancerBrokerLoadDataTTLInSeconds    1800
+brokerDeleteInactiveTopicsMaxInactiveDurationSeconds    
+maxSubscriptionsPerTopic    0
+enableReplicatedSubscriptions    true
+enableBusyWait    false
+topicLevelPoliciesEnabled    true
+dispatchThrottlingRatePerSubscriptionInMsg    0
+bookkeeperClientSeparatedIoThreadsEnabled    false
+maxConsumersPerTopic    0
+backlogQuotaDefaultLimitSecond    -1
+compactionServiceFactoryClassName    org.apache.pulsar.compaction.PulsarCompactionServiceFactory
+managedLedgerMaxAckQuorum    5
+exposeBundlesMetricsInPrometheus    false
+metadataStoreUrl    
+subscriptionRedeliveryTrackerEnabled    true
+dispatchThrottlingRatePerTopicInByte    0
+globalZookeeperServers    
+activeConsumerFailoverDelayTimeMillis    1000
+managedLedgerDefaultEnsembleSize    3
+metadataStoreBatchingMaxOperations    1000
+loadBalancerHistoryResourcePercentage    0.9
+bookkeeperTlsCertFilesRefreshDurationSeconds    300
+replicationStartAt    latest
+metadataStoreBatchingMaxSizeKb    128
+transactionBufferSnapshotMaxTransactionCount    1000
+loadBalancerOverrideBrokerNicSpeedGbps    Optional.empty
+defaultRetentionSizeInMB    51200
+metadataStoreSessionTimeoutMillis    30000
+allowOverrideEntryFilters    false
+enableRunBookieAutoRecoveryTogether    false
+topicFencingTimeoutSeconds    0
+bookkeeperTLSProviderFactoryClass    org.apache.bookkeeper.tls.TLSContextFactory
+managedLedgerOffloadThresholdInSeconds    -1
+brokerClientSslProvider    
+strictTopicNameEnabled    false
+maxConcurrentLookupRequest    50000
+bookkeeperClientLimitStatsLogging    true
+replicationTlsEnabled    false
+bookkeeperTLSKeyStorePasswordPath    
+brokerDeduplicationSnapshotFrequencyInSeconds    120
+replicatedSubscriptionsSnapshotTimeoutSeconds    30
+bookkeeperExplicitLacIntervalInMills    0
+managedLedgerDefaultWriteQuorum    3
+statusFilePath    /pulsar/logs/status
+brokerServicePurgeInactiveFrequencyInSeconds    60
+webServiceTlsProvider    Conscrypt
+loadBalancerPlacementStrategy    leastLoadedServer
+brokerDeduplicationMaxNumberOfProducers    10000
+bookkeeperClientAuthenticationPlugin    
+metadataStoreCacheExpirySeconds    300
+httpRequestsMaxPerSecond    100.0
+systemTopicSchemaCompatibilityStrategy    ALWAYS_COMPATIBLE
+topicFactoryClassName    
+clusterMigrationAutoResourceCreation    false
+tlsTrustStoreType    JKS
+authorizationAllowWildcardsMatching    false
+statsUpdateInitialDelayInSecs    60
+subscriptionKeySharedConsistentHashingReplicaPoints    100
+bookkeeperClientQuarantineRatio    1.0
+maxUnackedMessagesPerBroker    0
+subscriptionExpiryCheckIntervalInMinutes    5
+tlsKeyStore    
+cacheEvictionByMarkDeletedPosition    false
+splitTopicAndPartitionLabelInPrometheus    false
+exposeSubscriptionBacklogSizeInPrometheus    false
+managedLedgerCacheEvictionTimeThresholdMillis    1000
+numTransactionReplayThreadPoolSize    2
+tlsEnabledWithKeyStore    false
+metadataStoreAllowReadOnlyOperations    false
+brokerServicePortTls    Optional.empty
+bookkeeperClientSpeculativeReadTimeoutInMillis    0
+loadBalancerInFlightServiceUnitStateWaitingTimeInMillis    30000
+brokerEntryMetadataInterceptors    []
+managedLedgerCacheEvictionIntervalMs    10
+functionsWorkerServiceNarPackage    
+transactionPendingAckBatchedWriteMaxSize    4194304
+retentionCheckIntervalInSeconds    120
+bookkeeperTLSClientAuthentication    false
+loadBalancerBundleUnloadMinThroughputThreshold    10.0
+preferLaterVersions    false
+metricsServletTimeoutMs    30000
+maxActiveTransactionsPerCoordinator    0
+loadBalancerMaxNumberOfBundlesInBundleLoadReport    10
+topicCompactionRetainNullKey    false
+maxUnackedMessagesPerSubscription    200000
+tlsTrustStorePassword    
+failureDomainsEnabled    false
+internalListenerName    
+sslFactoryPluginParams    
+forceDeleteTenantAllowed    false
+brokerServiceCompactionPhaseOneLoopTimeInSeconds    30
+webSocketNumIoThreads    2
+subscriptionKeySharedUseConsistentHashing    true
+brokerPublisherThrottlingTickTimeMillis    50
+loadBalancerLoadPlacementStrategy    org.apache.pulsar.broker.loadbalance.impl.LeastLongTermMessageRate
+loadBalancerBrokerLoadTargetStd    0.25
+managedLedgerPassword    
+allowAutoSubscriptionCreation    true
+messageExpiryCheckIntervalInMinutes    5
+loadBalancerHostUsageCheckIntervalMinutes    1
+loadBalancerResourceQuotaUpdateIntervalMinutes    15
+exposeTopicLevelMetricsInPrometheus    true
+tlsCertificateFilePath    
+dispatchThrottlingRatePerSubscriptionInByte    0
+delayedDeliveryTickTimeMillis    1000
+brokerPublisherThrottlingMaxByteRate    0
+brokerClientCertificateFilePath    
+supportedNamespaceBundleSplitAlgorithms    [range_equally_divide, topic_count_equally_divide, specified_positions_divide, flow_or_qps_equally_divide]
+schemaCompatibilityStrategy    FULL
+enableNamespaceIsolationUpdateOnTime    false
+bookkeeperClientNumWorkerThreads    2
+authenticateOriginalAuthData    false
+exposeProducerLevelMetricsInPrometheus    false
+transactionPendingAckBatchedWriteMaxRecords    512
+managedLedgerDigestType    CRC32C
+bootstrapNamespaces    []
+delayedDeliveryMaxDelayInMillis    0
+bookkeeperClientAuthenticationParametersName    
+subscriptionTypesEnabled    [Exclusive, Shared, Failover, Key_Shared]
+loadBalancerBrokerThresholdShedderPercentage    10
+loadBalancerBandwidthOutResourceWeight    1.0
+tlsRequireTrustedClientCertOnConnect    false
+brokerServicePort    Optional[6650]
+loadBalancerReportUpdateMaxIntervalMinutes    15
+tlsHostnameVerificationEnabled    false
+managedLedgerNumSchedulerThreads    2
+httpServerAcceptQueueSize    8192
+transactionLogBatchedWriteMaxDelayInMillis    1
+clientLibraryVersionCheckEnabled    false
+topicLoadTimeoutSeconds    60
+bookkeeperClientReorderReadSequenceEnabled    true
+brokerShutdownTimeoutMs    60000
+configurationStoreConfigPath    
+maxConsumersPerSubscription    0
+subscriptionSharedUseClassicPersistentImplementation    false
+transactionPendingAckLogIndexMinLag    500
+loadBalancerAvgShedderHitCountLowThreshold    8
+minUnloadMessageThroughput    1048576
+brokerDeleteInactivePartitionedTopicMetadataEnabled    false
+maxConsumerMetadataSize    1024
+brokerClientTlsTrustStore    
+tlsEnabled    false
+tlsProvider    
+bookkeeperTLSTrustCertsFilePath    
+transactionCoordinatorEnabled    true
+delayedDeliveryTrackerFactoryClassName    org.apache.pulsar.broker.delayed.InMemoryDelayedDeliveryTrackerFactory
+loadBalancerMsgRateDifferenceShedderThreshold    50.0
+transactionBufferClientOperationTimeoutInMills    3000
+brokerClientTlsCiphers    []
+dispatchThrottlingRateRelativeToPublishRate    false
+webServicePortTls    Optional.empty
+saslJaasServerRoleTokenSignerSecretPath    
+schemaRegistryStorageClassName    org.apache.pulsar.broker.service.schema.BookkeeperSchemaStorageFactory
+webServiceTrustXForwardedFor    false
+haProxyProtocolEnabled    false
+metadataStoreBatchingMaxDelayMillis    5
+bookkeeperUseV2WireProtocol    true
+loadBalanceSheddingDelayInSeconds    180
+disableHttpDebugMethods    false
+offloadersDirectory    ./offloaders
+managedLedgerCacheSizeMB    1638
+maxUnloadPercentage    0.2
+bookkeeperClientRegionawarePolicyEnabled    false
+dispatchThrottlingRatePerReplicatorInByte    0
+dispatchThrottlingOnNonBacklogConsumerEnabled    true
+topicPublisherThrottlingTickTimeMillis    10
+webSocketServiceEnabled    false
+bookkeeperTLSCertificateFilePath    
+loadBalancerNamespaceBundleMaxMsgRate    30000
+bookkeeperClientHealthCheckIntervalSeconds    60
+metadataStoreOperationTimeoutSeconds    30
+brokerClientSslFactoryPluginParams    
+replicationConnectionsPerBroker    16
+bookkeeperTLSTrustStorePasswordPath    
+bookkeeperClientExposeStatsToPrometheus    false
+maxSameAddressConsumersPerTopic    0
+managedLedgerMetadataOperationsTimeoutSeconds    60
+webServicePort    Optional[8080]
+brokerMaxConnections    0
+brokerInterceptorsDirectory    ./interceptors
+enableNonPersistentTopics    true
+managedLedgerPrometheusStatsLatencyRolloverSeconds    60
+loadBalancerNamespaceBundleMaxTopics    1000
+brokerClientTlsTrustStorePassword    
+managedLedgerCursorMaxEntriesPerLedger    50000
+lowerBoundarySheddingEnabled    false
+dispatcherReadFailureBackoffInitialTimeInMs    15000
+managedLedgerOffloadMaxThreads    2
+additionalServletDirectory    ./brokerAdditionalServlet
+autoShrinkForConsumerPendingAcksMap    false
+managedLedgerOffloadDriver    
+brokerDeleteInactiveTopicsEnabled    false
+bookkeeperClientRackawarePolicyEnabled    true
+configurationMetadataSyncEventTopic    
+maxUnloadBundleNumPerShedding    -1
+managedLedgerMaxUnackedRangesToPersist    10000
+delayedDeliveryMaxNumBuckets    -1
+managedLedgerTraceTaskExecution    true
+managedLedgerStorageClassName    org.apache.pulsar.broker.ManagedLedgerClientFactory
+managedLedgerMaxEnsembleSize    5
+loadBalancerAutoUnloadSplitBundlesEnabled    true
+additionalSystemCursorNames    []
+transactionBufferProviderClassName    org.apache.pulsar.broker.transaction.buffer.impl.TopicTransactionBufferProvider
+brokerClientKeyFilePath    
+loadBalancerServiceUnitTableViewSyncer    None
+encryptionRequireOnProducer    false
+loadBalancerBrokerUnderloadedThresholdPercentage    50
+replicatedSubscriptionsSnapshotFrequencyMillis    1000
+delayedDeliveryMinIndexCountPerBucket    50000
+zooKeeperOperationTimeoutSeconds    -1
+bookkeeperTLSKeyFilePath    
+managedLedgerDataReadPriority    tiered-storage-first
+loadBalancerCPUResourceWeight    1.0
+replicationPolicyCheckDurationSeconds    600
+allowAutoTopicCreation    false
+managedLedgerForceRecovery    false
+loadBalancerBrokerOverloadedThresholdPercentage    85
+flowOrQpsDifferenceThresholdPercentage    10
+brokerClientSslFactoryPlugin    org.apache.pulsar.common.util.DefaultPulsarSslFactory
+dispatchThrottlingRateInByte    0
+aggregatePublisherStatsByProducerName    false
+maxUnackedMessagesPerSubscriptionOnBrokerBlocked    0.16
+lazyCursorRecovery    false
+httpRequestsLimitEnabled    false
+brokerClientTlsKeyStore    
+lookupPropertyPrefix    lookup.
+authorizationEnabled    false
+managedLedgerCursorPositionFlushSeconds    60
+topicNameCacheMaxCapacity    100000
+bookkeeperClientHealthCheckQuarantineTimeInSeconds    1800
+managedLedgerOffloadDeletionLagMs    14400000
+narExtractionDirectory    /tmp
+backlogQuotaCheckIntervalInSeconds    60
+loadBalancerBandwithInResourceWeight    1.0
+bookkeeperClientTimeoutInSeconds    30
+transactionBufferClientMaxConcurrentRequests    1000
+webServiceHaProxyProtocolEnabled    false
+subscribeRatePeriodPerConsumerInSecond    30
+brokerEntryPayloadProcessors    []
+replicatorPrefix    pulsar.repl
+autoSkipNonRecoverableData    false
+dispatchThrottlingRateInMsg    0
+dispatchThrottlingForFilteredEntriesEnabled    false
+topicPoliciesServiceClassName    org.apache.pulsar.broker.service.SystemTopicBasedTopicPoliciesService
+transactionPendingAckStoreProviderClassName    org.apache.pulsar.broker.transaction.pendingack.impl.MLPendingAckStoreProvider
+managedLedgerOffloadPrefetchRounds    1
+loadBalancerAverageResourceUsageDifferenceThresholdPercentage    10
+brokerDeleteInactiveTopicsFrequencySeconds    60
+loadBalancerAvgShedderHighThreshold    40
+managedLedgerReadEntryTimeoutSeconds    0
+loadBalancerMaxNumberOfBrokerSheddingPerCycle    3
+enablePackagesManagement    false
+managedLedgerAddEntryTimeoutSeconds    0
+loadBalancerSheddingEnabled    true
+exposingBrokerEntryMetadataToClientEnabled    false
+loadBalancerDirectMemoryResourceWeight    0.0
+subscriptionKeySharedUseClassicPersistentImplementation    false
+managedLedgerInactiveLedgerRolloverTimeSeconds    0
+schemaLedgerForceRecovery    false
+dispatchThrottlingRatePerReplicatorInMsg    0
+isRunningStandalone    false
+loadBalancerNamespaceBundleSplitConditionHitCountThreshold    3
+maxMessagePublishBufferSizeInMB    4096
+maxProducersPerTopic    0
+activeConsumerFailoverConsistentHashing    false
+subscriptionExpirationTimeMinutes    0
+maxConcurrentNonPersistentMessagePerConnection    1000
+clusterMigrationCheckDurationSeconds    0
+dispatcherMinReadBatchSize    1
+managedLedgerNewEntriesCheckDelayInMillis    10
+webSocketPingDurationSeconds    -1
+minUnloadMessage    1000
+authenticationEnabled    false
+isSchemaValidationEnforced    false
+keySharedUnblockingIntervalMs    10
+maxTopicsPerNamespace    0
+bookkeeperMetadataServiceUri    
+bookkeeperEnableStickyReads    true
+brokerClientTlsEnabledWithKeyStore    false
+brokerClientTlsTrustStoreType    JKS
+bookkeeperClientGetBookieInfoIntervalSeconds    86400
+bookkeeperClientGetBookieInfoRetryIntervalSeconds    60
+transactionPendingAckBatchedWriteEnabled    false
+brokerDeleteInactiveTopicsMode    delete_when_no_subscriptions
+bookkeeperClientMinNumRacksPerWriteQuorum    2
+numOrderedExecutorThreads    8
+managedLedgerCursorRolloverTimeInSeconds    14400
+preciseTimeBasedBacklogQuotaCheck    false
+defaultNumberOfNamespaceBundles    4
+loadBalancerEnabled    true
+entryFiltersDirectory    
+dispatcherPauseOnAckStatePersistentEnabled    false
+loadBalancerAvgShedderLowThreshold    15
+brokerServiceCompactionThresholdInBytes    0
+dispatchThrottlingOnBatchMessageEnabled    false
+authenticateMetricsEndpoint    false
+bindAddresses    
+keySharedLookAheadMsgInReplayThresholdPerConsumer    2000
+authorizationProvider    org.apache.pulsar.broker.authorization.PulsarAuthorizationProvider
+tlsTrustStore    
+zookeeperServers    pulsar-zookeeper:2181
+transactionBufferSegmentedSnapshotEnabled    false
+brokerClientTrustCertsFilePath    
+maxHttpServerConnections    2048
+defaultNumPartitions    1
+schemaRegistryCompatibilityCheckers    [org.apache.pulsar.broker.service.schema.JsonSchemaCompatibilityCheck, org.apache.pulsar.broker.service.schema.AvroSchemaCompatibilityCheck, org.apache.pulsar.broker.service.schema.ProtobufNativeSchemaCompatibilityCheck]
+dispatcherReadFailureBackoffMandatoryStopTimeInMs    0
+packagesReplicas    1
+unblockStuckSubscriptionEnabled    false
+bookkeeperNumberOfChannelsPerBookie    16
+subscriptionBacklogScanMaxEntries    10000
+transactionBufferSnapshotMinTimeInMillis    5000
+webServiceTlsCiphers    []
+transactionBufferSnapshotSegmentSize    262144
+inflightSaslContextExpiryMs    30000
+preciseDispatcherFlowControl    false
+skipBrokerShutdownOnOOM    false
+webSocketNumServiceThreads    20
+defaultRetentionTimeInMinutes    1440
+brokerPublisherThrottlingMaxMessageRate    0
+replicationProducerQueueSize    1000
+loadBalancerNamespaceBundleMaxSessions    1000
+tlsProtocols    []
+zooKeeperSessionTimeoutMillis    30000
+webServiceTlsProtocols    []
+managedLedgerStatsPeriodSeconds    60
+bookkeeperClientSecondaryIsolationGroups    
+brokerDeduplicationProducerInactivityTimeoutMinutes    360
+tlsKeyFilePath    
+managedLedgerMaxBacklogBetweenCursorsForCaching    1000
+transactionLogBatchedWriteMaxSize    4194304
+managedLedgerOffloadAutoTriggerSizeThresholdBytes    -1
+loadBalancerMultiPhaseBundleUnload    true
+packagesManagementLedgerRootPath    /ledgers
+bookkeeperClientThrottleValue    0
+bookkeeperDiskWeightBasedPlacementEnabled    true
+subscriptionBacklogScanMaxTimeMs    120000
+managedLedgerDefaultMarkDeleteRateLimit    1.0
+managedLedgerMaxLedgerRolloverTimeMinutes    240
+maxInflightSaslContext    50000
+keySharedLookAheadMsgInReplayThresholdPerSubscription    20000
+preciseTopicPublishRateLimiterEnable    false
+keepAliveIntervalSeconds    30
+brokerClientAuthenticationParameters    
+zookeeperSessionExpiredPolicy    reconnect
+connectionLivenessCheckTimeoutMillis    5000
+functionsWorkerEnablePackageManagement    false
+managedLedgerMaxWriteQuorum    5
+maxPublishRatePerTopicInMessages    0
+replicationMetricsEnabled    true
+bookkeeperTLSKeyFileType    PEM
+loadBalancerDebugModeEnabled    true
+ttlDurationDefaultInSeconds    0
+loadBalancerServiceUnitStateMonitorIntervalInSeconds    60
+backlogQuotaDefaultLimitGB    -1.0
+zooKeeperCacheExpirySeconds    -1
+defaultNamespaceBundleSplitAlgorithm    range_equally_divide
+managedLedgerMaxUnackedRangesToPersistInZooKeeper    -1
+brokerServiceCompactionMonitorIntervalInSeconds    60
+dispatchThrottlingRatePerTopicInMsg    0
+maxTenants    0
+managedLedgerInfoCompressionType    NONE
+brokerMaxConnectionsPerIp    0
+managedLedgerUnackedRangesOpenCacheSetEnabled    true
+isAllowAutoUpdateSchemaEnabled    true
+delayedDeliveryMaxTimeStepPerBucketSnapshotSegmentSeconds    300
+zooKeeperAllowReadOnlyOperations    false
+enableRunBookieTogether    false
+systemTopicEnabled    true
+tlsKeyStorePassword    
+maxSecondsToClearTopicNameCache    7200
+httpMaxRequestHeaderSize    8192
