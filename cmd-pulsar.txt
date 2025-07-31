@@ -41,7 +41,7 @@ pulsar-admin topics delete-partitioned-topic persistent://public/temp/funnydb-fl
 pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics stats-internal persistent://public/default/funnydb-ingest-receive-partition-2
 pulsar-admin topics partitioned-stats persistent://public/default/funnydb-ingest-receive
-pulsar-admin topics partitioned-stats persistent://public/default/abc-test
+pulsar-admin topics partitioned-stats persistent://public/temp/funnydb-flink-track-events
 pulsar-admin topics partitioned-stats-internal persistent://public/default/abc-test
 pulsar-admin topics update-partitioned-topic -p=32 persistent://public/default/funnydb-flink-track-events
 
@@ -72,8 +72,8 @@ pulsar-admin namespaces policies public/default
 pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
 pulsar-admin namespaces get-retention public/default
-pulsar-admin namespaces set-retention public/default --size 60G --time 1d
-pulsar-admin namespaces set-retention public/default --size 110G --time 2d      （8 * 850 = 60%）
+pulsar-admin namespaces set-retention public/temp --size 6G --time 1d
+pulsar-admin namespaces set-retention public/default --size 100G --time 2d
 pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
 pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
 
