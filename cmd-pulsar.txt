@@ -49,6 +49,7 @@ pulsar-admin topics subscriptions persistent://public/default/funnydb-ingest-rec
 pulsar-admin topics unsubscribe -s pulsar-transaction-copier persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s funnydb-ingest-pipeline-bypass persistent://public/default/funnydb-ingest-receive
 pulsar-admin topics unsubscribe -s pulsar-transaction-validator persistent://public/temp/funnydb-flink-track-events
+pulsar-admin topics unsubscribe -s test persistent://public/temp/funnydb-flink-track-events
 pulsar-admin topics create-subscription persistent://public/default/funnydb-ingest-receive  -s funnydb-ingest-pipeline -m latest
 pulsar-admin topics reset-cursor persistent://public/default/funnydb-ingest-receive-partition-2 -s funnydb-ingest-pipeline -m '6401:23484'
 pulsar-admin topics get-subscription-properties persistent://public/default/funnydb-ingest-receive -s funnydb-ingest-pipeline
@@ -85,8 +86,11 @@ pulsar-admin namespaces unload -b 0x80000000_0x90000000 -d http://pulsar-broker-
 
 
 pulsar-client produce --messages 'Hello Pulsar!' public/kuze/funnydb-ingest-receive-partition-0
+
+## 默认仅消费一条
 pulsar-client consume -p Earliest -s test public/default/funnydb-ingest-receive
-pulsar-client consume -p Latest -s kuze public/temp/funnydb-ingest-receive-copy    
+pulsar-client consume -p Latest -s kuze public/temp/funnydb-ingest-receive-copy
+pulsar-client consume -p Earliest -n 0 -r 0 -s test public/temp/funnydb-flink-track-events |grep 1d970de0-76cf-41b3-9165-70c892c1a48c
 
 pulsar-perf produce \
 --compression=LZ4 \
