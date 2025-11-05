@@ -73,8 +73,8 @@ pulsar-admin namespaces policies public/default
 pulsar-admin namespaces get-backlog-quotas public/default
 pulsar-admin namespaces get-message-ttl public/default
 pulsar-admin namespaces get-retention public/default
-pulsar-admin namespaces set-retention public/temp --size 10G --time 1d
 pulsar-admin namespaces set-retention public/default --size 120G --time 2d
+pulsar-admin namespaces set-retention public/temp --size 10G --time 1d
 pulsar-admin namespaces get-topic-positions -b 0x60000000_0x70000000 public/default
 pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/default
 
