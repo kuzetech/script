@@ -128,3 +128,5 @@ bookkeeper shell listunderreplicated
 bookkeeper shell ledger 129045
 bookkeeper shell ledgermetadata -l 129045
 bookkeeper shell deleteledger -l 110951
+
+bookkeeper shell whoisauditor
