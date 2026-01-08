@@ -1,32 +1,3 @@
-helm repo add vm https://victoriametrics.github.io/helm-charts/
-helm repo add apache https://pulsar.apache.org/charts
-helm repo update
-
-git clone https://github.com/apache/pulsar-helm-chart
-
-cd pulsar-helm-chart
-./scripts/pulsar/prepare_helm_release.sh -n default -k pulsar -c
-
-helm install -n default -f pulsar.yaml pulsar apache/pulsar
-helm upgrade pulsar apache/pulsar -n default -f pulsar.yaml
-helm uninstall -n default pulsar
-
-kubectl get pods -n pulsar
-kubectl get pvc -n pulsar
-kubectl get pvc -l app=pulsar | awk 'NR!=1{print $1}' | xargs kubectl delete pvc
-kubectl get pvc | awk 'NR!=1{print $1}' | xargs kubectl delete pvc
-
-kubectl exec -it -n default pulsar-broker-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-toolset-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-bookie-0 -- /bin/bash
-kubectl exec -it -n pulsar pulsar-bookie-1 -- bin/bookkeeper shell bookieformat
-kubectl exec -it -n pulsar pulsar-broker-0 -- bin/pulsar initialize-transaction-coordinator-metadata -cs 127.0.0.1:2181 -c pulsar
-
-for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
-for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
-for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
-for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
-
 pulsar-admin topics list public/default
 pulsar-admin topics list -ist pulsar/system
 pulsar-admin topics list-partitioned-topics public/default
@@ -121,12 +92,9 @@ pulsar-perf consume --subscriptions=sub --subscription-position=Earliest public/
 pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
 pulsar-perf consume --subscriptions=test --subscription-position=Earliest -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
 
-bookkeeper shell listbookies -a
-bookkeeper shell listledgers -bookieid pulsar-bookie-3.pulsar-bookie.pulsar.svc.cluster.local:3181
 
-bookkeeper shell listunderreplicated
-bookkeeper shell ledger 129045
-bookkeeper shell ledgermetadata -l 129045
-bookkeeper shell deleteledger -l 110951
 
-bookkeeper shell whoisauditor
+for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
+for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
+for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
+for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
