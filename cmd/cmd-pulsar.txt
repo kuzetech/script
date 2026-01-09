@@ -92,8 +92,6 @@ pulsar-perf consume --subscriptions=sub --subscription-position=Earliest public/
 pulsar-perf consume --subscriptions=kuze public/default/funnydb-ingest-receive
 pulsar-perf consume --subscriptions=test --subscription-position=Earliest -u pulsar://pulsar-broker.pulsar.svc.cluster.local:6650 public/default/test
 
-
-
 for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
 for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
