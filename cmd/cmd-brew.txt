@@ -1,7 +1,7 @@
 brew list |grep jdk
 
 brew install openjdk@11
-brew link openjdk@21
+brew link openjdk@17
 
 brew install go@1.22
 brew link go@1.22
