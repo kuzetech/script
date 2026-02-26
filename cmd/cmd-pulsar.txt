@@ -53,9 +53,9 @@ pulsar-admin namespaces get-topic-positions -b 0x68000000_0x70000000 public/defa
 
 pulsar-admin namespaces bundles public/default
 pulsar-admin namespaces split-bundle -b 0x00000000_0x10000000 public/default
-pulsar-admin topics partitioned-lookup public/temp/funnydb-flink-track-events
+pulsar-admin topics partitioned-lookup public/default/source
 ## -d指定要分配到哪台broker
-pulsar-admin namespaces unload -b 0x60000000_0x70000000 -d http://pulsar-broker-0.pulsar-broker.default.svc.cluster.local:8080 public/default
+pulsar-admin namespaces unload -b 0x10000000_0x20000000 -d http://pulsar-broker-0.pulsar-broker.default.svc.cluster.local:8080 public/default
 pulsar-admin namespaces unload -b 0x80000000_0x90000000 -d http://pulsar-broker-1.pulsar-broker.default.svc.cluster.local:8080 public/default
 
 
@@ -97,4 +97,4 @@ pulsar-perf consume --subscriptions=test --subscription-position=Earliest -u pul
 for i in {0..8}; do pulsar-client produce public/kuze/funnydb-ingest-receive-$i --messages 'Hello Pulsar!'; done
 for i in {0..8}; do pulsar-admin topics lookup persistent://public/default/funnydb-ingest-receive-partition-$i; done
 for i in {0..8}; do pulsar-admin topics stats persistent://public/default/funnydb-ingest-receive-partition-$i |grep ownerBroker; done
-for i in {0..8}; do pulsar-admin topics bundle-range public/default/funnydb-ingest-receive-partition-$i; done
+for i in {0..8}; do pulsar-admin topics bundle-range public/default/sink-$i; done
