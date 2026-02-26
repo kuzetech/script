@@ -1,3 +1,5 @@
+select currentDatabase();
+
 formatDateTime(fromUnixTimestamp64Milli(`#created_time`), '%Y-%m-%d %H:%i:%s.%f', 'Asia/Shanghai')
 
 SELECT
