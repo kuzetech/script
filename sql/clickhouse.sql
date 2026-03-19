@@ -16,18 +16,3 @@ WHERE `#dt` = '2026-01-14'
 AND `#event` = '#user_online_duration'
 AND `#sdk_type` = 'flink-derive'
 GROUP BY duration_group;
-
-
-select event 
-from xiang_chang_hai_wai_zheng_shi_fu_488tfseh.events_receive_log
-where event LIKE 'gameserver%'
-AND formatDateTime(fromUnixTimestamp64Milli(`process_time`), '%Y-%m-%d', 'Asia/Shanghai') = '2026-03-18'
-AND event GLOBAL NOT in (
-  select event
-  from xiang_chang_fu_wu_duan_go_sdk_qian_yi_xiao_bi3g7eve.events_receive_log
-  where event LIKE 'gameserver%'
-  AND formatDateTime(fromUnixTimestamp64Milli(`process_time`), '%Y-%m-%d', 'Asia/Shanghai') = '2026-03-18'
-  GROUP BY event
-)
-GROUP BY event
-ORDER BY event desc;
